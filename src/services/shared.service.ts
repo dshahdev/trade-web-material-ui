@@ -5,58 +5,67 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class SharedService {
 
-  servicePath = "http://192.168.1.103:8080";
-  pnlByTicker = this.servicePath + "/trade-crud-rest/api/v1/pnlByTicker";
-  pnlByMonth = this.servicePath + "/trade-crud-rest/api/v1/monthlySummary";
-  pnlForTicker = this.servicePath + "/trade-crud-rest/api/v1/pnlForTickerByDate";
-  monthList = this.servicePath + "/trade-crud-rest/api/v1/monthList";
-  pnlForMonthByDate = this.servicePath + "/trade-crud-rest/api/v1/pnlForMonthByDate";
-  pnlForMonthByTicker = this.servicePath +"trade-crud-rest/api/v1/pnlForMonthByTicker";
-  pnlForAllMonths = this.servicePath + "/trade-crud-rest/api/v1/allMonthList";
-  pnlDetailForDate = this.servicePath + "/trade-crud-rest/api/v1/pnlForDate";
-  monthlyPnlSummary = this.servicePath + "/trade-crud-rest/api/v1/monthlyPnlList";
+  serverAndPort = "http://192.168.1.103:8080";
+  servicePath = this.serverAndPort + "/trade-crud-rest/api/v1/";
+
+  urls = { 
+    pnlByTicker:"pnlByTicker",
+    pnlByMonth:"monthlySummary",
+    pnlForTicker:"pnlForTickerByDate",
+    monthList:"monthList",
+    pnlForMonthByDate:"pnlForMonthByDate", 
+    pnlForMonthByTicker:"pnlForMonthByTicker",
+    pnlForAllMonths:"allMonthList",
+    pnlDetailForDate:"pnlForDate",
+    pnlDetailForTicker:"pnlForTicker",
+    monthlyPnlSummary:"monthlyPnlList"
+  }
 
   constructor(private http: HttpClient) { }
 
   getPnlByTicker(): Observable<any> {
     // return this.http.get("/assets/data/pnl.json");
-    return this.http.get(this.pnlByTicker);
+    return this.http.get(this.servicePath + this.urls.pnlByTicker);
   }
 
   getPnlByMonth(): Observable<any> {
-    return this.http.get(this.pnlByMonth);
+    return this.http.get(this.servicePath + this.urls.pnlByMonth);
   }
 
   getPnlForTicker(ticker: string): Observable<any> {
-    return this.http.post(this.pnlForTicker, ticker)
+    return this.http.post(this.servicePath + this.urls.pnlForTicker, ticker)
   }
 
   getMonthList(): Observable<any>{
-   return this.http.get(this.monthList);
+   return this.http.get(this.servicePath + this.urls.monthList);
  }
 
  getPnlForMonthByDate(month: string ): Observable<any>{
-   return this.http.post(this.pnlForMonthByDate,month);
+   return this.http.post(this.servicePath + this.urls.pnlForMonthByDate,month);
  }
 
  getPnlForMonthByTicker(month: string): Observable<any>
 {
-  return this.http.post(this.pnlForMonthByTicker, month);
+  return this.http.post(this.servicePath + this.urls.pnlForMonthByTicker, month);
 
 } 
 
 getPnlForAllMonths() : Observable<any> {
-   return this.http.get(this.pnlForAllMonths)
+   return this.http.get(this.servicePath + this.urls.pnlForAllMonths)
  }
 
  getPnlDetailForDate(date: string): Observable<any> {
-   return this.http.post(this.pnlDetailForDate, date)
+   return this.http.post(this.servicePath + this.urls.pnlDetailForDate, date)
  }
 
+ getPnlDetailForTicker(ticker:string): Observable<any> {
+   return this.http.post(this.servicePath + this.urls.pnlDetailForTicker, ticker);
+ }
  getMonthlyPnlSummary(): Observable<any> {
-   return this.http.get(this.monthlyPnlSummary);
+   return this.http.get(this.servicePath + this.urls.monthlyPnlSummary);
  }
  
 }

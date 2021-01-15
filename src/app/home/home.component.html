@@ -9,28 +9,31 @@
 <div class="container">
     <!-- month-wise -->
     <mat-card class="month-info">
-        <app-daily-summary [datePnlDetail] = "monthlyDetail" (detailTradesEvent)="gettingData($event)"></app-daily-summary>
+        <app-daily-summary [datePnlDetail] = "monthlyDetail" (detailTradesEvent)="gettingDateWiseData($event)"></app-daily-summary>
     
     </mat-card>
     <!-- date-wise details -->
     <mat-card class="division-2" >
-        <app-detail [tradesForDate] = "tradesForDate"  
+        <app-detail [tradesForDate] = "dateTrades"  
         [tradeDate] = "date"></app-detail>
     </mat-card>
 </div>
+
 <div class="container">
     <!-- ticker-wise -->
     <mat-card class="month-info">
-        <!-- <app-daily-summary [datePnlDetail] = "monthlyDetail" (detailTradesEvent)="gettingData($event)"></app-daily-summary> -->
-        <app-ticker-daily-summary></app-ticker-daily-summary>
+      
+        <app-ticker-daily-summary [tickerPnlDetail]="tickerPnlDetail" (detailTrickerEvent) = "getTickerWiseData($event)"></app-ticker-daily-summary>
     
     </mat-card>
     <!-- ticker-wise details -->
     <mat-card class="division-2" >
-        <!-- <app-detail [tradesForDate] = "tradesForDate"  [tradeDate] = "date"></app-detail> -->
-        <app-ticker-detail></app-ticker-detail>
+        
+        <app-ticker-detail  [tradesForTicker] = "tickerTrades"   ></app-ticker-detail>
     </mat-card>
 </div>
+
+
 <div class="container">
     <mat-card class=" bar-chart">
         <app-barchart #barChartComponent [monthlyPnl]="pnlMonthly" ></app-barchart>

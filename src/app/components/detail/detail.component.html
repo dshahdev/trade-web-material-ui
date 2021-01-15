@@ -1,0 +1,54 @@
+
+      <mat-label style="background-color: lightblue"> Monthly date-wise brackdown {{date}}</mat-label>
+      <table #table mat-table [dataSource]="dataSource" matSort >
+
+        <!-- Date Column -->
+        <ng-container matColumnDef="ticker">
+          <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">Ticker</th>
+          <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.ticker}} </td>
+        </ng-container>
+        <ng-container matColumnDef="buyTradeId">
+          <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">BuyId</th>
+          <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.buyTradeId}} </td>
+        </ng-container>
+        <ng-container matColumnDef="sellTradeId">
+          <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">SellId</th>
+          <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.sellTradeId}} </td>
+        </ng-container>
+        <ng-container matColumnDef="allocatedQty">
+          <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">Qty</th>
+          <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.allocatedQty}} </td>
+        </ng-container>
+      
+        <!-- Pnl Column -->
+        <ng-container matColumnDef="pnl">
+          <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">Profit</th>
+          <td mat-cell *matCellDef="let element" style="font-size:smaller; margin-left: 1em" [ngStyle]="{'color':element.pnl > 0 ? 'green' : 'red' }"> {{element.pnl}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="cost">
+          <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">Cost</th>
+          <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.cost}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="price">
+          <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">Price</th>
+          <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.price}} </td>
+        </ng-container>
+        <!-- <ng-container matColumnDef="">
+          <th  mat-header-cell *matHeaderCellDef mat-sort-header >profit/share</th>
+          <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{}} </td>
+        </ng-container> -->
+        
+        
+        
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; " ></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
+              ></tr>
+      </table>
+      
+      <!-- (click)="onClick($event, row)"
+      [style.background]="highlightedRow === row ? 'lightblue' : ''" -->
+
+
+  

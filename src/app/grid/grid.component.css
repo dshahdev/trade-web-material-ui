@@ -1,0 +1,11 @@
+mat-grid-tile {
+    background: lightblue;
+  }
+
+  .summary-box {
+    background-color: darkblue;
+    width: 80%;
+    height: 80%;
+    margin:0;
+}
+  

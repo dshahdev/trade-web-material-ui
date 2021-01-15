@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'trading-ui'`, () => {
+  it(`should have as title 'trade-web-material-ui'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('trading-ui');
+    expect(app.title).toEqual('trade-web-material-ui');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('trading-ui app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('trade-web-material-ui app is running!');
   });
 });

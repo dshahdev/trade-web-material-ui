@@ -1,0 +1,41 @@
+table {
+    width: 100%;
+    
+}
+
+tr.mat-header-row {
+    border: 1px solid #e7e7e7;
+    font-weight: bold;
+    height: auto;
+    
+}
+
+.mat-row {
+    height: auto;
+  }
+  
+  .mat-cell {
+    padding: 4px 4px 4px 0;
+    
+  }
+  .mat-header-cell {
+    padding: 4px 4px 4px 0;
+    color: coral;
+    
+  }
+  .mat-card-content {
+    height: 400px; 
+     overflow: scroll;
+    overflow-x: hidden; 
+    border: 1px solid red;
+  }
+
+  .detail-card {
+    height: auto; 
+     overflow: auto;
+    overflow-x: hidden; 
+    border: 1px solid red;
+}
+.gen-margin {
+  margin: .6em;;
+}

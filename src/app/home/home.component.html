@@ -1,0 +1,56 @@
+
+
+
+
+<div>
+    <app-head [monthList]="pnlByMonth" (monthSelectedNotification)="monthChanged($event)"></app-head>
+</div>
+ 
+<div class="container">
+    <!-- month-wise -->
+    <mat-card class="month-info">
+        <app-daily-summary [datePnlDetail] = "monthlyDetail" (detailTradesEvent)="gettingData($event)"></app-daily-summary>
+    
+    </mat-card>
+    <!-- date-wise details -->
+    <mat-card class="division-2" >
+        <app-detail [tradesForDate] = "tradesForDate"  
+        [tradeDate] = "date"></app-detail>
+    </mat-card>
+</div>
+<div class="container">
+    <!-- ticker-wise -->
+    <mat-card class="month-info">
+        <!-- <app-daily-summary [datePnlDetail] = "monthlyDetail" (detailTradesEvent)="gettingData($event)"></app-daily-summary> -->
+        <app-ticker-daily-summary></app-ticker-daily-summary>
+    
+    </mat-card>
+    <!-- ticker-wise details -->
+    <mat-card class="division-2" >
+        <!-- <app-detail [tradesForDate] = "tradesForDate"  [tradeDate] = "date"></app-detail> -->
+        <app-ticker-detail></app-ticker-detail>
+    </mat-card>
+</div>
+<div class="container">
+    <mat-card class=" bar-chart">
+        <app-barchart #barChartComponent [monthlyPnl]="pnlMonthly" ></app-barchart>
+    
+    </mat-card>
+    <mat-card class=" pie-chart">
+        <app-piechart #pieChartComponent [monthlyPnl]="pnlMonthly"></app-piechart>
+    </mat-card>
+    
+</div>
+<div class="container">
+    <mat-card class="month-info">
+        <app-month-performance #monthPerformanceComponent [monthlyPnl]="pnlMonthly"></app-month-performance>
+    
+    </mat-card>
+    <mat-card class="division-2">
+        <app-current-position></app-current-position>
+    </mat-card>
+    
+</div>
+
+
+

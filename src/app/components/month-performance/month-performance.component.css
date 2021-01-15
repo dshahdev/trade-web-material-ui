@@ -1,0 +1,37 @@
+table {
+    width: 100%;
+    
+}
+
+/* tr.mat-header-row {
+    border: 1px solid #e7e7e7;
+    font-weight: bold;
+    height: auto;
+    
+} */
+
+.mat-row:first-child {
+  /* background-color: lightblue; */
+}
+.mat-row {
+    height: auto;
+   
+  }
+  
+  .mat-cell {
+    padding: 4px 4px 4px 0;
+    
+  }
+  .mat-header-cell {
+    /* padding: 4px 4px 4px 0; */
+    color: coral;
+    
+  }
+  mat-table {
+    overflow-x: scroll;
+  }
+  
+ 
+.gen-margin {
+  margin: .6em;;
+}

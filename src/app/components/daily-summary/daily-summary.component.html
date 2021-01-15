@@ -1,0 +1,26 @@
+
+      <mat-label >Monthlt date-wise Data</mat-label>
+      <table #table mat-table [dataSource]="dataSource" matSort >
+
+        <!-- Date Column -->
+        <ng-container matColumnDef="date">
+          <th  mat-header-cell *matHeaderCellDef mat-sort-header >Date</th>
+          <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.date}} </td>
+        </ng-container>
+      
+        <!-- Pnl Column -->
+        <ng-container matColumnDef="pnl">
+          <th  mat-header-cell *matHeaderCellDef mat-sort-header >Pnl</th>
+          <td mat-cell *matCellDef="let element" style="font-size:smaller; margin-left: 1em" [ngStyle]="{'color':element.pnl > 0 ? 'green' : 'red' }"> {{element.pnl}} </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; " ></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
+              (click) ="onClick($event, row)"
+              [style.background]="highlightedRow === row ? 'lightblue' : ''"></tr>
+      </table>
+      
+   
+
+
+  

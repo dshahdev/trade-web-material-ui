@@ -3,7 +3,7 @@
 
 
 <div>
-    <app-head [monthList]="pnlByMonth" (monthSelectedNotification)="monthChanged($event)"></app-head>
+    <app-head [monthList]="monthList" (monthSelectedNotification)="monthChanged($event)"></app-head>
 </div>
  
 <div class="container">
@@ -57,3 +57,5 @@
 
 
 
+<!-- (click)="csvInput.click()"
+(change)="csvInputChange($event)" -->

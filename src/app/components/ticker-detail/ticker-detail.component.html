@@ -1,5 +1,5 @@
 
-      <mat-label style="background-color: lightblue"> Monthly Ticker-wise brackdown {{date}}</mat-label>
+      <mat-label > Monthly Ticker-wise breakdown:  <span style="color: coral ">{{ticker}}</span></mat-label>
       <table #table mat-table [dataSource]="dataSource" matSort >
 
         <!-- Date Column -->
@@ -44,7 +44,7 @@
         
         <tr mat-header-row *matHeaderRowDef="displayedColumns; " ></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
-              ></tr>
+          ></tr>
       </table>
       
       <!-- (click)="onClick($event, row)"

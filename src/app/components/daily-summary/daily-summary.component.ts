@@ -20,6 +20,8 @@ export class DailySummaryComponent implements OnInit {
 
   displayedColumns: string[] = ['date', 'pnl'];
   highlightedRow = "";
+  selectedIndex:number=0;
+
   date: string = "";
 
   dataSource = new MatTableDataSource<DatePnlDetail>([]);
@@ -45,9 +47,10 @@ export class DailySummaryComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  onClick(event: any, row: any) {
+  onClick(event: any, row: any, i: any) {
     console.log(row.date);
-    this.highlightedRow = row;
+    // this.highlightedRow = row;
+    this.selectedIndex = i;
     let formattedDate = row.date.split("-").join("");
     console.log("fd: "+ formattedDate);
 

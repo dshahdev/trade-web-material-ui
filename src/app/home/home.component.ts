@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
   YTD$ = "00.00";
   performance = "100%"
 
-  pnlByMonth: MonthList[] = [];
+  monthList: MonthList[] = [];
   monthlyDetail: DatePnlDetail[] = []
   dateTrades: Trade[] = [];
   tickerTrades: Trade[] = [];
@@ -51,13 +51,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.sharedService.getMonthList().subscribe((response) => {
-      console.log("pnlForAllDates: "+JSON.stringify(this.pnlByMonth));
-      this.pnlByMonth = response;
-      console.log("pnlForAllDates- in home: "+JSON.stringify(this.pnlByMonth));
-      console.log("pnlForAllDates - in home: "+this.pnlByMonth[0].strdata);
-      this.selectMonth(this.pnlByMonth[0].strdata);
-      // this.selectedValue = this.monthList[0].strdata;
-      // this.selectMonth(this.selectedValue);
+      this.monthList = response;
+      console.log("monthList- in home: "+JSON.stringify(this.monthList));
+      console.log("monthList - in home: "+this.monthList[0].strdata);
+      this.selectMonth(this.monthList[0].strdata);
+   
     });
 
     this.sharedService.getMonthlyPnlSummary().subscribe((response) => {
@@ -111,8 +109,10 @@ export class HomeComponent implements OnInit {
       })
 // getting pnl by ticker
       this.sharedService.getPnlForMonthByTicker(month).subscribe((response:any) => {
-        console.log("ticker wise pnl: "+ response);
+        console.log("ticker wise pnl: "+ JSON.stringify(response));
         this.tickerPnlDetail = response;
+        console.log("the first ticker: "+ this.tickerPnlDetail[0].ticker);
+        this.pnlDetailForTicker(this.tickerPnlDetail[0].ticker);
       })
     } else {
       console.log("selected month is: " + month);

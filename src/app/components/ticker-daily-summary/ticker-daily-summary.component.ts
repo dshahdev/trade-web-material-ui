@@ -16,6 +16,7 @@ export class TickerDailySummaryComponent implements OnInit {
 
   displayedColumns: string[] = ['ticker', 'pnl'];
   highlightedRow = "";
+  selectedIndex:number = 0;
 
   dataSource = new MatTableDataSource<TickerSummary>([]);
 
@@ -27,16 +28,18 @@ export class TickerDailySummaryComponent implements OnInit {
   ngOnInit(): void {
     console.log( " i am in ticker-summary")
   }
-
+ 
   
   ngAfterViewChecked() {
     this.dataSource.data = this.tickerPnlDetail;
+    this.dataSource.sort = this.sort;
     // console.log("....in do check --tiker detail: " + JSON.stringify(this.tickerPnlDetail));
   }
 
-  onClick(event: any, row: any) {
+  onClick(event: any, row: any, i: any) {
     console.log(row.ticker);
     this.highlightedRow = row;
+    this.selectedIndex = i;
     // let formattedDate = row.date.split("-").join("");
     // console.log("fd: "+ formattedDate);
 

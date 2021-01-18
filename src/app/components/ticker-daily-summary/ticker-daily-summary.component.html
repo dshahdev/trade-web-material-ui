@@ -14,8 +14,12 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns; " ></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
-        (click) ="onClick($event, row)"
-        [style.background]="highlightedRow === row ? 'lightblue' : ''"></tr>
+  <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
+    [style.background]="selectedIndex === i ? 'lightblue' : ''" 
+    (click) ="onClick($event, row, i)"></tr> -->
+    <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index"     
+    [style.background]="selectedIndex === i ? 'lightblue' : ''" 
+    (click) ="onClick($event, row, i)">
+   </tr>
 </table>
 

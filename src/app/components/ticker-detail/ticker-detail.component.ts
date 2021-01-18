@@ -16,8 +16,8 @@ export class TickerDetailComponent implements OnInit {
 
   displayedColumns: string[] = ['date', 'buyTradeId', 'sellTradeId', 'allocatedQty','pnl','cost','price'];
   highlightedRow = "";
-  
-  date: string = '';
+  selectedIndex: number=0;
+  ticker: string = '';
 
   dataSource = new MatTableDataSource<Trade>([]);
 
@@ -29,22 +29,22 @@ export class TickerDetailComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ngDoCheck() {
-    this.dataSource.data = this.tradesForTicker;
-    // if (this.tradesForDate.length > 0) {
-    //   this.date = this.tradesForDate[0].date.substring(0, 10);
-    // }
-    // else {
-    //   console.log("no data");
-    // }
-   
-  }
+  
   ngAfterViewChecked() {
+    this.dataSource.data = this.tradesForTicker;
+    if (this.tradesForTicker.length > 0) {
+      this.ticker = this.tradesForTicker[0].ticker;
+    }
+    else {
+      console.log("no data");
+    }
+   
     this.dataSource.sort = this.sort;
     console.log("....in do check --tiker detail: " + JSON.stringify(this.tradesForTicker));
   }
-  onClick(event: any, row: any) {
-    this.highlightedRow = row;
+  onClick(event: any, row: any, i: any) {
+    // this.highlightedRow = row;
+    this.selectedIndex = i;
    
   }
 

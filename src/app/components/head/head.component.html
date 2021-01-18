@@ -38,5 +38,13 @@
             <input matInput type="text" [(ngModel)]="performance" [disabled]="true" #txtVal
                 (keydown.enter)="applyFilter(txtVal.value)" style="color:black">
         </mat-form-field>
-
+        <!-- <mat-form-field class="example-form-field" style="margin-left: 1em;">
+            <input matInput  #csvInput hidden="true" type="file" onclick="this.value=null"  accept=".csv"/>
+            <button mat-flat-button color="primary" >Choose Spreadsheet File (CSV)</button>
+        </mat-form-field> -->
+        <!-- <div>
+            <input matInput  #csvInput hidden="true" type="file" onclick="this.value=null"  accept=".csv"/>
+            <button mat-flat-button color="primary" >Choose Spreadsheet File (CSV)</button>
+        </div> -->
     </mat-card>
+    

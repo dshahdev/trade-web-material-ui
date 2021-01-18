@@ -7,14 +7,13 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
-import { GridComponent } from './grid/grid.component';
+
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { RoutingModule } from './routing/routing.module';
 import { ChartsModule } from 'ng2-charts';
 
 import { HomeComponent } from './home/home.component';
-import { TickerSummaryComponent } from './components/ticker-summary/ticker-summary.component';
 import { DetailComponent } from './components/detail/detail.component';
 import { PositionComponent } from './components/position/position.component';
 
@@ -32,11 +31,10 @@ import { TickerDetailComponent } from './components/ticker-detail/ticker-detail.
 @NgModule({
   declarations: [
     AppComponent,
-    GridComponent,
+    
     HeaderComponent,
     SidenavListComponent,
     HomeComponent,
-    TickerSummaryComponent,
     DetailComponent,
     PositionComponent,
     MonthlySummaryComponent,

@@ -1,6 +1,6 @@
 export class Trade {
     public date: string = "";
-    public ticker: String = "";
+    public ticker: string = "";
     public buyId: string= "";
     public sellId: string = "";
     public qty: number = 0;

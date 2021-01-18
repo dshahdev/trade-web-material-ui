@@ -34,33 +34,26 @@ export class DetailComponent implements OnInit {
     
   }
 
-  ngDoCheck() {
+
+  ngAfterViewChecked(): void {
+    console.log("tradesForDate: " + this.tradesForDate );
     this.dataSource.data = this.tradesForDate;
     if (this.tradesForDate.length > 0) {
       this.date = this.tradesForDate[0].date.substring(0, 10);
     }
-    else {
-      console.log("no data");
-    }
-   
-  }
-
-  ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     
-    // console.log("comming data from daily: " + this.detailTradesForDate);
+   
   }
   
   onClick(event: any, row: any) {
     this.highlightedRow = row;
-   
-    // this.sendingDateNotification.emit();
 
   }
 
   getDetailsOfDate(date: String) {
     let formattedDate = date.split("-").join("");
-       
+    console.log("fd: in detail compo: " +formattedDate);   
     this.sharedService.getPnlDetailForDate(formattedDate).subscribe((response) => {
       console.log("res for detail data : " + JSON.stringify(response));
       this.dataSource.data = response;

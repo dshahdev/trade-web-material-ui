@@ -34,25 +34,19 @@ export class DailySummaryComponent implements OnInit {
   constructor(private sharedService: SharedService) { }
 
   ngOnInit(): void {
-    // console.log("datePnlDetial: "+ this.datePnlDetial);
+  
     
   }
 
-  ngDoCheck(){
-    this.dataSource.data = this.datePnlDetail;
-    // console.log("dataSource: "+JSON.stringify(this.dataSource.data));
-  }
 
-  ngAfterViewInit(): void {
+  ngAfterViewChecked(): void {
+    this.dataSource.data = this.datePnlDetail;
     this.dataSource.sort = this.sort;
   }
 
   onClick(event: any, row: any, i: any) {
-    console.log(row.date);
-    // this.highlightedRow = row;
     this.selectedIndex = i;
     let formattedDate = row.date.split("-").join("");
-    console.log("fd: "+ formattedDate);
 
     this.detailTradesEvent.emit(formattedDate);
   }

@@ -19,7 +19,7 @@ export class PiechartComponent implements OnInit {
   // public pieChartLabels: Label[] = [['SciFi'], ['Drama'], 'Comedy'];
   public pieChartLabels: Label[] = [];
   // public pieChartData: SingleDataSet = [];
-  // public pieChartData: SingleDataSet = [];
+ 
   public data: any[] = []
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;

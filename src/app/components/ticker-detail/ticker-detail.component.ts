@@ -29,7 +29,8 @@ export class TickerDetailComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ngDoCheck() {
+  
+  ngAfterViewChecked() {
     this.dataSource.data = this.tradesForTicker;
     if (this.tradesForTicker.length > 0) {
       this.ticker = this.tradesForTicker[0].ticker;
@@ -38,8 +39,6 @@ export class TickerDetailComponent implements OnInit {
       console.log("no data");
     }
    
-  }
-  ngAfterViewChecked() {
     this.dataSource.sort = this.sort;
     console.log("....in do check --tiker detail: " + JSON.stringify(this.tradesForTicker));
   }

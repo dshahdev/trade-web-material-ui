@@ -28,10 +28,7 @@ export class TickerDailySummaryComponent implements OnInit {
   ngOnInit(): void {
     console.log( " i am in ticker-summary")
   }
-  // ngDoCheck(){
-  //   this.dataSource.data = this.datePnlDetail;
-  //   // console.log("dataSource: "+JSON.stringify(this.dataSource.data));
-  // }
+ 
   
   ngAfterViewChecked() {
     this.dataSource.data = this.tickerPnlDetail;

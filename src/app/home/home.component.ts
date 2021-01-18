@@ -84,16 +84,7 @@ export class HomeComponent implements OnInit {
     console.log("selected month: " +month);
     if(month !== 'all') {
 
-      // var response1 = this.sharedService.getPnlForMonthByDate(month);
-      // var response2 = this.sharedService.getPnlForMonthByTicker(month);
-      // forkJoin([response1, response2]).subscribe((responseList) => {
-      //   var r1 = responseList[0];
-      //   var r2 = responseList[1];
-
-      //   console.log("r1: "+JSON.stringify(r1));
-      //   console.log("r1: "+JSON.stringify(r2));
-      // })
-
+   
 // getting pnl by date
       console.log("selected month is: " + month);
       this.sharedService.getPnlForMonthByDate(month).subscribe((response) => {
@@ -125,7 +116,7 @@ export class HomeComponent implements OnInit {
   }
 
   pnlDetailForDate(date: string) {
-    console.log("it is called...");
+    console.log("it is called..."+ date);
     this.sharedService.getPnlDetailForDate(date).subscribe((response) => {
       console.log("details of the date: " + JSON.stringify(response));
       this.dateTrades = response;

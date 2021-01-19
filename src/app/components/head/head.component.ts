@@ -22,6 +22,7 @@ export class HeadComponent implements OnInit {
   date: string = "";
   selectedValue: string= "";
   selectedMonth: string = "";
+  fileToUpload: File = null;
 
   // monthList: MonthList[] = [];
   @Input() monthList: MonthList[] = [];
@@ -54,5 +55,14 @@ export class HeadComponent implements OnInit {
     this.monthSelectedNotification.emit(month)
   }
 
+  
+  handleFileInput(event:any) {
+    debugger
+    this.fileToUpload = event.target.value;
+    console.log("file to upload: "+ JSON.stringify(this.fileToUpload));
+    this.sharedService.uploadCSVfile(this.fileToUpload).subscribe((response) => {
+      console.log("uploaded file is "+ this.fileToUpload);
+    })
+  }
   
 }

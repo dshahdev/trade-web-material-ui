@@ -129,7 +129,7 @@ export class HomeComponent implements OnInit {
     this.sharedService.getPnlDetailForTicker(ticker).subscribe((response) => {
      
       this.tickerTrades = response;
-      console.log("details of the ticker: " + JSON.stringify(this.tickerTrades));
+      // console.log("details of the ticker: " + JSON.stringify(this.tickerTrades));
     })
   }
 

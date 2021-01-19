@@ -21,7 +21,8 @@ export class SharedService {
     pnlForAllMonths:"allMonthList",
     pnlDetailForDate:"pnlForDate",
     pnlDetailForTicker:"pnlForTicker",
-    monthlyPnlSummary:"monthlyPnlList"
+    monthlyPnlSummary:"monthlyPnlList",
+    uploadCSVfile: "uploadCSVFile"
   }
 
   constructor(private http: HttpClient) { }
@@ -64,8 +65,15 @@ getPnlForAllMonths() : Observable<any> {
  getPnlDetailForTicker(ticker:string): Observable<any> {
    return this.http.post(this.servicePath + this.urls.pnlDetailForTicker, ticker);
  }
+
  getMonthlyPnlSummary(): Observable<any> {
    return this.http.get(this.servicePath + this.urls.monthlyPnlSummary);
  }
- 
+
+ uploadCSVfile(fileToUpload: File): Observable<any> {
+  const formData: FormData = new FormData();
+  formData.append('fileKey', fileToUpload, fileToUpload.name);
+  return this.http.post(this.servicePath + this.urls.uploadCSVfile, formData);
+ }
+
 }

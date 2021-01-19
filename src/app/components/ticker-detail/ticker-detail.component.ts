@@ -35,12 +35,10 @@ export class TickerDetailComponent implements OnInit {
     if (this.tradesForTicker.length > 0) {
       this.ticker = this.tradesForTicker[0].ticker;
     }
-    else {
-      console.log("no data");
-    }
+    
    
     this.dataSource.sort = this.sort;
-    console.log("....in do check --tiker detail: " + JSON.stringify(this.tradesForTicker));
+    // console.log("....in do check --tiker detail: " + JSON.stringify(this.tradesForTicker));
   }
   onClick(event: any, row: any, i: any) {
     // this.highlightedRow = row;

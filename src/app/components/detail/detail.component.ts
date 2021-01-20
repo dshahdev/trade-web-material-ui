@@ -36,7 +36,7 @@ export class DetailComponent implements OnInit {
 
 
   ngAfterViewChecked(): void {
-    console.log("tradesForDate: " + this.tradesForDate );
+  
     this.dataSource.data = this.tradesForDate;
     if (this.tradesForDate.length > 0) {
       this.date = this.tradesForDate[0].date.substring(0, 10);

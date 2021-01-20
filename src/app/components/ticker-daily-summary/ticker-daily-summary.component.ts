@@ -26,7 +26,7 @@ export class TickerDailySummaryComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log( " i am in ticker-summary")
+  
   }
  
   

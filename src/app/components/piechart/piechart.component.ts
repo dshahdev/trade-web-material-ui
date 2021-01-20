@@ -52,15 +52,15 @@ export class PiechartComponent implements OnInit {
     pnldata.forEach(e => {
       this.pieChartLabels.push([e.month]);
       let percentage = e.pnl / 100;
-      console.log("percentage: " + percentage);
+      // console.log("percentage: " + percentage);
       this.data.push(percentage);
-      console.log("data on hand is: " +this.data);
+      // console.log("data on hand is: " +this.data);
      
     })
-    console.log("data in pie before: " + this.data);
+    // console.log("data in pie before: " + this.data);
     this.pieChartData = this.data as any[];
-    console.log("labels: " + this.pieChartLabels);
-    console.log("data in pie: " + this.pieChartData)
+    // console.log("labels: " + this.pieChartLabels);
+    // console.log("data in pie: " + this.pieChartData)
     // console.log("data in pie: " + this.data);
   }
   

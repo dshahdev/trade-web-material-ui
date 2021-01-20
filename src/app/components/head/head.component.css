@@ -1,9 +1,11 @@
 .file {
-    float: right;
+   display:flex;
+   flex-wrap: wrap;
     background-color: #f0f0f0;
     padding:.5em;
+    margin: 1em;
     box-shadow: 1px 1px #888888;;
-    width: 22%;
+   height: 50%;
   
 }
 .file-name {

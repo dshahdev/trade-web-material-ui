@@ -1,6 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
+const headerOptions = { 
+  headers: new HttpHeaders( {
+      'content': 'application/json'
+    })
+  }
+
+  const headerOptionsEmpty = { 
+    headers: new HttpHeaders( {
+    })
+  }
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +19,7 @@ import { Observable } from 'rxjs';
 
 export class SharedService {
 
-  serverAndPort = "http://192.168.1.103:8080";
+  serverAndPort = "http://192.168.1.103:8090";
   servicePath = this.serverAndPort + "/trade-crud-rest/api/v1/";
 
   urls = { 
@@ -70,10 +81,9 @@ getPnlForAllMonths() : Observable<any> {
    return this.http.get(this.servicePath + this.urls.monthlyPnlSummary);
  }
 
- uploadCSVfile(fileToUpload: File): Observable<any> {
-  const formData: FormData = new FormData();
-  formData.append('fileKey', fileToUpload, fileToUpload.name);
-  return this.http.post(this.servicePath + this.urls.uploadCSVfile, formData);
+ uploadCSVfile(formData: FormData): Observable<any> {
+  
+  return this.http.post(this.servicePath + this.urls.uploadCSVfile, formData,  headerOptionsEmpty);
  }
 
 }

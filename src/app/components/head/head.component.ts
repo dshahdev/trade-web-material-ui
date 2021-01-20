@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 import { DatePnlDetail } from 'src/app/model/date-pnl.model';
 import { MonthList } from 'src/app/model/month-list.model';
@@ -22,7 +23,7 @@ export class HeadComponent implements OnInit {
   date: string = "";
   selectedValue: string= "";
   selectedMonth: string = "";
-  fileToUpload: File = null;
+  fileName: String = "";
 
   // monthList: MonthList[] = [];
   @Input() monthList: MonthList[] = [];
@@ -57,12 +58,42 @@ export class HeadComponent implements OnInit {
 
   
   handleFileInput(event:any) {
-    debugger
-    this.fileToUpload = event.target.value;
-    console.log("file to upload: "+ JSON.stringify(this.fileToUpload));
-    this.sharedService.uploadCSVfile(this.fileToUpload).subscribe((response) => {
-      console.log("uploaded file is "+ this.fileToUpload);
-    })
+    const formData: FormData = new FormData();
+    formData.append('file',event.target.files[0]);
+    
+    this.fileName = event.target.value;
+    console.log("file to upload: "+ JSON.stringify(this.fileName));
+    let fileFormat:any = this.fileName.split("\\");
+    
+    if(fileFormat.length === 3 ) {
+  
+      let FileToUpload = fileFormat[fileFormat.length-1]
+      console.log("file to upload: "+ FileToUpload);
+      let ft = FileToUpload.split(".");
+      if(ft.length === 3) {
+        
+        if(ft[0] === "TRADEDATA" && ft[1].length === 8 && ft[2] === "CSV" ) {
+          this.fileName = ft.join(".");
+          console.log("Correct File: "+this.fileName);
+          this.sharedService.uploadCSVfile(formData).subscribe((response) => {
+            console.log("uploaded file is "+ JSON.stringify(response));
+          })
+        } else {
+          console.log("not-Correct File: "+this.fileName);
+          console.log("check your file-name");
+        }
+    
+      
+      } else  {
+        console.log("your file must be CSV file");
+      }
+  
+    }
+    
+    
+
   }
+
+
   
 }

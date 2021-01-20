@@ -34,7 +34,7 @@ export class BarchartComponent implements OnInit {
   }
  
   updateChart(pnldata: MonthlySummary[]) {
-    console.log(">>>>monthly pnl: "+ JSON.stringify(pnldata));
+    // console.log(">>>>monthly pnl: "+ JSON.stringify(pnldata));
     this.barChartLabels = []
     let data:any = [];
     pnldata.forEach(e => {

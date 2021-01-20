@@ -88,27 +88,27 @@ export class HomeComponent implements OnInit {
 // getting pnl by date
       console.log("selected month is: " + month);
       this.sharedService.getPnlForMonthByDate(month).subscribe((response) => {
-        console.log(" date wise pnl: " + JSON.stringify(response));
+        // console.log(" date wise pnl: " + JSON.stringify(response));
         this.monthlyDetail = response; 
         if (this.monthlyDetail.length > 0) {
-          console.log(this.monthlyDetail[0].date);
+          // console.log(this.monthlyDetail[0].date);
           let formattedDate = this.monthlyDetail[0].date.split("-").join("");
-          console.log("fd: "+ formattedDate);
+          // console.log("fd: "+ formattedDate);
           this.pnlDetailForDate(formattedDate);
         }
         
       })
 // getting pnl by ticker
       this.sharedService.getPnlForMonthByTicker(month).subscribe((response:any) => {
-        console.log("ticker wise pnl: "+ JSON.stringify(response));
+        // console.log("ticker wise pnl: "+ JSON.stringify(response));
         this.tickerPnlDetail = response;
-        console.log("the first ticker: "+ this.tickerPnlDetail[0].ticker);
+        // console.log("the first ticker: "+ this.tickerPnlDetail[0].ticker);
         this.pnlDetailForTicker(this.tickerPnlDetail[0].ticker);
       })
     } else {
-      console.log("selected month is: " + month);
+      // console.log("selected month is: " + month);
       this.sharedService.getPnlForAllMonths().subscribe((response:any) => {
-        console.log("dates for all months: " + response); 
+        // console.log("dates for all months: " + response); 
         this.monthlyDetail = response; 
       })
     }
@@ -118,9 +118,9 @@ export class HomeComponent implements OnInit {
   pnlDetailForDate(date: string) {
     console.log("it is called..."+ date);
     this.sharedService.getPnlDetailForDate(date).subscribe((response) => {
-      console.log("details of the date: " + JSON.stringify(response));
+      // console.log("details of the date: " + JSON.stringify(response));
       this.dateTrades = response;
-      console.log("details of the date: " + JSON.stringify(this.dateTrades));
+      // console.log("details of the date: " + JSON.stringify(this.dateTrades));
     })
   }
   pnlDetailForTicker(ticker: string) {
@@ -129,7 +129,7 @@ export class HomeComponent implements OnInit {
     this.sharedService.getPnlDetailForTicker(ticker).subscribe((response) => {
      
       this.tickerTrades = response;
-      console.log("details of the ticker: " + JSON.stringify(this.tickerTrades));
+      // console.log("details of the ticker: " + JSON.stringify(this.tickerTrades));
     })
   }
 

@@ -1,7 +1,4 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-
-import { DatePnlDetail } from 'src/app/model/date-pnl.model';
 import { MonthList } from 'src/app/model/month-list.model';
 import { Trade } from 'src/app/model/trade.model';
 import { SharedService } from 'src/services/shared.service';
@@ -76,7 +73,25 @@ export class HeadComponent implements OnInit {
           this.fileName = ft.join(".");
           console.log("Correct File: "+this.fileName);
           this.sharedService.uploadCSVfile(formData).subscribe((response) => {
-            console.log("uploaded file is "+ JSON.stringify(response));
+
+            var res: Boolean = response.result;
+
+            if (res == false) {
+              console.log("failed uploading the file "+ JSON.stringify(response));
+            } else {
+              this.sharedService.processCSVFile(this.fileName).subscribe((response) => {
+                var result: Boolean = response.result;
+
+                if (res == false) {
+                  console.log("failed processing the file" + JSON.stringify(response));
+                } else {
+                  console.log("processed the file successfully " + JSON.stringify(response));
+                }
+
+              })
+  
+            }
+
           })
         } else {
           console.log("not-Correct File: "+this.fileName);

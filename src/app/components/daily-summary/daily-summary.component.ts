@@ -12,7 +12,6 @@ import { Trade } from 'src/app/model/trade.model';
 })
 export class DailySummaryComponent implements OnInit {
 
-  @Input() datePnlDetail: DatePnlDetail[] = [];
 
   @Output() detailTradesEvent: EventEmitter<any> = new EventEmitter();
 
@@ -21,7 +20,7 @@ export class DailySummaryComponent implements OnInit {
   displayedColumns: string[] = ['date', 'pnl'];
   highlightedRow = "";
   selectedIndex:number=0;
-
+  i: number;
   date: string = "";
 
   dataSource = new MatTableDataSource<DatePnlDetail>([]);
@@ -31,21 +30,26 @@ export class DailySummaryComponent implements OnInit {
   
   
 
-  constructor(private sharedService: SharedService) { }
+  constructor() { }
 
   ngOnInit(): void {
   
     
   }
 
-
-  ngAfterViewChecked(): void {
-    this.dataSource.data = this.datePnlDetail;
+  updateData(datePnlDetail:DatePnlDetail[]) {
+    console.log(">>>datePnlDetail: "+ datePnlDetail);
+    this.dataSource.data = datePnlDetail;
     this.dataSource.sort = this.sort;
+    
   }
 
+
+  
   onClick(event: any, row: any, i: any) {
+    this.i = i;
     this.selectedIndex = i;
+    console.log("selected row: "+this.selectedIndex);
     let formattedDate = row.date.split("-").join("");
 
     this.detailTradesEvent.emit(formattedDate);

@@ -34,7 +34,8 @@ export class SharedService {
     pnlDetailForTicker:"pnlForTicker",
     monthlyPnlSummary:"monthlyPnlList",
     uploadCSVfile: "uploadCSVFile",
-    processCSVFile: "processCSVFile"
+    processCSVFile: "processCSVFile",
+    savePrices: "savePrices" 
   }
 
   constructor(private http: HttpClient) { }
@@ -90,5 +91,9 @@ getPnlForAllMonths() : Observable<any> {
  processCSVFile(fileName: String): Observable<any> {
    return this.http.post(this.servicePath + this.urls.processCSVFile, fileName);
 
+  }
+
+  savePrices(): Observable<any> {
+    return this.http.get(this.servicePath + this.urls.savePrices);
   }
 }

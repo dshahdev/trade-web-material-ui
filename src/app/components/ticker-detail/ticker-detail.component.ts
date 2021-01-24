@@ -12,7 +12,7 @@ import { Trade } from 'src/app/model/trade.model';
 })
 export class TickerDetailComponent implements OnInit {
 
-  @Input() tradesForTicker: Trade[] = [];
+
 
   displayedColumns: string[] = ['date', 'buyTradeId', 'sellTradeId', 'allocatedQty','pnl','cost','price'];
   highlightedRow = "";
@@ -30,18 +30,16 @@ export class TickerDetailComponent implements OnInit {
   }
 
   
-  ngAfterViewChecked() {
-    this.dataSource.data = this.tradesForTicker;
-    if (this.tradesForTicker.length > 0) {
-      this.ticker = this.tradesForTicker[0].ticker;
-    }
+  
+
+  updateData(tradesForDate: Trade[]) {
+    console.log("data in detail component: " + tradesForDate);
+    this.dataSource.data = tradesForDate;
     
-   
     this.dataSource.sort = this.sort;
-    // console.log("....in do check --tiker detail: " + JSON.stringify(this.tradesForTicker));
   }
+  
   onClick(event: any, row: any, i: any) {
-    // this.highlightedRow = row;
     this.selectedIndex = i;
    
   }

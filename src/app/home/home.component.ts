@@ -9,6 +9,11 @@ import { PiechartComponent } from '../components/piechart/piechart.component';
 import { MonthPerformanceComponent } from '../components/month-performance/month-performance.component';
 import { forkJoin } from 'rxjs';
 import { TickerSummary } from '../model/ticker-summary.model';
+import { DailySummaryComponent } from '../components/daily-summary/daily-summary.component';
+import { TickerDailySummaryComponent } from '../components/ticker-daily-summary/ticker-daily-summary.component';
+import { DetailComponent } from '../components/detail/detail.component';
+import { TickerDetailComponent } from '../components/ticker-detail/ticker-detail.component';
+import { HeadComponent } from '../components/head/head.component';
 
 
 
@@ -19,6 +24,9 @@ import { TickerSummary } from '../model/ticker-summary.model';
 })
 export class HomeComponent implements OnInit {
 
+  @ViewChild(HeadComponent)
+  headComponent: HeadComponent = new HeadComponent(null);
+
   @ViewChild(BarchartComponent)
   barChartComponent: BarchartComponent = new BarchartComponent;
 
@@ -27,6 +35,21 @@ export class HomeComponent implements OnInit {
 
   @ViewChild(MonthPerformanceComponent)
   monthPerformanceComponent: MonthPerformanceComponent = new MonthPerformanceComponent;
+
+  @ViewChild(DailySummaryComponent)
+  dailySummaryComponent: DailySummaryComponent = new DailySummaryComponent;
+
+  
+  @ViewChild(DetailComponent)
+  detailComponent: DetailComponent = new DetailComponent;
+
+  @ViewChild(TickerDailySummaryComponent)
+  tickerDailySummaryComponent: TickerDailySummaryComponent = new TickerDailySummaryComponent;
+
+
+  @ViewChild(TickerDetailComponent)
+  tickerDetailComponent: TickerDetailComponent = new TickerDetailComponent;
+
 
   value = 'Darshan';
   value1 = "Pinal";
@@ -54,6 +77,7 @@ export class HomeComponent implements OnInit {
       this.monthList = response;
       console.log("monthList- in home: "+JSON.stringify(this.monthList));
       console.log("monthList - in home: "+this.monthList[0].strdata);
+      this.headComponent.updateSelection(this.monthList[0].strdata);
       this.selectMonth(this.monthList[0].strdata);
    
     });
@@ -71,9 +95,6 @@ export class HomeComponent implements OnInit {
     
   }
 
-  applyFilter(val: string) {
-    // console.log(val)
-  }
 
   monthChanged(month:any) {
     console.log("month is changed: "+ month);
@@ -88,27 +109,25 @@ export class HomeComponent implements OnInit {
 // getting pnl by date
       console.log("selected month is: " + month);
       this.sharedService.getPnlForMonthByDate(month).subscribe((response) => {
-        // console.log(" date wise pnl: " + JSON.stringify(response));
-        this.monthlyDetail = response; 
-        if (this.monthlyDetail.length > 0) {
-          // console.log(this.monthlyDetail[0].date);
-          let formattedDate = this.monthlyDetail[0].date.split("-").join("");
-          // console.log("fd: "+ formattedDate);
+        
+        this.dailySummaryComponent.updateData(response);
+        if (response.length > 0) {
+         
+          let formattedDate = response[0].date.split("-").join("");
           this.pnlDetailForDate(formattedDate);
         }
         
       })
 // getting pnl by ticker
       this.sharedService.getPnlForMonthByTicker(month).subscribe((response:any) => {
-        // console.log("ticker wise pnl: "+ JSON.stringify(response));
-        this.tickerPnlDetail = response;
-        // console.log("the first ticker: "+ this.tickerPnlDetail[0].ticker);
-        this.pnlDetailForTicker(this.tickerPnlDetail[0].ticker);
+        this.tickerDailySummaryComponent.updateData(response);
+        if (response.length > 0) {
+          this.pnlDetailForTicker(response[0].ticker);
+        }
       })
     } else {
-      // console.log("selected month is: " + month);
+     
       this.sharedService.getPnlForAllMonths().subscribe((response:any) => {
-        // console.log("dates for all months: " + response); 
         this.monthlyDetail = response; 
       })
     }
@@ -118,9 +137,10 @@ export class HomeComponent implements OnInit {
   pnlDetailForDate(date: string) {
     console.log("it is called..."+ date);
     this.sharedService.getPnlDetailForDate(date).subscribe((response) => {
-      // console.log("details of the date: " + JSON.stringify(response));
       this.dateTrades = response;
-      // console.log("details of the date: " + JSON.stringify(this.dateTrades));
+      console.log("<<<<< response in home for selected date: "+JSON.stringify(response));
+      this.detailComponent.updateData(response);
+      console.log("details of the date: " + JSON.stringify(response));
     })
   }
   pnlDetailForTicker(ticker: string) {
@@ -129,7 +149,7 @@ export class HomeComponent implements OnInit {
     this.sharedService.getPnlDetailForTicker(ticker).subscribe((response) => {
      
       this.tickerTrades = response;
-      // console.log("details of the ticker: " + JSON.stringify(this.tickerTrades));
+      this.tickerDetailComponent.updateData(response);
     })
   }
 

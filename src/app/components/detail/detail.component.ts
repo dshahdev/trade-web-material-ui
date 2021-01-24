@@ -12,7 +12,7 @@ import { SharedService } from '../../../services/shared.service';
 })
 export class DetailComponent implements OnInit {
 
-  @Input() tradesForDate: Trade[] = [];
+ 
   @Input() tradeDate: string = "";
 
  displayedColumns: string[] = ['ticker', 'buyTradeId', 'sellTradeId', 'allocatedQty','pnl','cost','price']
@@ -28,36 +28,27 @@ export class DetailComponent implements OnInit {
 
   
 
-  constructor(private sharedService: SharedService) { }
+  constructor() { }
 
   ngOnInit(): void {
     
   }
 
 
-  ngAfterViewChecked(): void {
   
-    this.dataSource.data = this.tradesForDate;
-    if (this.tradesForDate.length > 0) {
-      this.date = this.tradesForDate[0].date.substring(0, 10);
-    }
-    this.dataSource.sort = this.sort;
-    
-   
-  }
   
   onClick(event: any, row: any) {
     this.highlightedRow = row;
 
   }
 
-  getDetailsOfDate(date: String) {
-    let formattedDate = date.split("-").join("");
-    console.log("fd: in detail compo: " +formattedDate);   
-    this.sharedService.getPnlDetailForDate(formattedDate).subscribe((response) => {
-      console.log("res for detail data : " + JSON.stringify(response));
-      this.dataSource.data = response;
-      
-    });
+  updateData(tradesForDate: Trade[]) {
+    console.log("data in detail component: " + tradesForDate);
+    this.dataSource.data = tradesForDate;
+    if (tradesForDate.length > 0) {
+      this.date = tradesForDate[0].date.substring(0, 10);
+    }
+    this.dataSource.sort = this.sort;
   }
+  
 }

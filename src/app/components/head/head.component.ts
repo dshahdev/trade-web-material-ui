@@ -18,7 +18,7 @@ export class HeadComponent implements OnInit {
 
 
   date: string = "";
-  selectedValue: string= "";
+  selectedValue: string= "xxx";
   selectedMonth: string = "";
   fileName: String = "";
 
@@ -34,15 +34,15 @@ export class HeadComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.monthList.length > 0) {
+      console.log(">>>>>.monthList: "+ this.monthList);
       this.selectedValue = this.monthList[0].strdata;
+      console.log("selectedValue: "+ this.selectedValue);
     }
 
   }
 
-  ngAfterViewChecked(): void {
-    if (this.monthList.length > 0 ) {
-      this.selectedValue = this.monthList[0].strdata;
-    }
+  updateSelection(selectedMonth) {
+    this.selectedValue = selectedMonth;
   }
   applyFilter(val: string) {
     console.log(val)
@@ -105,10 +105,15 @@ export class HeadComponent implements OnInit {
   
     }
     
-    
 
   }
 
+  downLoadData() {
+    console.log("download is clicked....")
+    this.sharedService.savePrices().subscribe((response) => {
+        console.log("download done");
+    });
+  }
 
   
 }

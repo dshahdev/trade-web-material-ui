@@ -9,12 +9,12 @@
 <div class="container">
     <!-- month-wise -->
     <mat-card class="month-info">
-        <app-daily-summary [datePnlDetail] = "monthlyDetail" (detailTradesEvent)="gettingDateWiseData($event)"></app-daily-summary>
-    
+        <app-daily-summary  (detailTradesEvent)="gettingDateWiseData($event)"></app-daily-summary>
+        
     </mat-card>
     <!-- date-wise details -->
     <mat-card class="division-2" >
-        <app-detail [tradesForDate] = "dateTrades"  
+        <app-detail 
         [tradeDate] = "date"></app-detail>
     </mat-card>
 </div>
@@ -23,13 +23,13 @@
     <!-- ticker-wise -->
     <mat-card class="month-info">
       
-        <app-ticker-daily-summary [tickerPnlDetail]="tickerPnlDetail" (detailTrickerEvent) = "getTickerWiseData($event)"></app-ticker-daily-summary>
+        <app-ticker-daily-summary (detailTrickerEvent) = "getTickerWiseData($event)"></app-ticker-daily-summary>
     
     </mat-card>
     <!-- ticker-wise details -->
     <mat-card class="division-2" >
         
-        <app-ticker-detail  [tradesForTicker] = "tickerTrades"   ></app-ticker-detail>
+        <app-ticker-detail     ></app-ticker-detail>
     </mat-card>
 </div>
 

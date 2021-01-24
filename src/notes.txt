@@ -1,0 +1,1 @@
+https://query1.finance.yahoo.com/v7/finance/chart/AAPL?range=1m&interval=1d

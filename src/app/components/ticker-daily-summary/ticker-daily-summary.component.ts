@@ -29,20 +29,18 @@ export class TickerDailySummaryComponent implements OnInit {
   
   }
  
-  
-  ngAfterViewChecked() {
-    this.dataSource.data = this.tickerPnlDetail;
+  updateData(tickerPnlDetail:TickerSummary[]) {
+    console.log(">>>datePnlDetail in TICKER: "+ tickerPnlDetail);
+    this.dataSource.data = tickerPnlDetail;
     this.dataSource.sort = this.sort;
-    // console.log("....in do check --tiker detail: " + JSON.stringify(this.tickerPnlDetail));
+    
   }
 
   onClick(event: any, row: any, i: any) {
     console.log(row.ticker);
     this.highlightedRow = row;
     this.selectedIndex = i;
-    // let formattedDate = row.date.split("-").join("");
-    // console.log("fd: "+ formattedDate);
-
+    
     this.detailTrickerEvent.emit(row.ticker);
   }
 }

@@ -19,7 +19,7 @@ const headerOptions = {
 
 export class SharedService {
 
-  serverAndPort = "http://192.168.1.103:8090";
+  serverAndPort = "http://192.168.1.103:8091";
   servicePath = this.serverAndPort + "/trade-crud-rest/api/v1/";
 
   urls = { 
@@ -35,7 +35,8 @@ export class SharedService {
     monthlyPnlSummary:"monthlyPnlList",
     uploadCSVfile: "uploadCSVFile",
     processCSVFile: "processCSVFile",
-    savePrices: "savePrices" 
+    savePrices: "savePrices",
+    getPosition: "getPosition"
   }
 
   constructor(private http: HttpClient) { }
@@ -96,4 +97,8 @@ getPnlForAllMonths() : Observable<any> {
   savePrices(): Observable<any> {
     return this.http.get(this.servicePath + this.urls.savePrices);
   }
+
+  getPosition(): Observable<any>{
+    return this.http.get("assets/data.json");
+  } 
 }

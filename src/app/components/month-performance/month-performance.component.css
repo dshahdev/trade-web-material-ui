@@ -35,3 +35,7 @@ table {
 .gen-margin {
   margin: .6em;;
 }
+
+.w-100{
+  width: 100px;
+}

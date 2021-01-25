@@ -14,6 +14,7 @@ import { TickerDailySummaryComponent } from '../components/ticker-daily-summary/
 import { DetailComponent } from '../components/detail/detail.component';
 import { TickerDetailComponent } from '../components/ticker-detail/ticker-detail.component';
 import { HeadComponent } from '../components/head/head.component';
+import { CurrentPositionComponent } from '../components/current-position/current-position.component';
 
 
 
@@ -50,6 +51,9 @@ export class HomeComponent implements OnInit {
   @ViewChild(TickerDetailComponent)
   tickerDetailComponent: TickerDetailComponent = new TickerDetailComponent;
 
+  @ViewChild(CurrentPositionComponent)
+  currentPositionComponent: CurrentPositionComponent = new CurrentPositionComponent(null);
+
 
   value = 'Darshan';
   value1 = "Pinal";
@@ -73,6 +77,7 @@ export class HomeComponent implements OnInit {
   constructor(private sharedService: SharedService) { }
 
   ngOnInit(): void {
+    //getting Monthly List data
     this.sharedService.getMonthList().subscribe((response) => {
       this.monthList = response;
       console.log("monthList- in home: "+JSON.stringify(this.monthList));
@@ -82,6 +87,7 @@ export class HomeComponent implements OnInit {
    
     });
 
+    //getting charts data
     this.sharedService.getMonthlyPnlSummary().subscribe((response) => {
       
       this.pnlMonthly = response; // to be removed 
@@ -91,6 +97,12 @@ export class HomeComponent implements OnInit {
       this.monthPerformanceComponent.updateChart(response);
 
       console.log("monthly pnl summary: "+ JSON.stringify(this.pnlMonthly));
+    })
+    
+    //getting current position data
+    this.sharedService.getPosition().subscribe((response) => {
+      console.log("position data: "+ JSON.stringify(response));
+      this.currentPositionComponent.updateData(response);
     })
     
   }

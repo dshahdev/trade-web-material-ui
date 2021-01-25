@@ -15,7 +15,7 @@ import { ChartsModule } from 'ng2-charts';
 
 import { HomeComponent } from './home/home.component';
 import { DetailComponent } from './components/detail/detail.component';
-import { PositionComponent } from './components/position/position.component';
+
 
 
 import { MonthlySummaryComponent } from './components/monthly-summary/monthly-summary.component';
@@ -36,7 +36,7 @@ import { TickerDetailComponent } from './components/ticker-detail/ticker-detail.
     SidenavListComponent,
     HomeComponent,
     DetailComponent,
-    PositionComponent,
+  
     MonthlySummaryComponent,
     DailySummaryComponent,
     HeadComponent,

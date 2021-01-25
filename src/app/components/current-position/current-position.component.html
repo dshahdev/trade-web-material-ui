@@ -1,1 +1,49 @@
-<p>current-position works!</p>
+
+<mat-label >Current position</mat-label>
+<table #table mat-table [dataSource]="dataSource" matSort >
+
+    <!-- Date Column -->
+    <ng-container matColumnDef="ticker">
+      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">Ticker</th>
+      <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.ticker}} </td>
+    </ng-container>
+    <ng-container matColumnDef="qty">
+      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">Qty</th>
+      <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.qty}} </td>
+    </ng-container>
+    <ng-container matColumnDef="pnl">
+      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">Pnl</th>
+      <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.pnl}} </td>
+    </ng-container>
+    <ng-container matColumnDef="pnlPercentage">
+      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">PnlPercentage</th>
+      <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.pnlPercentage}} </td>
+    </ng-container>
+  
+    <!-- Pnl Column -->
+   
+    <ng-container matColumnDef="cost">
+      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">Cost</th>
+      <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.cost}} </td>
+    </ng-container>
+    
+   
+    <ng-container matColumnDef="price">
+      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">Price</th>
+      <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.price}} </td>
+    </ng-container>
+   
+    <ng-container matColumnDef="value">
+        <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">Value</th>
+        <td mat-cell *matCellDef="let element" style="font-size:smaller; margin-left: 1em" [ngStyle]="{'color':element.pnl > 0 ? 'green' : 'red' }"> {{element.value}} </td>
+      </ng-container>
+    
+    
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; " ></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
+          ></tr>
+  </table>
+  
+
+  

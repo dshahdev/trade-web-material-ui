@@ -111,7 +111,7 @@ export class HeadComponent implements OnInit {
   downLoadData() {
     console.log("download is clicked....")
     this.sharedService.savePrices().subscribe((response) => {
-        console.log("download done");
+        console.log("download done: "+response);
     });
   }
 

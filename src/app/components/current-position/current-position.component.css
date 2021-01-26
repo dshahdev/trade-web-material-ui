@@ -18,10 +18,13 @@
     overflow-x: scroll;
     
   }
-  
-  mat-label {
+  .label {
     background-color: lightblue;
     padding: .5em;
+  }
+  .date-picker {
+      margin-left: 1em;
+      
   }
  
 .gen-margin {

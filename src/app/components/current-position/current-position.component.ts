@@ -1,4 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Position } from 'src/app/model/position.model';
@@ -14,9 +16,15 @@ export class CurrentPositionComponent implements OnInit {
   @ViewChild(MatTable) table!: MatTable<any>;
   @ViewChild(MatSort) sort!: MatSort;
 
-  displayedColumns: string[] = ['ticker', 'qty', 'pnl','pnlPercentage','cost','price','value'];
+  @Output() selectedDateEvent = new EventEmitter();
+
+
+  displayedColumns: string[] = ['ticker', 'qty', 'pnl','pnl_p','cost','price','value'];
  
   dataSource = new MatTableDataSource<Position>([]);
+  date = new FormControl(new Date());
+  events: string[] = [];
+
 
   constructor(private sharedService: SharedService) { }
 
@@ -24,10 +32,22 @@ export class CurrentPositionComponent implements OnInit {
    
   }
   updateData(currentPosition: Position[]) {
-    console.log(">>>currentPosition: "+ currentPosition);
+    console.log(">>>currentPosition: "+ JSON.stringify(currentPosition));
     this.dataSource.data = currentPosition;
     this.dataSource.sort = this.sort;
     
   }
+  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.events.push(`${type}: ${event.value}`);
+    let fd = this.convert(this.events[1]);
+    fd = fd.split('-').join('');  
+    this.selectedDateEvent.emit(fd);
+  }
 
+  convert(str) {
+    var date = new Date(str),
+      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+      day = ("0" + date.getDate()).slice(-2);
+    return [date.getFullYear(), mnth, day].join("-");
+  }
 }

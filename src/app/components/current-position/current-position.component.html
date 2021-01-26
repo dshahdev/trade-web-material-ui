@@ -1,7 +1,7 @@
 
 <mat-label class="label">Current position</mat-label>
 <mat-form-field class="date-picker" appearance="fill">
-    <mat-label>Choose a date</mat-label>
+    
     <input matInput [matDatepicker]="picker" [value]="date.value"
         (dateInput)="addEvent('input',$event)" 
         (dateChange)="addEvent('change',$event)">

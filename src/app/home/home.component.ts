@@ -61,6 +61,10 @@ export class HomeComponent implements OnInit {
   YTD$ = "00.00";
   performance = "100%"
 
+  positionDate = "20210122"
+  positionDate1 = (new Date()).toISOString().split('T')[0];; // when app. runs for the first time
+  formattedDate = this.positionDate1.split('-').join('');
+
   monthList: MonthList[] = [];
   monthlyDetail: DatePnlDetail[] = []
   dateTrades: Trade[] = [];
@@ -77,6 +81,10 @@ export class HomeComponent implements OnInit {
   constructor(private sharedService: SharedService) { }
 
   ngOnInit(): void {
+
+    console.log("date: "+this.positionDate1);
+     var formattedDate = this.positionDate1.split('-').join('');
+    console.log("fd: "+formattedDate);
     //getting Monthly List data
     this.sharedService.getMonthList().subscribe((response) => {
       this.monthList = response;
@@ -99,11 +107,12 @@ export class HomeComponent implements OnInit {
       console.log("monthly pnl summary: "+ JSON.stringify(this.pnlMonthly));
     })
     
-    //getting current position data
-    this.sharedService.getPosition().subscribe((response) => {
-      console.log("position data: "+ JSON.stringify(response));
-      this.currentPositionComponent.updateData(response);
-    })
+    //getting current position data -- this.positionDate
+    // this.sharedService.getPosition(formattedDate).subscribe((response) => {
+    //   console.log("position data: "+ JSON.stringify(response));
+    //   this.currentPositionComponent.updateData(response);
+    // })
+    this.getCurrentPosition();
     
   }
 
@@ -178,4 +187,16 @@ export class HomeComponent implements OnInit {
     this.pnlDetailForTicker(this.ticker);
   }
 
+  getCurrentPosition() {
+    this.sharedService.getPosition(this.formattedDate).subscribe((response) => {
+      console.log("position data: "+ JSON.stringify(response));
+      this.currentPositionComponent.updateData(response);
+    })
+  }
+
+  getSelectedDate(selectedDate: string) {
+    console.log("got date from position: " + selectedDate);
+    this.formattedDate = selectedDate;
+    this.getCurrentPosition();
+  }
 }

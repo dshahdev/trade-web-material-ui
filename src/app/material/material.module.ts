@@ -14,6 +14,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule} from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule} from '@angular/material/select';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule} from '@angular/material/datepicker';
+ 
 
 @NgModule({
   declarations: [],
@@ -32,7 +35,9 @@ import { MatSelectModule} from '@angular/material/select';
     MatSortModule,
     MatInputModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatNativeDateModule,
+    MatDatepickerModule
   ],
   exports: [
     MatTabsModule,
@@ -48,7 +53,9 @@ import { MatSelectModule} from '@angular/material/select';
     MatSortModule,
     MatInputModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatNativeDateModule,
+    MatDatepickerModule
   ]
 })
 export class MaterialModule { }

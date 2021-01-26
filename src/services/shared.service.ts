@@ -36,7 +36,7 @@ export class SharedService {
     uploadCSVfile: "uploadCSVFile",
     processCSVFile: "processCSVFile",
     savePrices: "savePrices",
-    getPosition: "getPosition"
+    getPosition: "positionsForDate"
   }
 
   constructor(private http: HttpClient) { }
@@ -98,7 +98,7 @@ getPnlForAllMonths() : Observable<any> {
     return this.http.get(this.servicePath + this.urls.savePrices);
   }
 
-  getPosition(): Observable<any>{
-    return this.http.get("assets/data.json");
+  getPosition(positionDate: String): Observable<any>{
+    return this.http.post(this.servicePath + this.urls.getPosition, positionDate);
   } 
 }

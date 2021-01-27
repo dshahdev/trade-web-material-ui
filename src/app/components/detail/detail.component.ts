@@ -15,7 +15,7 @@ export class DetailComponent implements OnInit {
  
   @Input() tradeDate: string = "";
 
- displayedColumns: string[] = ['ticker', 'buyTradeId', 'sellTradeId', 'allocatedQty','pnl','cost','price']
+ displayedColumns: string[] = ['date','ticker', 'buyTradeId', 'sellTradeId', 'allocatedQty','pnl','cost','price']
   
   highlightedRow = "";
   

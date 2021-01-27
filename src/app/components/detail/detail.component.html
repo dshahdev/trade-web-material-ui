@@ -1,8 +1,11 @@
 
-      <mat-label style="background-color: lightblue"> Monthly date-wise breakdown: <span style="color: coral ">{{date}}</span></mat-label>
+      <mat-label style="background-color: lightblue"> Monthly breakdown</mat-label>
       <table #table mat-table [dataSource]="dataSource" matSort >
 
-        <!-- Date Column -->
+        <ng-container matColumnDef="date">
+          <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">Date</th>
+          <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.date | date}} </td>
+        </ng-container>
         <ng-container matColumnDef="ticker">
           <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">Ticker</th>
           <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.ticker}} </td>

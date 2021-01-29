@@ -4,7 +4,7 @@
  
   <ng-container matColumnDef="positionDate">
     <th  mat-header-cell *matHeaderCellDef mat-sort-header >PositionDate</th>
-    <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.positionDate | date: 'dd/MM/yyyy'}} </td>
+    <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.positionDate | date: 'shortDate': 'UTC'}} </td>
   </ng-container>
 
   <ng-container matColumnDef="inv">

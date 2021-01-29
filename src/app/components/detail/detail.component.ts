@@ -64,7 +64,6 @@ export class DetailComponent implements OnInit {
   }
 
   updateData(tradesForDate: Trade[]) {
-    // console.log("data in detail component: " + tradesForDate);
     this.dataSource.data = tradesForDate;
     if (tradesForDate.length > 0) {
       this.date = tradesForDate[0].date.substring(0, 10);

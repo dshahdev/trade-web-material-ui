@@ -15,6 +15,8 @@ import { DetailComponent } from '../components/detail/detail.component';
 import { TickerDetailComponent } from '../components/ticker-detail/ticker-detail.component';
 import { HeadComponent } from '../components/head/head.component';
 import { CurrentPositionComponent } from '../components/current-position/current-position.component';
+import { MatTabChangeEvent } from '@angular/material/tabs';
+import { PortfolioSummaryComponent } from '../components/portfolio-summary/portfolio-summary.component';
 
 
 
@@ -42,7 +44,7 @@ export class HomeComponent implements OnInit {
 
   
   @ViewChild(DetailComponent)
-  detailComponent: DetailComponent = new DetailComponent;
+  detailComponent: DetailComponent = new DetailComponent(null);
 
   @ViewChild(TickerDailySummaryComponent)
   tickerDailySummaryComponent: TickerDailySummaryComponent = new TickerDailySummaryComponent;
@@ -50,6 +52,9 @@ export class HomeComponent implements OnInit {
 
   @ViewChild(TickerDetailComponent)
   tickerDetailComponent: TickerDetailComponent = new TickerDetailComponent;
+
+  @ViewChild(PortfolioSummaryComponent)
+  portfolioSummaryComponent: PortfolioSummaryComponent = new PortfolioSummaryComponent(null);
 
   @ViewChild(CurrentPositionComponent)
   currentPositionComponent: CurrentPositionComponent = new CurrentPositionComponent(null);
@@ -102,16 +107,13 @@ export class HomeComponent implements OnInit {
 
       this.barChartComponent.updateChart(response);
       this.pieChartComponent.updateChart(response);
-      this.monthPerformanceComponent.updateChart(response);
+      // this.monthPerformanceComponent.updateChart(response);
 
       console.log("monthly pnl summary: "+ JSON.stringify(this.pnlMonthly));
     })
     
-    //getting current position data -- this.positionDate
-    // this.sharedService.getPosition(formattedDate).subscribe((response) => {
-    //   console.log("position data: "+ JSON.stringify(response));
-    //   this.currentPositionComponent.updateData(response);
-    // })
+    this.getPortfolioSummary();
+    
     this.getCurrentPosition();
     
   }
@@ -127,8 +129,8 @@ export class HomeComponent implements OnInit {
     if(month !== 'all') {
 
    
-// getting pnl by date
-      console.log("selected month is: " + month);
+    // getting pnl by date
+    
       this.sharedService.getPnlForMonthByDate(month).subscribe((response) => {
         
         this.dailySummaryComponent.updateData(response);
@@ -139,7 +141,7 @@ export class HomeComponent implements OnInit {
         }
         
       })
-// getting pnl by ticker
+    // getting pnl by ticker
       this.sharedService.getPnlForMonthByTicker(month).subscribe((response:any) => {
         this.tickerDailySummaryComponent.updateData(response);
         if (response.length > 0) {
@@ -159,25 +161,22 @@ export class HomeComponent implements OnInit {
     console.log("it is called..."+ date);
     this.sharedService.getPnlDetailForDate(date).subscribe((response) => {
       this.dateTrades = response;
-      console.log("<<<<< response in home for selected date: "+JSON.stringify(response));
-      this.detailComponent.updateData(response);
-      console.log("details of the date: " + JSON.stringify(response));
+      this.detailComponent.updateData( this.dateTrades);
     })
   }
   pnlDetailForTicker(ticker: string) {
     console.log("it is called..." + ticker);
   
     this.sharedService.getPnlDetailForTicker(ticker).subscribe((response) => {
-     
       this.tickerTrades = response;
-      this.tickerDetailComponent.updateData(response);
+      this.detailComponent.updateData(this.tickerTrades);
     })
   }
 
   gettingDateWiseData(event: any) {
     console.log("event in date component: "+ event); 
     this.date = event;
-    console.log("getting data in home component: " + this.date);
+ 
     this.pnlDetailForDate(this.date);
   }
 
@@ -188,7 +187,8 @@ export class HomeComponent implements OnInit {
   }
 
   getCurrentPosition() {
-    this.sharedService.getPosition(this.formattedDate).subscribe((response) => {
+    console.log(" i am here again...." + this.formattedDate);
+    this.sharedService.getCurrentPositionForDate(this.formattedDate).subscribe((response) => {
       console.log("position data: "+ JSON.stringify(response));
       this.currentPositionComponent.updateData(response);
     })
@@ -197,6 +197,26 @@ export class HomeComponent implements OnInit {
   getSelectedDate(selectedDate: string) {
     console.log("got date from position: " + selectedDate);
     this.formattedDate = selectedDate;
+    this.getCurrentPosition();
+  }
+
+  getPortfolioSummary() {
+    this.sharedService.getPortfolioSummary().subscribe((response) => {
+      this.portfolioSummaryComponent.updateData(response);
+    })
+  }
+  tabChanged(tabChangeEvent: MatTabChangeEvent): void {
+    if(tabChangeEvent.index === 0) {
+      this.detailComponent.updateData(this.tickerTrades);
+    } else {
+      this.detailComponent.updateData(this.dateTrades);
+    }
+    
+  }
+
+  positionDateHandler(positionDate) {
+    this.formattedDate = positionDate;
+    console.log(">>>> position Date: "+ this.formattedDate);
     this.getCurrentPosition();
   }
 }

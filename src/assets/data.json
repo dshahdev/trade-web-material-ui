@@ -1,10 +1,7 @@
 [
-    {"ticker": "FUBO", "qty": 200, "pnl": -1977, "pnlPercentage": 5520, "cost": 5520, "price": 5520 , "value": 5520 },
-    {"ticker": "FUBO", "qty": 200, "pnl": -1977, "pnlPercentage": 5520, "cost": 5520, "price": 5520 , "value": 5520 },
-    {"ticker": "FUBO", "qty": 200, "pnl": -1977, "pnlPercentage": 5520, "cost": 5520, "price": 5520 , "value": 5520 },
-    {"ticker": "FUBO", "qty": 200, "pnl": -1977, "pnlPercentage": 5520, "cost": 5520, "price": 5520 , "value": 5520 },
-    {"ticker": "FUBO", "qty": 200, "pnl": -1977, "pnlPercentage": 5520, "cost": 5520, "price": 5520 , "value": 5520 },
-    {"ticker": "FUBO", "qty": 200, "pnl": -1977, "pnlPercentage": 5520, "cost": 5520, "price": 5520 , "value": 5520 }
+    {"date": "26-Oct-20", "ticker": "AAPL", "cur_qty": 50,  "cost": 123, "cur_px": 125 , "prior_px": 126, "inv": 6150, "value": 6350, "prior": 6300, "unr_pnl": 100, "dod_pnl": -50, "return": 1.63, "daily": -0.79 },
+    {"date": "26-Oct-20", "ticker": "FUBO", "cur_qty": 200,  "cost": 39, "cur_px": 32 ,  "prior_px": 28,  "inv": 7800, "value": 6450, "prior": 5600, "unr_pnl": -1400, "dod_pnl": 800, "return": -17.95, "daily": 14.29 }
+    
 
 
 ]

@@ -1,56 +1,68 @@
 
-<mat-label class="label">Current position</mat-label>
-<mat-form-field class="date-picker" appearance="fill">
-    
-    <input matInput [matDatepicker]="picker" [value]="date.value"
-        (dateInput)="addEvent('input',$event)" 
-        (dateChange)="addEvent('change',$event)">
-    <mat-datepicker-toggle matSuffix [for]="picker">
-      <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-    </mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+<mat-label class="label">Daily portfolio by Date + Ticker (Detail)</mat-label>
+
 
 <table #table mat-table [dataSource]="dataSource" matSort >
 
-    <!-- Date Column -->
+  <ng-container matColumnDef="positionDate">
+    <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">positionDate</th>
+    <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.positionDate  | date: 'dd/MM/yyyy'}} </td>
+  </ng-container>
     <ng-container matColumnDef="ticker">
-      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">Ticker</th>
+      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">ticker</th>
       <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.ticker}} </td>
     </ng-container>
     <ng-container matColumnDef="qty">
-      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">Qty</th>
+      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">qty</th>
       <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.qty}} </td>
     </ng-container>
-    <ng-container matColumnDef="pnl">
-      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">Pnl</th>
-      <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.pnl}} </td>
+    <ng-container matColumnDef="cost">
+      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">cost</th>
+      <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.cost}} </td>
     </ng-container>
-    <ng-container matColumnDef="pnl_p">
-      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">Pnl_p</th>
-      <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.pnl_p}} </td>
+    <ng-container matColumnDef="curPx">
+      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">curPx</th>
+      <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.curPx}} </td>
+    </ng-container>
+    <ng-container matColumnDef="priorPx">
+      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">priorPx</th>
+      <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.priorPx}} </td>
+    </ng-container>
+    <ng-container matColumnDef="inv">
+      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">inv</th>
+      <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.inv}} </td>
+    </ng-container>
+    <ng-container matColumnDef="value">
+      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">value</th>
+      <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.value}} </td>
+    </ng-container>
+    <ng-container matColumnDef="prior">
+      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">prior</th>
+      <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.prior}} </td>
+    </ng-container>
+    <ng-container matColumnDef="unrPnl">
+      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">unrPnl</th>
+      <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.unrPnl}} </td>
+    </ng-container>
+    <ng-container matColumnDef="dodPnl">
+      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">dodPnl</th>
+      <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.dodPnl}} </td>
+    </ng-container>
+    <ng-container matColumnDef="returnP">
+      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">returnP</th>
+      <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.returnP}} </td>
+    </ng-container>
+    <ng-container matColumnDef="dailyP">
+      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">dailyP</th>
+      <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.dailyP}} </td>
     </ng-container>
   
     <!-- Pnl Column -->
    
-    <ng-container matColumnDef="cost">
-      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">Cost</th>
-      <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.cost}} </td>
-    </ng-container>
+   
     
    
-    <ng-container matColumnDef="price">
-      <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">Price</th>
-      <td mat-cell *matCellDef="let element" style="font-size:smaller;" > {{element.price}} </td>
-    </ng-container>
    
-    <ng-container matColumnDef="value">
-        <th  mat-header-cell *matHeaderCellDef mat-sort-header class="w-100">Value</th>
-        <td mat-cell *matCellDef="let element" style="font-size:smaller; margin-left: 1em" [ngStyle]="{'color':element.pnl > 0 ? 'green' : 'red' }"> {{element.value}} </td>
-      </ng-container>
-    
-    
-    
     <tr mat-header-row *matHeaderRowDef="displayedColumns; " ></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
           ></tr>

@@ -1,5 +1,21 @@
+table {
+    width: 100%;
+    
+}
+
+/* tr.mat-header-row {
+    border: 1px solid #e7e7e7;
+    font-weight: bold;
+    height: auto;
+    
+} */
+
+.mat-row:first-child {
+  /* background-color: lightblue; */
+}
 .mat-row {
     height: auto;
+   
   }
   
   .mat-cell {
@@ -11,30 +27,17 @@
     color: coral;
     
   }
-  table {
-    width: 100%;
-  }
   mat-table {
     overflow-x: scroll;
-    
   }
-  .label {
+  
+  mat-label {
     background-color: lightblue;
     padding: .5em;
-  }
-  .date-picker {
-      margin-left: 1em;
-      
   }
  
 .gen-margin {
   margin: .6em;;
 }
 
-.w-75{
-    width: 75px;
-}
 
-/* .w-100{
-    width: 100px;
-} */

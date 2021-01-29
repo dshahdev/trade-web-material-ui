@@ -1,9 +1,16 @@
 export class Position {
+    positionDate: string;
     ticker: string;
     qty: number;
-    pnl: number;
-    pnl_p: number;
     cost: number;
-    price: number;
+    curPx: number;
+    priorPx: number;
+    inv: number;
     value: number;
+    prior: number;
+    unrPnl: number;
+    dodPnl: number
+    returnP: number;
+    dailyP: number;
+  
 }

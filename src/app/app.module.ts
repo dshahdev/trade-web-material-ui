@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common'
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,6 +28,9 @@ import { MonthPerformanceComponent } from './components/month-performance/month-
 import { CurrentPositionComponent } from './components/current-position/current-position.component';
 import { TickerDailySummaryComponent } from './components/ticker-daily-summary/ticker-daily-summary.component';
 import { TickerDetailComponent } from './components/ticker-detail/ticker-detail.component';
+import { PortfolioSummaryComponent } from './components/portfolio-summary/portfolio-summary.component';
+import { DialogOverviewExampleDialog } from './components/detail/dialog/dialog-overview-example-dialog';
+
 
 @NgModule({
   declarations: [
@@ -46,6 +50,8 @@ import { TickerDetailComponent } from './components/ticker-detail/ticker-detail.
     CurrentPositionComponent,
     TickerDailySummaryComponent,
     TickerDetailComponent,
+    PortfolioSummaryComponent,
+    DialogOverviewExampleDialog
   ],
   imports: [
     BrowserModule,
@@ -59,7 +65,7 @@ import { TickerDetailComponent } from './components/ticker-detail/ticker-detail.
 
     
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

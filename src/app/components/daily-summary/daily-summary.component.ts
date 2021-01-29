@@ -38,7 +38,6 @@ export class DailySummaryComponent implements OnInit {
   }
 
   updateData(datePnlDetail:DatePnlDetail[]) {
-    console.log(">>>datePnlDetail: "+ datePnlDetail);
     this.dataSource.data = datePnlDetail;
     this.dataSource.sort = this.sort;
     

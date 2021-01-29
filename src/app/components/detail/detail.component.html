@@ -1,5 +1,5 @@
 
-      <mat-label style="background-color: lightblue"> Monthly breakdown</mat-label>
+      <mat-label style="background-color: lightblue"> Monthly breakdown: <span style="color: coral ">{{date}}</span></mat-label>
       <table #table mat-table [dataSource]="dataSource" matSort >
 
         <ng-container matColumnDef="date">
@@ -42,8 +42,8 @@
         
         
         <tr mat-header-row *matHeaderRowDef="displayedColumns; " ></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
-              ></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index" 
+        (click) ="onClick($event, row, i)"></tr>
       </table>
       
       <!-- (click)="onClick($event, row)"

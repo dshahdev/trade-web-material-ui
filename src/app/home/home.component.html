@@ -31,29 +31,6 @@
 </div>
  <br/>
  <br/>
-<!-- <div class="container">
-   
-    <mat-card class="month-info">
-        <app-daily-summary  (detailTradesEvent)="gettingDateWiseData($event)"></app-daily-summary>   
-    </mat-card>
-   
-    <mat-card class="division-2" >
-        <app-detail 
-        [tradeDate] = "date"></app-detail>
-    </mat-card>
-</div>
-
-<div class="container">
-  
-    <mat-card class="month-info">
-        <app-ticker-daily-summary (detailTrickerEvent) = "getTickerWiseData($event)"></app-ticker-daily-summary>
-    </mat-card>
-  
-    <mat-card class="division-2" >
-        <app-ticker-detail     ></app-ticker-detail>
-    </mat-card>
-</div>
- -->
 
 <div class="container">
     <mat-card class=" bar-chart">
@@ -67,10 +44,10 @@
 </div>
 <div class="container">
     <mat-card class="month-info">
-        <app-month-performance #monthPerformanceComponent [monthlyPnl]="pnlMonthly"></app-month-performance>
-    
+        <app-portfolio-summary (positionDateEvent) = "positionDateHandler($event)"></app-portfolio-summary>
     </mat-card>
-    <mat-card class="division-2">
+   
+    <mat-card class="division-3">
         <app-current-position (selectedDateEvent)="getSelectedDate($event)"></app-current-position>
     </mat-card>
     
@@ -79,4 +56,9 @@
 
 
 <!-- (click)="csvInput.click()"
-(change)="csvInputChange($event)" -->
+(change)="csvInputChange($event)"
+
+ <mat-card class="month-info">
+        <app-month-performance #monthPerformanceComponent [monthlyPnl]="pnlMonthly"></app-month-performance>
+    
+    </mat-card>-->

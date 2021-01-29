@@ -19,7 +19,7 @@ export class CurrentPositionComponent implements OnInit {
   @Output() selectedDateEvent = new EventEmitter();
 
 
-  displayedColumns: string[] = ['ticker', 'qty', 'pnl','pnl_p','cost','price','value'];
+  displayedColumns: string[] = ['positionDate','ticker', 'qty', 'cost','curPx', 'priorPx','inv','value','prior','unrPnl','dodPnl','returnP','dailyP']
  
   dataSource = new MatTableDataSource<Position>([]);
   date = new FormControl(new Date());

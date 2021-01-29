@@ -32,13 +32,13 @@ export class PortfolioSummaryComponent implements OnInit {
   }
 
   onClick(event: any, row:any, i: number) {
-   
     this.selectedIndex = i;
-    
-    let pdate = this.datepipe.transform(row.positionDate, 'yyyy-MM-dd');
-    let formattedDate = pdate.split("-").join("");
-    this.positionDateEvent.emit(formattedDate);
-   
+    var dateObj = new Date(row.positionDate);
+    var month = dateObj.getUTCMonth() + 1; //months from 1-12
+    var day = dateObj.getUTCDate();
+    var year = dateObj.getUTCFullYear();
+
+    this.positionDateEvent.emit(year + "-" + month + "-" + day);
   }
 
   updateData(portFolioSumm: ProtfolioSummary[]) {

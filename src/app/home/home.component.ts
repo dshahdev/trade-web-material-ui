@@ -186,13 +186,7 @@ export class HomeComponent implements OnInit {
     this.pnlDetailForTicker(this.ticker);
   }
 
-  getCurrentPosition() {
-    console.log(" i am here again...." + this.formattedDate);
-    this.sharedService.getCurrentPositionForDate(this.formattedDate).subscribe((response) => {
-      console.log("position data: "+ JSON.stringify(response));
-      this.currentPositionComponent.updateData(response);
-    })
-  }
+  
 
   getSelectedDate(selectedDate: string) {
     console.log("got date from position: " + selectedDate);
@@ -202,9 +196,20 @@ export class HomeComponent implements OnInit {
 
   getPortfolioSummary() {
     this.sharedService.getPortfolioSummary().subscribe((response) => {
+      this.formattedDate = this.convert(response[0].positionDate);
+      this.getCurrentPosition();
       this.portfolioSummaryComponent.updateData(response);
     })
   }
+
+  getCurrentPosition() {
+    console.log(" i am here again...." + this.formattedDate);
+    this.sharedService.getCurrentPositionForDate(this.formattedDate).subscribe((response) => {
+      console.log("position data: "+ JSON.stringify(response));
+      this.currentPositionComponent.updateData(response);
+    })
+  }
+
   tabChanged(tabChangeEvent: MatTabChangeEvent): void {
     if(tabChangeEvent.index === 0) {
       this.detailComponent.updateData(this.tickerTrades);
@@ -218,5 +223,16 @@ export class HomeComponent implements OnInit {
     this.formattedDate = positionDate;
     console.log(">>>> position Date: "+ this.formattedDate);
     this.getCurrentPosition();
+  }
+
+  convert(str) {
+  
+    var dateObj = new Date(str);
+    var month = dateObj.getUTCMonth() + 1; //months from 1-12
+    var day = dateObj.getUTCDate();
+    var year = dateObj.getUTCFullYear();
+    var fd = year + "-" + month + "-" + day
+
+    return fd;
   }
 }

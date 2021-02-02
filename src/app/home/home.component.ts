@@ -157,6 +157,8 @@ export class HomeComponent implements OnInit {
     
   }
 
+  
+
   pnlDetailForDate(date: string) {
     console.log("it is called..."+ date);
     this.sharedService.getPnlDetailForDate(date).subscribe((response) => {

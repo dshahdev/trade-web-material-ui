@@ -10,7 +10,7 @@ import { SharedService } from 'src/services/shared.service';
 })
 export class HeadComponent implements OnInit {
 
-  value = 'Darshan';
+  value = '';
   value1 = "Pinal";
   MTD$ = "00.00";
   YTD$ = "00.00";
@@ -26,6 +26,7 @@ export class HeadComponent implements OnInit {
   @Input() monthList: MonthList[] = [];
 
   @Output() monthSelectedNotification = new EventEmitter();
+  @Output() searchNotification = new EventEmitter();
 
   monthlyDetail: MonthList[] = []
   tradesForDate: Trade[] = [];
@@ -45,7 +46,8 @@ export class HeadComponent implements OnInit {
     this.selectedValue = selectedMonth;
   }
   applyFilter(val: string) {
-    console.log(val)
+    console.log("given ticker value: "+val)
+    this.searchNotification.emit(val);
   }
 
   selectMonth(month: any ) {

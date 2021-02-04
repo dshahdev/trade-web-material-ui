@@ -12,6 +12,7 @@ import { MaterialModule } from './material/material.module';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { RoutingModule } from './routing/routing.module';
+import { AgGridModule } from "@ag-grid-community/angular";
 import { ChartsModule } from 'ng2-charts';
 
 import { HomeComponent } from './home/home.component';
@@ -30,17 +31,18 @@ import { TickerDailySummaryComponent } from './components/ticker-daily-summary/t
 import { TickerDetailComponent } from './components/ticker-detail/ticker-detail.component';
 import { PortfolioSummaryComponent } from './components/portfolio-summary/portfolio-summary.component';
 import { DialogOverviewExampleDialog } from './components/detail/dialog/dialog-overview-example-dialog';
+import { TradeComponent } from './components/trade/trade.component';
+import { TradeTickerComponent } from './components/trade-ticker/trade-ticker.component';
+import { PnlComponent } from './components/pnl/pnl.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    
     HeaderComponent,
     SidenavListComponent,
     HomeComponent,
     DetailComponent,
-  
     MonthlySummaryComponent,
     DailySummaryComponent,
     HeadComponent,
@@ -51,12 +53,17 @@ import { DialogOverviewExampleDialog } from './components/detail/dialog/dialog-o
     TickerDailySummaryComponent,
     TickerDetailComponent,
     PortfolioSummaryComponent,
-    DialogOverviewExampleDialog
+    DialogOverviewExampleDialog,
+    TradeComponent,
+    TradeTickerComponent,
+    PnlComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    AgGridModule.withComponents([]),
+  
     MaterialModule,
     RoutingModule,
     FlexLayoutModule,

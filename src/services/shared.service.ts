@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { _MatOptionBase } from '@angular/material/core';
 
 const headerOptions = { 
   headers: new HttpHeaders( {
@@ -37,7 +38,10 @@ export class SharedService {
     processCSVFile: "processCSVFile",
     savePrices: "savePrices",
     portfolioSummary: "dailyPositionSummary",
-    currentPosition: "positionsForDate"
+    currentPosition: "positionsForDate",
+    tradesByDatePnl:"tradesByDatePnl",
+    tradesByTikerPnl:"tradesByTickerPnl",
+    pnl: "pnl"
   }
 
   constructor(private http: HttpClient) { }
@@ -106,4 +110,16 @@ getPnlForAllMonths() : Observable<any> {
   getCurrentPositionForDate(positionDate: String): Observable<any>{
     return this.http.post(this.servicePath + this.urls.currentPosition, positionDate);
   } 
+
+  getTradesByDatePnl():  Observable<any> {
+    return this.http.get(this.servicePath + this.urls.tradesByDatePnl);
+  }
+
+  getTradesByTickerPnl(): Observable<any> {
+    return this.http.get(this.servicePath + this.urls.tradesByTikerPnl);
+  }
+
+  getPnlAll(): Observable<any> {
+    return this.http.get(this.servicePath + this.urls.pnl);
+  }
 }

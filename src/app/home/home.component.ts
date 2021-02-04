@@ -17,6 +17,8 @@ import { HeadComponent } from '../components/head/head.component';
 import { CurrentPositionComponent } from '../components/current-position/current-position.component';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { PortfolioSummaryComponent } from '../components/portfolio-summary/portfolio-summary.component';
+import { TradeComponent } from '../components/trade/trade.component';
+import { PnlComponent } from '../components/pnl/pnl.component';
 
 
 
@@ -59,12 +61,16 @@ export class HomeComponent implements OnInit {
   @ViewChild(CurrentPositionComponent)
   currentPositionComponent: CurrentPositionComponent = new CurrentPositionComponent(null);
 
+  @ViewChild(PnlComponent)
+  appPnlComponent: PnlComponent = new PnlComponent(null);
+   
+  showDetails = false;
 
-  value = 'Darshan';
-  value1 = "Pinal";
-  MTD$ = "00.00";
-  YTD$ = "00.00";
-  performance = "100%"
+  // value = '';
+  // value1 = "Pinal";
+  // MTD$ = "00.00";
+  // YTD$ = "00.00";
+  // performance = "100%"
 
   positionDate = "20210122"
   positionDate1 = (new Date()).toISOString().split('T')[0];; // when app. runs for the first time
@@ -116,6 +122,9 @@ export class HomeComponent implements OnInit {
     
     this.getCurrentPosition();
     
+    // getTradesByDatePnl
+
+    
   }
 
 
@@ -143,6 +152,7 @@ export class HomeComponent implements OnInit {
       })
     // getting pnl by ticker
       this.sharedService.getPnlForMonthByTicker(month).subscribe((response:any) => {
+        // this.tradeComponent.updateData(response);
         this.tickerDailySummaryComponent.updateData(response);
         if (response.length > 0) {
           this.pnlDetailForTicker(response[0].ticker);
@@ -169,6 +179,7 @@ export class HomeComponent implements OnInit {
   
     this.sharedService.getPnlDetailForTicker(ticker).subscribe((response) => {
       this.tickerTrades = response;
+      console.log("ticker response to send to pnl grid: "+ JSON.stringify(this.tickerTrades));
       this.detailComponent.updateData(this.tickerTrades);
     })
   }
@@ -235,4 +246,13 @@ export class HomeComponent implements OnInit {
 
     return fd;
   }
+  display(){
+    this.showDetails = !this.showDetails;
+  }
+  
+  searchHandler(searchText) {
+    console.log("search text is coming.."+ searchText)
+   this.appPnlComponent.setFilter(searchText);
+  }
+
 }

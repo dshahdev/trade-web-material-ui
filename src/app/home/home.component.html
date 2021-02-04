@@ -1,56 +1,71 @@
-
-
-
-
 <div>
-    <app-head [monthList]="monthList" (monthSelectedNotification)="monthChanged($event)"></app-head>
+    <app-head [monthList]="monthList" (monthSelectedNotification)="monthChanged($event)"
+     (searchNotification)="searchHandler($event)"></app-head>
 </div>
+
+<div style="width: 100%;  margin-bottom: 15px;  border: 2px solid black">
+    <app-pnl #appPnlComponent></app-pnl>
+</div>
+<button mat-flat-button  class="detail" color="primary" (click)="display()">Ticker/DatePnl</button>
+<div *ngIf="showDetails" style="display: flex; height: 400px; ">
+    <div style="width: 100%;  margin-bottom: 15px; border: 2px solid black">
+        <app-trade></app-trade>
+    </div>
+    <div style="width: 100%;  margin-bottom: 15px;  border: 2px solid black">
+        <app-trade-ticker></app-trade-ticker>
+    </div>
+
+</div>
+
 <div style="display: flex; flex-wrap: wrap;">
- <div >
-    <mat-tab-group #tabGroup (selectedTabChange)="tabChanged($event)">
-        <mat-tab label="Ticker">
-            <mat-card class="month-info">
-                <app-ticker-daily-summary (detailTrickerEvent) = "getTickerWiseData($event)"></app-ticker-daily-summary>
-            </mat-card>
-            
-        </mat-tab>
-        <mat-tab label="Date">
-           
-            <mat-card class="month-info">
-                <app-daily-summary  (detailTradesEvent)="gettingDateWiseData($event)"></app-daily-summary>   
-            </mat-card>
-        </mat-tab>
-      </mat-tab-group>
- </div>
- <div style="flex-grow: 2">
-    <mat-card class="division-2" >
-        <app-detail 
-        [tradeDate] = "date"></app-detail>
-    </mat-card>
- </div>
+
+
+    <div>
+        <mat-tab-group #tabGroup (selectedTabChange)="tabChanged($event)">
+            <mat-tab label="Ticker">
+                <mat-card class="month-info">
+                    <app-ticker-daily-summary (detailTrickerEvent)="getTickerWiseData($event)">
+                    </app-ticker-daily-summary>
+                </mat-card>
+
+            </mat-tab>
+            <mat-tab label="Date">
+
+                <mat-card class="month-info">
+                    <app-daily-summary (detailTradesEvent)="gettingDateWiseData($event)"></app-daily-summary>
+                </mat-card>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+    <div style="flex-grow: 2">
+        <mat-card class="division-2">
+            <app-detail [tradeDate]="date"></app-detail>
+        </mat-card>
+    </div>
 </div>
- <br/>
- <br/>
+
+<br />
+<br />
 
 <div class="container">
     <mat-card class=" bar-chart">
-        <app-barchart #barChartComponent [monthlyPnl]="pnlMonthly" ></app-barchart>
-    
+        <app-barchart #barChartComponent [monthlyPnl]="pnlMonthly"></app-barchart>
+
     </mat-card>
     <mat-card class=" pie-chart">
         <app-piechart #pieChartComponent [monthlyPnl]="pnlMonthly"></app-piechart>
     </mat-card>
-    
+
 </div>
 <div class="container">
     <mat-card class="month-info">
-        <app-portfolio-summary (positionDateEvent) = "positionDateHandler($event)"></app-portfolio-summary>
+        <app-portfolio-summary (positionDateEvent)="positionDateHandler($event)"></app-portfolio-summary>
     </mat-card>
-   
+
     <mat-card class="division-3">
         <app-current-position (selectedDateEvent)="getSelectedDate($event)"></app-current-position>
     </mat-card>
-    
+
 </div>
 
 

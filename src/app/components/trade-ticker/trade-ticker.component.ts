@@ -7,7 +7,7 @@ import { SharedService } from 'src/services/shared.service';
   templateUrl: './trade-ticker.component.html',
   styleUrls: ['./trade-ticker.component.css']
 })
-export class TradeTickerComponent implements OnInit {
+export class TradeTickerComponent {
 
   private gridApi;
   private gridColumnApi;
@@ -64,14 +64,10 @@ export class TradeTickerComponent implements OnInit {
     this.gridColumnApi = params.columnApi;
 
     this.sharedService.getTradesByTickerPnl().subscribe((response) => {
-      console.log("response in ticker grid onGridReady: "+ JSON.stringify(response));
       this.rowData = response;
-      console.log("response in onGridReady.........: "+ JSON.stringify(this.rowData));
     })
     
   }
 
-  ngOnInit(): void {
-  }
-
+ 
 }

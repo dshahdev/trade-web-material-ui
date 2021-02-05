@@ -7,7 +7,7 @@ import { SharedService } from 'src/services/shared.service';
   templateUrl: './pnl.component.html',
   styleUrls: ['./pnl.component.css']
 })
-export class PnlComponent implements OnInit {
+export class PnlComponent {
 
   // @Input() searchedText = "";
 
@@ -55,19 +55,14 @@ export class PnlComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
 
-
-  }
-
-  
   onGridReady(params) {
     this.gridApi = params;
     this.gridColumnApi = params.columnApi;
-  
+
 
     this.sharedService.getPnlAll().subscribe((response) => {
-           this.rowData = response;
+      this.rowData = response;
     })
   }
 
@@ -78,17 +73,38 @@ export class PnlComponent implements OnInit {
   setFilter(searchText: string) {
     var model = this.gridApi.api.getFilterModel();
 
+    if ((searchText.match(/^[0-9]+$/) != null)) {
+      if (searchText.length === 4) {
+        model = {
+          date: { filterType: 'text', type: 'startsWith', filter: searchText }
+        }
 
-    console.log("model filter before setting " + JSON.stringify(model))
+      } else if (searchText.length === 6) {
+        let a = searchText.substring(0, 4);
+        let b = searchText.substring(4, 6);
+        searchText = a + "-" + b;
 
-    model = {
-      ticker: { filterType: 'text', type: 'startsWith', filter: searchText},
-      // date: { filterType: 'text', type: 'startsWith', filter: searchText }
-    };
+        model = {
+          date: { filterType: 'text', type: 'startsWith', filter: searchText }
+        }
+      } else {
+        let a = searchText.substring(0, 4);
+        let b = searchText.substring(4, 6);
+        let c = searchText.substring(6);
+        searchText = a + "-" + b + "-" + c;
 
-    console.log("searched Text for pnl: " + searchText);
-    console.log("model filter after setting " + JSON.stringify(model))
+        model = {
+          date: { filterType: 'text', type: 'startsWith', filter: searchText }
+        }
+      }
+    } else {
+      model = {
+        ticker: { filterType: 'text', type: 'startsWith', filter: searchText },
+      };
+    }
+    
 
     this.gridApi.api.setFilterModel(model);
+    //  this.clearFilters();
   }
 }

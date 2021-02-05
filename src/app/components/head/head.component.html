@@ -11,7 +11,7 @@
                 </mat-select>
             </mat-form-field>
             <mat-form-field class="example-form-field" style="margin-left: 2em;">
-                <mat-label>Ticker</mat-label>
+                <mat-label>Ticker/Date</mat-label>
                 <input matInput type="text" [(ngModel)]="value" #txtVal (keydown.enter)="applyFilter(txtVal.value)"
                     style="color:black">
                 <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">

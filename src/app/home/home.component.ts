@@ -66,11 +66,7 @@ export class HomeComponent implements OnInit {
    
   showDetails = false;
 
-  // value = '';
-  // value1 = "Pinal";
-  // MTD$ = "00.00";
-  // YTD$ = "00.00";
-  // performance = "100%"
+
 
   positionDate = "20210122"
   positionDate1 = (new Date()).toISOString().split('T')[0];; // when app. runs for the first time
@@ -99,8 +95,6 @@ export class HomeComponent implements OnInit {
     //getting Monthly List data
     this.sharedService.getMonthList().subscribe((response) => {
       this.monthList = response;
-      console.log("monthList- in home: "+JSON.stringify(this.monthList));
-      console.log("monthList - in home: "+this.monthList[0].strdata);
       this.headComponent.updateSelection(this.monthList[0].strdata);
       this.selectMonth(this.monthList[0].strdata);
    
@@ -113,16 +107,12 @@ export class HomeComponent implements OnInit {
 
       this.barChartComponent.updateChart(response);
       this.pieChartComponent.updateChart(response);
-      // this.monthPerformanceComponent.updateChart(response);
-
-      console.log("monthly pnl summary: "+ JSON.stringify(this.pnlMonthly));
     })
     
     this.getPortfolioSummary();
     
     this.getCurrentPosition();
     
-    // getTradesByDatePnl
 
     
   }
@@ -152,7 +142,6 @@ export class HomeComponent implements OnInit {
       })
     // getting pnl by ticker
       this.sharedService.getPnlForMonthByTicker(month).subscribe((response:any) => {
-        // this.tradeComponent.updateData(response);
         this.tickerDailySummaryComponent.updateData(response);
         if (response.length > 0) {
           this.pnlDetailForTicker(response[0].ticker);
@@ -168,31 +157,25 @@ export class HomeComponent implements OnInit {
   }
 
   pnlDetailForDate(date: string) {
-    console.log("it is called..."+ date);
     this.sharedService.getPnlDetailForDate(date).subscribe((response) => {
       this.dateTrades = response;
       this.detailComponent.updateData( this.dateTrades);
     })
   }
   pnlDetailForTicker(ticker: string) {
-    console.log("it is called..." + ticker);
-  
     this.sharedService.getPnlDetailForTicker(ticker).subscribe((response) => {
       this.tickerTrades = response;
-      console.log("ticker response to send to pnl grid: "+ JSON.stringify(this.tickerTrades));
       this.detailComponent.updateData(this.tickerTrades);
     })
   }
 
   gettingDateWiseData(event: any) {
-    console.log("event in date component: "+ event); 
     this.date = event;
  
     this.pnlDetailForDate(this.date);
   }
 
   getTickerWiseData(event: any) {
-    console.log("event in ticker component: "+ event); 
     this.ticker = event;
     this.pnlDetailForTicker(this.ticker);
   }
@@ -200,7 +183,6 @@ export class HomeComponent implements OnInit {
   
 
   getSelectedDate(selectedDate: string) {
-    console.log("got date from position: " + selectedDate);
     this.formattedDate = selectedDate;
     this.getCurrentPosition();
   }
@@ -214,9 +196,7 @@ export class HomeComponent implements OnInit {
   }
 
   getCurrentPosition() {
-    console.log(" i am here again...." + this.formattedDate);
     this.sharedService.getCurrentPositionForDate(this.formattedDate).subscribe((response) => {
-      console.log("position data: "+ JSON.stringify(response));
       this.currentPositionComponent.updateData(response);
     })
   }
@@ -251,7 +231,6 @@ export class HomeComponent implements OnInit {
   }
   
   searchHandler(searchText) {
-    console.log("search text is coming.."+ searchText)
    this.appPnlComponent.setFilter(searchText);
   }
 

@@ -60,3 +60,10 @@ mat-grid-tile {
   /* height: 400px; */
   width: 300px;
 }
+
+.detail {
+  margin-top: 1px;
+  border-radius: 2px;
+  height: 28px;
+ 
+}

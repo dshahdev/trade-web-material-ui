@@ -1,0 +1,20 @@
+
+
+
+<p>All Pnls</p>
+<ag-grid-angular
+    #agGrid
+    style="width: 100%; height: 500px;" 
+    id="myGrid"
+    class="ag-theme-alpine"
+    [columnDefs]="columnDefs"
+    [rowHeight]="rowHeight"
+    [modules] = "modules"
+    [defaultColDef]="defaultColDef"
+    [detailCellRendererParams]="detailCellRendererParams"
+    [rowData]="rowData"
+    (gridReady)="onGridReady($event)"
+    >
+</ag-grid-angular>
+
+

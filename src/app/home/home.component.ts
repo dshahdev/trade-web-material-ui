@@ -17,6 +17,8 @@ import { HeadComponent } from '../components/head/head.component';
 import { CurrentPositionComponent } from '../components/current-position/current-position.component';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { PortfolioSummaryComponent } from '../components/portfolio-summary/portfolio-summary.component';
+import { TradeComponent } from '../components/trade/trade.component';
+import { PnlComponent } from '../components/pnl/pnl.component';
 
 
 
@@ -59,12 +61,10 @@ export class HomeComponent implements OnInit {
   @ViewChild(CurrentPositionComponent)
   currentPositionComponent: CurrentPositionComponent = new CurrentPositionComponent(null);
 
-
-  value = 'Darshan';
-  value1 = "Pinal";
-  MTD$ = "00.00";
-  YTD$ = "00.00";
-  performance = "100%"
+  @ViewChild(PnlComponent)
+  appPnlComponent: PnlComponent = new PnlComponent(null);
+   
+  showDetails = false;
 
   positionDate = "20210122"
   positionDate1 = (new Date()).toISOString().split('T')[0];; // when app. runs for the first time
@@ -74,7 +74,6 @@ export class HomeComponent implements OnInit {
   monthlyDetail: DatePnlDetail[] = []
   dateTrades: Trade[] = [];
   tickerTrades: Trade[] = [];
-  pnlMonthly: MonthlySummary[] = [];
   tickerPnlDetail: TickerSummary[] = [];
 
   date: string = "";
@@ -93,25 +92,13 @@ export class HomeComponent implements OnInit {
     //getting Monthly List data
     this.sharedService.getMonthList().subscribe((response) => {
       this.monthList = response;
-      console.log("monthList- in home: "+JSON.stringify(this.monthList));
-      console.log("monthList - in home: "+this.monthList[0].strdata);
       this.headComponent.updateSelection(this.monthList[0].strdata);
       this.selectMonth(this.monthList[0].strdata);
    
     });
 
-    //getting charts data
-    this.sharedService.getMonthlyPnlSummary().subscribe((response) => {
-      
-      this.pnlMonthly = response; // to be removed 
+    this.getPortfolioReturnData();
 
-      this.barChartComponent.updateChart(response);
-      this.pieChartComponent.updateChart(response);
-      // this.monthPerformanceComponent.updateChart(response);
-
-      console.log("monthly pnl summary: "+ JSON.stringify(this.pnlMonthly));
-    })
-    
     this.getPortfolioSummary();
     
     this.getCurrentPosition();
@@ -158,15 +145,12 @@ export class HomeComponent implements OnInit {
   }
 
   pnlDetailForDate(date: string) {
-    console.log("it is called..."+ date);
     this.sharedService.getPnlDetailForDate(date).subscribe((response) => {
       this.dateTrades = response;
       this.detailComponent.updateData( this.dateTrades);
     })
   }
   pnlDetailForTicker(ticker: string) {
-    console.log("it is called..." + ticker);
-  
     this.sharedService.getPnlDetailForTicker(ticker).subscribe((response) => {
       this.tickerTrades = response;
       this.detailComponent.updateData(this.tickerTrades);
@@ -174,24 +158,26 @@ export class HomeComponent implements OnInit {
   }
 
   gettingDateWiseData(event: any) {
-    console.log("event in date component: "+ event); 
     this.date = event;
  
     this.pnlDetailForDate(this.date);
   }
 
   getTickerWiseData(event: any) {
-    console.log("event in ticker component: "+ event); 
     this.ticker = event;
     this.pnlDetailForTicker(this.ticker);
   }
 
-  
-
   getSelectedDate(selectedDate: string) {
-    console.log("got date from position: " + selectedDate);
     this.formattedDate = selectedDate;
     this.getCurrentPosition();
+  }
+
+
+  getPortfolioReturnData() {
+    this.sharedService.getPortfolioDailyReturn().subscribe((response) => {
+      this.barChartComponent.updateChart(response);
+    })
   }
 
   getPortfolioSummary() {
@@ -203,9 +189,7 @@ export class HomeComponent implements OnInit {
   }
 
   getCurrentPosition() {
-    console.log(" i am here again...." + this.formattedDate);
     this.sharedService.getCurrentPositionForDate(this.formattedDate).subscribe((response) => {
-      console.log("position data: "+ JSON.stringify(response));
       this.currentPositionComponent.updateData(response);
     })
   }
@@ -235,4 +219,12 @@ export class HomeComponent implements OnInit {
 
     return fd;
   }
+  display(){
+    this.showDetails = !this.showDetails;
+  }
+  
+  searchHandler(searchText) {
+   this.appPnlComponent.setFilter(searchText);
+  }
+
 }

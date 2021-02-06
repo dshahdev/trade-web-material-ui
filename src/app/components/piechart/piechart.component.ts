@@ -10,7 +10,7 @@ import { MonthlySummary } from 'src/app/model/monthly-summary.model';
 })
 export class PiechartComponent implements OnInit {
 
-  @Input() monthlyPnl: MonthlySummary[] = [];
+  // @Input() monthlyPnl: MonthlySummary[] = [];
 
   public pieChartOptions: ChartOptions = {
     responsive: true,
@@ -45,23 +45,23 @@ export class PiechartComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  updateChart(pnldata: MonthlySummary[]) {
-    console.log("<<<<monthly pnl: " + JSON.stringify(pnldata));
-    // this.pieChartLabels = [];
+  // updateChart(pnldata: MonthlySummary[]) {
+  //   console.log("<<<<monthly pnl: " + JSON.stringify(pnldata));
+  //   // this.pieChartLabels = [];
 
-    pnldata.forEach(e => {
-      this.pieChartLabels.push([e.month]);
-      let percentage = e.pnl / 100;
-      // console.log("percentage: " + percentage);
-      this.data.push(percentage);
-      // console.log("data on hand is: " +this.data);
+  //   pnldata.forEach(e => {
+  //     this.pieChartLabels.push([e.month]);
+  //     let percentage = e.pnl / 100;
+  //     // console.log("percentage: " + percentage);
+  //     this.data.push(percentage);
+  //     // console.log("data on hand is: " +this.data);
      
-    })
-    // console.log("data in pie before: " + this.data);
-    this.pieChartData = this.data as any[];
-    // console.log("labels: " + this.pieChartLabels);
-    // console.log("data in pie: " + this.pieChartData)
-    // console.log("data in pie: " + this.data);
-  }
+  //   })
+  //   // console.log("data in pie before: " + this.data);
+  //   this.pieChartData = this.data as any[];
+  //   // console.log("labels: " + this.pieChartLabels);
+  //   // console.log("data in pie: " + this.pieChartData)
+  //   // console.log("data in pie: " + this.data);
+  // }
   
 }

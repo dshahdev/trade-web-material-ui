@@ -3,6 +3,17 @@
      (searchNotification)="searchHandler($event)"></app-head>
 </div>
 
+<div class="container">
+    <mat-card class=" bar-chart">
+        <app-barchart #barChartComponent ></app-barchart>
+
+    </mat-card>
+    <mat-card class=" pie-chart">
+        <app-piechart #pieChartComponent ></app-piechart>
+    </mat-card>
+
+</div>
+
 <div style="width: 100%;  margin-bottom: 15px;  border: 2px solid black">
     <app-pnl #appPnlComponent></app-pnl>
 </div>
@@ -47,16 +58,6 @@
 <br />
 <br />
 
-<div class="container">
-    <mat-card class=" bar-chart">
-        <app-barchart #barChartComponent [monthlyPnl]="pnlMonthly"></app-barchart>
-
-    </mat-card>
-    <mat-card class=" pie-chart">
-        <app-piechart #pieChartComponent [monthlyPnl]="pnlMonthly"></app-piechart>
-    </mat-card>
-
-</div>
 <div class="container">
     <mat-card class="month-info">
         <app-portfolio-summary (positionDateEvent)="positionDateHandler($event)"></app-portfolio-summary>

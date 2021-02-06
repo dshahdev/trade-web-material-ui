@@ -66,8 +66,6 @@ export class HomeComponent implements OnInit {
    
   showDetails = false;
 
-
-
   positionDate = "20210122"
   positionDate1 = (new Date()).toISOString().split('T')[0];; // when app. runs for the first time
   formattedDate = this.positionDate1.split('-').join('');
@@ -76,7 +74,6 @@ export class HomeComponent implements OnInit {
   monthlyDetail: DatePnlDetail[] = []
   dateTrades: Trade[] = [];
   tickerTrades: Trade[] = [];
-  pnlMonthly: MonthlySummary[] = [];
   tickerPnlDetail: TickerSummary[] = [];
 
   date: string = "";
@@ -100,20 +97,11 @@ export class HomeComponent implements OnInit {
    
     });
 
-    //getting charts data
-    this.sharedService.getMonthlyPnlSummary().subscribe((response) => {
-      
-      this.pnlMonthly = response; // to be removed 
+    this.getPortfolioReturnData();
 
-      this.barChartComponent.updateChart(response);
-      this.pieChartComponent.updateChart(response);
-    })
-    
     this.getPortfolioSummary();
     
     this.getCurrentPosition();
-    
-
     
   }
 
@@ -180,11 +168,16 @@ export class HomeComponent implements OnInit {
     this.pnlDetailForTicker(this.ticker);
   }
 
-  
-
   getSelectedDate(selectedDate: string) {
     this.formattedDate = selectedDate;
     this.getCurrentPosition();
+  }
+
+
+  getPortfolioReturnData() {
+    this.sharedService.getPortfolioDailyReturn().subscribe((response) => {
+      this.barChartComponent.updateChart(response);
+    })
   }
 
   getPortfolioSummary() {

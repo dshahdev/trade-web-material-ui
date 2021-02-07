@@ -1,3 +1,4 @@
+import { GroupCellRenderer } from '@ag-grid-enterprise/all-modules';
 import { Component, OnInit, Input } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
@@ -17,9 +18,21 @@ export class BarchartComponent implements OnInit {
     scales: {
       yAxes: [{id: 'A', type: 'linear', position: 'left'},
               {id: 'B', type: 'linear', position: 'right'}]
-    }
+    },
+
   };
 
+  // tooltips: {
+  //   callbacks: {
+  //     title: function (tooltipItems, data) {
+  //       return data.datasets[tooltipItems[0].datasetIndex].label;
+  //     },
+  //     label: function (tooltipItems, data) {
+  //       console.log(data);
+  //       return data.datasets[tooltipItems.datasetIndex].label ;
+  //     }
+  //   }
+  // }
 //  scales: {
 //   yAxes: [ {type: "bar", "id": "y-axis-1",display:true, position: "left"}
 // ]
@@ -39,36 +52,19 @@ export class BarchartComponent implements OnInit {
   ngOnInit(): void {
     // console.log("monthly pnl: "+ this.monthlyPnl);
   }
+
+  callChartHover(event:any) {
+    console.log('this is called chartHover event ' + event.active[0]._chart.data.labels[event.active[0]._index]);
+  }
  
    
   updateChart(pnldata: PortfolioDailyReturn[]) {
-    // console.log(">>>>monthly pnl: "+ JSON.stringify(pnldata));
-    this.barChartLabels = []
-    let data1:any = [];
-    let data2:any = [];
-    let data3:any = [];
-    let data4:any = [];
-    pnldata.forEach(e => {
-      this.barChartLabels.push(e.positionDate);
-      data1.push(e.realized);
-      data2.push(e.unrealized);
-      data3.push(e.sodInv)
-      data4.push(e.cumuRealizedPnl)
-    })
-    this.barChartData =  [{ data: data1, label: 'Realized$', yAxisID: 'A' },
-                          { data: data2, label: 'Unrealized$', yAxisID: 'A' },
-                          { data: data3, label: 'Inv$', type: 'line', yAxisID: 'B', fill: false },
-                          { data: data4, label: 'RealizedC$', type: 'line', yAxisID: 'B', fill: false}]
+    this.barChartLabels = pnldata.map( e => e.positionDate)
+
+    this.barChartData =  [{ data: pnldata.map( e => e.realized), label: 'Realized$', yAxisID: 'A' },
+                          { data: pnldata.map( e => e.unrealized), label: 'Unrealized$', yAxisID: 'A' },
+                          { data: pnldata.map( e => e.sodInv), label: 'Inv$', type: 'line', yAxisID: 'B', fill: false, borderColor: '#6D9EEB', borderWidth: 1 },
+                          { data: pnldata.map( e => e.cumuRealizedPnl), label: 'RealizedC$', type: 'line', yAxisID: 'B', fill: false, borderColor: '#60AF09', borderWidth: 2}]
   }
 
-  // updateChart(pnldata: MonthlySummary[]) {
-  //   // console.log(">>>>monthly pnl: "+ JSON.stringify(pnldata));
-  //   this.barChartLabels = []
-  //   let data:any = [];
-  //   pnldata.forEach(e => {
-  //     this.barChartLabels.push(e.month);
-  //     data.push(e.pnl);
-  //   })
-  //   this.barChartData =  [{ data, label: 'Best Fruits' }]
-  // }
 }

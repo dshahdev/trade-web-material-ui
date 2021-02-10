@@ -1,0 +1,8 @@
+.barchart-container {
+    position: relative; 
+    height: 40vh;
+    margin: 0 30px;
+    max-width: 60vw;
+    text-align:  center;
+    /* margin-left: 10px; */
+}

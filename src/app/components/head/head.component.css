@@ -1,11 +1,11 @@
 .file {
-   display:flex;
+   /* display:flex;
    flex-wrap: wrap;
     background-color: #f0f0f0;
     padding:.5em;
     margin: 1em;
     box-shadow: 1px 1px #888888;;
-   height: 50%;
+   height: 50%; */
   
 }
 .file-name {
@@ -18,4 +18,16 @@
 
 .download {
     margin: 1em;
+}
+
+/* mat-card {
+    height: 5em
+} */
+.inner-mat {
+    height: 5em;
+    width: 100%;
+}
+
+.container {
+    display: flex;
 }

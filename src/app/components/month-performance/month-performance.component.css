@@ -39,3 +39,10 @@ table {
 .w-100{
   width: 100px;
 }
+.month-container {
+  position: relative; 
+  max-height: 40vh; 
+  max-width: 60vw;
+  text-align:  center;
+  /* margin-left: 10px; */
+}

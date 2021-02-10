@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
   headComponent: HeadComponent = new HeadComponent(null);
 
   @ViewChild(BarchartComponent)
-  barChartComponent: BarchartComponent = new BarchartComponent;
+  barChartComponent: BarchartComponent = new BarchartComponent(null);
 
   @ViewChild(PiechartComponent)
   pieChartComponent: PiechartComponent = new PiechartComponent;
@@ -63,7 +63,11 @@ export class HomeComponent implements OnInit {
 
   @ViewChild(PnlComponent)
   appPnlComponent: PnlComponent = new PnlComponent(null);
-   
+
+
+ 
+
+
   showDetails = false;
 
   positionDate = "20210122"
@@ -114,27 +118,27 @@ export class HomeComponent implements OnInit {
   selectMonth(month: any ) {
     console.log("selected month: " +month);
     if(month !== 'all') {
-
-   
-    // getting pnl by date
+      this.getPortfolioReturnDataForMonth(month);
+      
+    // getting pnl by date --for the later use
     
-      this.sharedService.getPnlForMonthByDate(month).subscribe((response) => {
-        
-        this.dailySummaryComponent.updateData(response);
-        if (response.length > 0) {
+      // this.sharedService.getPnlForMonthByDate(month).subscribe((response) => {
+      
+      //   this.dailySummaryComponent.updateData(response);
+      //   if (response.length > 0) {
          
-          let formattedDate = response[0].date.split("-").join("");
-          this.pnlDetailForDate(formattedDate);
-        }
+      //     let formattedDate = response[0].date.split("-").join("");
+      //     this.pnlDetailForDate(formattedDate);
+      //   }
         
-      })
-    // getting pnl by ticker
-      this.sharedService.getPnlForMonthByTicker(month).subscribe((response:any) => {
-        this.tickerDailySummaryComponent.updateData(response);
-        if (response.length > 0) {
-          this.pnlDetailForTicker(response[0].ticker);
-        }
-      })
+      // })
+    // getting pnl by ticker --for the later use
+      // this.sharedService.getPnlForMonthByTicker(month).subscribe((response:any) => {
+      //   this.tickerDailySummaryComponent.updateData(response);
+      //   if (response.length > 0) {
+      //     this.pnlDetailForTicker(response[0].ticker);
+      //   }
+      // })
     } else {
      
       this.sharedService.getPnlForAllMonths().subscribe((response:any) => {
@@ -146,7 +150,9 @@ export class HomeComponent implements OnInit {
 
   pnlDetailForDate(date: string) {
     this.sharedService.getPnlDetailForDate(date).subscribe((response) => {
+      console.log("home PnlDetailForDate: "+JSON.stringify(response));
       this.dateTrades = response;
+      this.barChartComponent.updateData(this.dateTrades);
       this.detailComponent.updateData( this.dateTrades);
     })
   }
@@ -173,13 +179,24 @@ export class HomeComponent implements OnInit {
     this.getCurrentPosition();
   }
 
+  // for barcharts
 
   getPortfolioReturnData() {
     this.sharedService.getPortfolioDailyReturn().subscribe((response) => {
+      // console.log("response in the barchart: "+JSON.stringify(response));
+      this.barChartComponent.updateChart(response);
+    })
+  }
+   // for barcharts 
+
+  getPortfolioReturnDataForMonth(month: string){
+    this.sharedService.getPortfolioDailyReturnForMonth(month).subscribe((response) => {
+      console.log("response in the barchart: "+JSON.stringify(response));
       this.barChartComponent.updateChart(response);
     })
   }
 
+ 
   getPortfolioSummary() {
     this.sharedService.getPortfolioSummary().subscribe((response) => {
       this.formattedDate = this.convert(response[0].positionDate);
@@ -227,4 +244,18 @@ export class HomeComponent implements OnInit {
    this.appPnlComponent.setFilter(searchText);
   }
 
+  // emmited chart-Data handlers
+
+  chartDataHandler(date){
+    console.log("response from chart: "+ JSON.stringify(date));
+     this.sharedService.getPnlForDateByTicker(date).subscribe((response) =>{
+            console.log("response for realized$ data: " + JSON.stringify(response));
+            this.tickerPnlDetail = response;
+            console.log(this.tickerPnlDetail)
+            this.monthPerformanceComponent.updateChart(this.tickerPnlDetail);
+           
+     });
+   
+    
+  }
 }

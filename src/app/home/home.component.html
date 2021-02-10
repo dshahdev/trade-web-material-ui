@@ -1,16 +1,20 @@
 <div>
-    <app-head [monthList]="monthList" (monthSelectedNotification)="monthChanged($event)"
+    <app-head  [monthList]="monthList" (monthSelectedNotification)="monthChanged($event)"
      (searchNotification)="searchHandler($event)"></app-head>
 </div>
 
 <div class="container">
-    <mat-card class="bar-chart">
-        <app-barchart #barChartComponent ></app-barchart>
+    <mat-card class="bar-chart" >
+        <app-barchart #barChartComponent (barchrtClickedEvent)="chartDataHandler($event)"></app-barchart>
 
     </mat-card>
     <!-- <mat-card class="pie-chart">
         <app-piechart #pieChartComponent ></app-piechart>
     </mat-card> -->
+    <mat-card class="month-info">
+        <app-month-performance #monthPerformanceComponent ></app-month-performance>
+    
+    </mat-card>
 
 </div>
 

@@ -19,6 +19,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { PortfolioSummaryComponent } from '../components/portfolio-summary/portfolio-summary.component';
 import { TradeComponent } from '../components/trade/trade.component';
 import { PnlComponent } from '../components/pnl/pnl.component';
+import { PositionForDateByticker } from '../model/position-date-ticker.model';
 
 
 
@@ -79,6 +80,7 @@ export class HomeComponent implements OnInit {
   dateTrades: Trade[] = [];
   tickerTrades: Trade[] = [];
   tickerPnlDetail: TickerSummary[] = [];
+  positionForDateByticker: PositionForDateByticker[] = []
 
   date: string = "";
   ticker: string = "";
@@ -141,9 +143,7 @@ export class HomeComponent implements OnInit {
       // })
     } else {
      
-      this.sharedService.getPnlForAllMonths().subscribe((response:any) => {
-        this.monthlyDetail = response; 
-      })
+      this.getPortfolioReturnData();
     }
     
   }
@@ -246,15 +246,34 @@ export class HomeComponent implements OnInit {
 
   // emmited chart-Data handlers
 
-  chartDataHandler(date){
-    console.log("response from chart: "+ JSON.stringify(date));
-     this.sharedService.getPnlForDateByTicker(date).subscribe((response) =>{
-            console.log("response for realized$ data: " + JSON.stringify(response));
-            this.tickerPnlDetail = response;
-            console.log(this.tickerPnlDetail)
-            this.monthPerformanceComponent.updateChart(this.tickerPnlDetail);
-           
-     });
+  chartDataHandler(event){
+    debugger;
+    console.log("response from chart-date: "+ JSON.stringify(event.date));
+    console.log("response from chart-yIndex: "+ JSON.stringify(event.yIndex));
+    let date = event.date;
+    let yIndex = event.yIndex;
+
+    if((yIndex === 0) || (yIndex === 3)) {
+      this.sharedService.getPnlForDateByTicker(date).subscribe((response) =>{
+        console.log("responsed data for realized and realizedC: " + JSON.stringify(response));
+        this.tickerPnlDetail = response;
+        console.log(this.tickerPnlDetail)
+        this.monthPerformanceComponent.updateChart(this.tickerPnlDetail);
+       
+      });
+    } else if((yIndex === 1)  || (yIndex === 2)) {
+      this.sharedService.getPositionForDateByTicker(date).subscribe((response) => {
+        console.log("responsed data for unrealized and investment: "+JSON.stringify(response));
+        this.positionForDateByticker= response;
+        
+        this.monthPerformanceComponent.updateChart(this.positionForDateByticker);
+      })
+    } else {
+      console.log("yIndex: "+yIndex);
+    }
+    
+
+    
    
     
   }

@@ -55,7 +55,7 @@ export class MonthPerformanceComponent  implements OnInit{
       }
     ];
   }
- updateChart(pnldata: TickerSummary[]) {
+ updateChart(pnldata: any[]) {
   console.log(">>>>monthly pnl: "+ JSON.stringify(pnldata));
   var obj = pnldata.length > 0 ? pnldata[0]:{}
 
@@ -80,10 +80,7 @@ export class MonthPerformanceComponent  implements OnInit{
   // this.dataSource.data = pnldata;
   // console.log("in monthly performance: "+ JSON.stringify(this.dataSource.data));
 } 
-  ngAfterViewInit(): void {
-   
-    // this.dataSource.sort = this.sort;
-  }
+  
 
   
 }

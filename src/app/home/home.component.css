@@ -6,7 +6,7 @@
 }
 .bar-chart {
   max-width: 50%; 
-  height: 400px;
+  height: 500px;
   margin-top: 0.5em;
   flex-grow: 1;
   overflow: auto;

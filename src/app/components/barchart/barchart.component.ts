@@ -61,38 +61,11 @@ export class BarchartComponent implements OnInit {
       date = date.split("-").join("");
       let yIndex = event.active[0]._chart.getElementAtEvent(event.event)[0]._datasetIndex;
       console.log("yIndex: "+ yIndex);
-
-      //if yIndex === 0(realized$) -- Trades pnlForDate
-      //if yIndex === 1(Unrealized$) -- call positions
-      //if yIndex === 2(Inv$) -- call positions
-      //if yIndex === 3(RealizedC$) -- call Ticker and pnl
-
-      switch(yIndex) {
-        case 0:
-          //call ticker and pnl for date
-          console.log("sending date: "+date);
-         
-          this.barchrtClickedEvent.emit(date);
-          break;
-        case 1:
-          //call positions
-          break;
-        case 2:
-          //call positions
-          break;
-        case 3:
-          // call ticker and pnl for date
-         break;
-      }
+      this.barchrtClickedEvent.emit({date,yIndex});
 
       console.log("value of data: " + event.active[0]._chart.data.datasets[yIndex].data[event.active[0]._index]);
     }
-    // console.log('this is called from chartClick event ' + event.active[0]._chart.data.labels[event.active[0]._index]);
-    // console.log('this is called from chartClick event ' + event.active[0]._chart.data.datasets[event.active[0]._datasetIndex].data[event.active[0]._index]);
-    // console.log('chartClick: whicy Y-axis clicked >> ' + event.active[0]._chart.getElementAtEvent(event.event)[0]._datasetIndex); 
-    // console.log('chartClick: whicy data Index from X-axis clicked >> ' + event.active[0]._chart.getElementAtEvent(event.event)[0]._index); 
-    // let dataset;
-    // let date =   event.active[0]._chart.data.labels[event.active[0]._index]
+   
   }
  
  
@@ -105,8 +78,7 @@ export class BarchartComponent implements OnInit {
                           { data: pnldata.map( e => e.sodInv), label: 'Inv$', type: 'line', yAxisID: 'B', fill: false, borderColor: '#6D9EEB', borderWidth: 1 },
                           { data: pnldata.map( e => e.cumuRealizedPnl), label: 'RealizedC$', type: 'line', yAxisID: 'B', fill: false, borderColor: '#60AF09', borderWidth: 2}]
   }
-// , backgroundColor: '#60AF09'
-// , backgroundColor: '#D3D3D3'
+
   updateData(data: any) {
     console.log("barchart data: "+ JSON.stringify(data));
   }

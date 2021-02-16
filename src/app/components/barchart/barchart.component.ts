@@ -70,13 +70,20 @@ export class BarchartComponent implements OnInit {
  
  
    
+  
+
   updateChart(pnldata: PortfolioDailyReturn[]) {
     this.barChartLabels = pnldata.map( e => e.positionDate)
 
-    this.barChartData =  [{ data: pnldata.map( e => e.realized), label: 'Realized$', yAxisID: 'A' },
-                          { data: pnldata.map( e => e.unrealized), label: 'Unrealized$', yAxisID: 'A' },
+    this.barChartData =  [{ data: pnldata.map( e => e.realized), label: 'Real$', yAxisID: 'A'},
+                          { data: pnldata.map( e => e.onh), label: 'ONH$', yAxisID: 'A',  stack: 'a' },
+                          { data: pnldata.map( e => e.swing), label: 'Swing$', yAxisID: 'A',  stack: 'a' },
+                          { data: pnldata.map( e => e.sideBet), label: 'Side$', yAxisID: 'A',  stack: 'a' },
+                          { data: pnldata.map( e => e.dayTrade), label: 'DT$', yAxisID: 'A',  stack: 'a' },
+                          { data: pnldata.map( e => e.other), label: 'Oth$', yAxisID: 'A' ,  stack: 'a'},
+                          { data: pnldata.map( e => e.unrealized), label: 'UnR$', yAxisID: 'A' },
                           { data: pnldata.map( e => e.sodInv), label: 'Inv$', type: 'line', yAxisID: 'B', fill: false, borderColor: '#6D9EEB', borderWidth: 1 },
-                          { data: pnldata.map( e => e.cumuRealizedPnl), label: 'RealizedC$', type: 'line', yAxisID: 'B', fill: false, borderColor: '#60AF09', borderWidth: 2}]
+                          { data: pnldata.map( e => e.cumuRealizedPnl), label: 'RealC$', type: 'line', yAxisID: 'B', fill: false, borderColor: '#60AF09', borderWidth: 2}]
   }
 
   updateData(data: any) {

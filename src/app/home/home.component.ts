@@ -105,10 +105,6 @@ export class HomeComponent implements OnInit {
 
     this.getPortfolioReturnData();
 
-    this.getPortfolioSummary();
-    
-    this.getCurrentPosition();
-    
   }
 
 
@@ -176,7 +172,7 @@ export class HomeComponent implements OnInit {
 
   getSelectedDate(selectedDate: string) {
     this.formattedDate = selectedDate;
-    this.getCurrentPosition();
+    // this.getCurrentPosition();
   }
 
   // for barcharts
@@ -197,19 +193,19 @@ export class HomeComponent implements OnInit {
   }
 
  
-  getPortfolioSummary() {
-    this.sharedService.getPortfolioSummary().subscribe((response) => {
-      this.formattedDate = this.convert(response[0].positionDate);
-      this.getCurrentPosition();
-      this.portfolioSummaryComponent.updateData(response);
-    })
-  }
+  // getPortfolioSummary() {
+  //   this.sharedService.getPortfolioSummary().subscribe((response) => {
+  //     this.formattedDate = this.convert(response[0].positionDate);
+  //     this.getCurrentPosition();
+  //     this.portfolioSummaryComponent.updateData(response);
+  //   })
+  // }
 
-  getCurrentPosition() {
-    this.sharedService.getCurrentPositionForDate(this.formattedDate).subscribe((response) => {
-      this.currentPositionComponent.updateData(response);
-    })
-  }
+  // getCurrentPosition() {
+  //   this.sharedService.getCurrentPositionForDate(this.formattedDate).subscribe((response) => {
+  //     this.currentPositionComponent.updateData(response);
+  //   })
+  // }
 
   tabChanged(tabChangeEvent: MatTabChangeEvent): void {
     if(tabChangeEvent.index === 0) {
@@ -220,11 +216,11 @@ export class HomeComponent implements OnInit {
     
   }
 
-  positionDateHandler(positionDate) {
-    this.formattedDate = positionDate;
-    console.log(">>>> position Date: "+ this.formattedDate);
-    this.getCurrentPosition();
-  }
+  // positionDateHandler(positionDate) {
+  //   this.formattedDate = positionDate;
+  //   console.log(">>>> position Date: "+ this.formattedDate);
+  //   this.getCurrentPosition();
+  // }
 
   convert(str) {
   
@@ -247,7 +243,7 @@ export class HomeComponent implements OnInit {
   // emmited chart-Data handlers
 
   chartDataHandler(event){
-    debugger;
+    // debugger;
     console.log("response from chart-date: "+ JSON.stringify(event.date));
     console.log("response from chart-yIndex: "+ JSON.stringify(event.yIndex));
     let date = event.date;
@@ -259,6 +255,7 @@ export class HomeComponent implements OnInit {
         this.tickerPnlDetail = response;
         console.log(this.tickerPnlDetail)
         this.monthPerformanceComponent.updateChart(this.tickerPnlDetail);
+        // this.pieChartComponent.updateChart(this.tickerPnlDetail)
        
       });
     } else if((yIndex === 1)  || (yIndex === 2)) {

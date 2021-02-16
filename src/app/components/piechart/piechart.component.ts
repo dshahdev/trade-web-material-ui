@@ -45,23 +45,24 @@ export class PiechartComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // updateChart(pnldata: MonthlySummary[]) {
-  //   console.log("<<<<monthly pnl: " + JSON.stringify(pnldata));
-  //   // this.pieChartLabels = [];
+  // updateChart(twoColumnData: any[]) {
+  // debugger;
+  //   console.log(">>>>monthly pnl: "+ JSON.stringify(twoColumnData));
+  //   var obj = twoColumnData.length > 0 ? twoColumnData[0]:{}
+  //   this.pieChartLabels = []
 
-  //   pnldata.forEach(e => {
-  //     this.pieChartLabels.push([e.month]);
-  //     let percentage = e.pnl / 100;
-  //     // console.log("percentage: " + percentage);
-  //     this.data.push(percentage);
-  //     // console.log("data on hand is: " +this.data);
-     
-  //   })
-  //   // console.log("data in pie before: " + this.data);
-  //   this.pieChartData = this.data as any[];
-  //   // console.log("labels: " + this.pieChartLabels);
-  //   // console.log("data in pie: " + this.pieChartData)
-  //   // console.log("data in pie: " + this.data);
-  // }
-  
+  //   var key = Object.keys(obj)[0]
+  //   var val = Object.keys(obj)[1]
+  //   var total = 0
+
+  //   var func = function(total, item) { return total + item }
+  //   const sum = twoColumnData.reduce( e => { total += e[val]} );
+    
+  //   twoColumnData.map( e => { 
+  //     this.pieChartLabels.push( [e[key]] ); 
+  //     this.data.push( e[val] / sum );
+  //   } )
+
+  // } 
+
 }

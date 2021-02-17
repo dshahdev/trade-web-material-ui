@@ -14,13 +14,9 @@ export class MonthPerformanceComponent  implements OnInit{
  
 //  @Input() monthlyPnl: MonthlySummary[] = [];
 
+ dataSource = new MatTableDataSource<MonthlySummary>([]);
  @ViewChild(MatTable) table!: MatTable<any>;
  @ViewChild(MatSort) sort!: MatSort;
-
-
- 
- dataSource = new MatTableDataSource<MonthlySummary>([]);
-
 
  headings = [];
  displayedColumns: string[] = [];
@@ -67,7 +63,12 @@ export class MonthPerformanceComponent  implements OnInit{
     this.displayedColumns.push(k)
     }
 
-    this.data = pnldata;
+    // this.data = pnldata;
+    this.dataSource.data = pnldata;
+    
+    this.dataSource.sort = this.sort;
+    
+   
 
     // // this.headings = ["firstname", "lastname", "age"];
     // // this.displayedColumns = ["firstname", "lastname", "age"];
@@ -78,6 +79,7 @@ export class MonthPerformanceComponent  implements OnInit{
 
   console.log(this.displayedColumns);
   // this.dataSource.data = pnldata;
+  // this.dataSource.sort = this.sort;
   // console.log("in monthly performance: "+ JSON.stringify(this.dataSource.data));
 } 
   

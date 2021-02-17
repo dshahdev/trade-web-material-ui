@@ -1,7 +1,7 @@
-<table #table mat-table [dataSource]="data" matSort >
+<table #table mat-table [dataSource]="dataSource" matSort >
 
   <ng-container [matColumnDef]="field" *ngFor="let heading of headings;let field of displayedColumns">
-    <th mat-header-cell *matHeaderCellDef>{{ field }}</th>
+    <th mat-header-cell  mat-sort-header *matHeaderCellDef>{{ field }}</th>
     <td mat-cell *matCellDef="let element">{{ element[field] }}</td>
   </ng-container>
    

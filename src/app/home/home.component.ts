@@ -20,6 +20,8 @@ import { PortfolioSummaryComponent } from '../components/portfolio-summary/portf
 import { TradeComponent } from '../components/trade/trade.component';
 import { PnlComponent } from '../components/pnl/pnl.component';
 import { PositionForDateByticker } from '../model/position-date-ticker.model';
+import { Options } from '../enum/options.enum';
+
 
 
 
@@ -28,6 +30,10 @@ import { PositionForDateByticker } from '../model/position-date-ticker.model';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
+
+
+
 export class HomeComponent implements OnInit {
 
   @ViewChild(HeadComponent)
@@ -248,8 +254,9 @@ export class HomeComponent implements OnInit {
     console.log("response from chart-yIndex: "+ JSON.stringify(event.yIndex));
     let date = event.date;
     let yIndex = event.yIndex;
+    console.log( "enum "+Options.realized + " "+Options.cumuRealizedPnl)
 
-    if((yIndex === 0) || (yIndex === 3)) {
+    if((yIndex === Options.realized) || (yIndex === Options.cumuRealizedPnl)) {
       this.sharedService.getPnlForDateByTicker(date).subscribe((response) =>{
         console.log("responsed data for realized and realizedC: " + JSON.stringify(response));
         this.tickerPnlDetail = response;
@@ -258,7 +265,7 @@ export class HomeComponent implements OnInit {
         // this.pieChartComponent.updateChart(this.tickerPnlDetail)
        
       });
-    } else if((yIndex === 1)  || (yIndex === 2)) {
+    } else if((yIndex === Options.unrealized)  || (yIndex === Options.sodInv)) {
       this.sharedService.getPositionForDateByTicker(date).subscribe((response) => {
         console.log("responsed data for unrealized and investment: "+JSON.stringify(response));
         this.positionForDateByticker= response;

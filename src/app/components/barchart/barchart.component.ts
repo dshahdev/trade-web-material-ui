@@ -1,7 +1,9 @@
 import { GroupCellRenderer } from '@ag-grid-enterprise/all-modules';
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+import { MatOptionSelectionChange } from '@angular/material/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
-import { Label } from 'ng2-charts';
+import { Color, Label } from 'ng2-charts';
+import { Options } from 'src/app/enum/options.enum';
 import { MonthlySummary } from 'src/app/model/monthly-summary.model';
 import { PortfolioDailyReturn } from 'src/app/model/portfolio-daily-return.model';
 import { TickerSummary } from 'src/app/model/ticker-summary.model';
@@ -12,6 +14,8 @@ import { SharedService } from 'src/services/shared.service';
   templateUrl: './barchart.component.html',
   styleUrls: ['./barchart.component.css']
 })
+
+
 export class BarchartComponent implements OnInit {
   //setting dynamic headings
   
@@ -34,12 +38,20 @@ export class BarchartComponent implements OnInit {
   barChartLegend = true;
   barChartPlugins = [];
 
-  // barChartData: ChartDataSets[] = [
-  //   { data: [], label: 'Profit Loss' }
-  // ];
+
 
   barChartData: ChartDataSets[] = Array<ChartDataSets>();
 
+  public barchartColors: Color[] = [
+    { backgroundColor: 'red' }, 
+    { backgroundColor: 'blue' },
+    { backgroundColor: 'green' },
+    { backgroundColor: 'black' },
+    { backgroundColor: 'magenta' },
+    { backgroundColor: 'yellow' },
+    { backgroundColor: 'grey' },
+    { backgroundColor: 'white' }
+  ]
   constructor(private sharedService: SharedService) { }
 
   
@@ -68,12 +80,21 @@ export class BarchartComponent implements OnInit {
    
   }
  
- 
-   
-  
 
   updateChart(pnldata: PortfolioDailyReturn[]) {
     this.barChartLabels = pnldata.map( e => e.positionDate)
+
+    // var a : ChartDataSets  = 
+
+    // this.barChartData[Options.realized] = { data: pnldata.map( e => e.realized), label: 'Real$', yAxisID: 'A'};
+    // this.barChartData[Options.onh] = { data: pnldata.map( e => e.onh), label: 'ONH$', yAxisID: 'A',  stack: 'a' };
+    // this.barChartData[Options.swing] = { data: pnldata.map( e => e.swing), label: 'Swing$', yAxisID: 'A',  stack: 'a' };
+    // this.barChartData[Options.sideBet] =  { data: pnldata.map( e => e.sideBet), label: 'Side$', yAxisID: 'A',  stack: 'a' };
+    // this.barChartData[Options.dayTrade] =  { data: pnldata.map( e => e.dayTrade), label: 'DT$', yAxisID: 'A',  stack: 'a' };
+    // this.barChartData[Options.other] =  { data: pnldata.map( e => e.other), label: 'Oth$', yAxisID: 'A' ,  stack: 'a'};
+    // this.barChartData[Options.unrealized] =  { data: pnldata.map( e => e.unrealized), label: 'UnR$', yAxisID: 'A' };
+    // this.barChartData[Options.sodInv] =  { data: pnldata.map( e => e.sodInv), label: 'Inv$', type: 'line', yAxisID: 'B', fill: false, borderColor: '#6D9EEB', borderWidth: 1 };
+    // this.barChartData[Options.cumuRealizedPnl] =   { data: pnldata.map( e => e.cumuRealizedPnl), label: 'RealC$', type: 'line', yAxisID: 'B', fill: false, borderColor: '#60AF09', borderWidth: 2};
 
     this.barChartData =  [{ data: pnldata.map( e => e.realized), label: 'Real$', yAxisID: 'A'},
                           { data: pnldata.map( e => e.onh), label: 'ONH$', yAxisID: 'A',  stack: 'a' },
@@ -84,7 +105,19 @@ export class BarchartComponent implements OnInit {
                           { data: pnldata.map( e => e.unrealized), label: 'UnR$', yAxisID: 'A' },
                           { data: pnldata.map( e => e.sodInv), label: 'Inv$', type: 'line', yAxisID: 'B', fill: false, borderColor: '#6D9EEB', borderWidth: 1 },
                           { data: pnldata.map( e => e.cumuRealizedPnl), label: 'RealC$', type: 'line', yAxisID: 'B', fill: false, borderColor: '#60AF09', borderWidth: 2}]
-  }
+    
+
+    // this.barChartData =  [{ data: PortfolioDailyReturn.getElementArray(pnldata, Options.realized), label: 'Real$', yAxisID: 'A'},
+    //                       { data: PortfolioDailyReturn.getElementArray(pnldata, Options.onh), label: 'ONH$', yAxisID: 'A',  stack: 'a' },
+    //                       { data: PortfolioDailyReturn.getElementArray(pnldata, Options.swing), label: 'Swing$', yAxisID: 'A',  stack: 'a' },
+    //                       { data: PortfolioDailyReturn.getElementArray(pnldata, Options.sideBet), label: 'Side$', yAxisID: 'A',  stack: 'a' },
+    //                       { data: PortfolioDailyReturn.getElementArray(pnldata, Options.dayTrade), label: 'DT$', yAxisID: 'A',  stack: 'a' },
+    //                       { data: PortfolioDailyReturn.getElementArray(pnldata, Options.other), label: 'Oth$', yAxisID: 'A' ,  stack: 'a'},
+    //                       { data: PortfolioDailyReturn.getElementArray(pnldata, Options.unrealized), label: 'UnR$', yAxisID: 'A' },
+    //                       { data: PortfolioDailyReturn.getElementArray(pnldata, Options.sodInv), label: 'Inv$', type: 'line', yAxisID: 'B', fill: false, borderColor: '#6D9EEB', borderWidth: 1 },
+    //                       { data: PortfolioDailyReturn.getElementArray(pnldata, Options.cumuRealizedPnl), label: 'RealC$', type: 'line', yAxisID: 'B', fill: false, borderColor: '#60AF09', borderWidth: 2}]
+
+                        }
 
   updateData(data: any) {
     console.log("barchart data: "+ JSON.stringify(data));

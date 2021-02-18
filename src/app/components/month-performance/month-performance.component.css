@@ -41,7 +41,7 @@ table {
 }
 .month-container {
   position: relative; 
-  max-height: 40vh; 
+  max-height: 45vh; 
   max-width: 60vw;
   text-align:  center;
   /* margin-left: 10px; */

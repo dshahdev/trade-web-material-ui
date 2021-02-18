@@ -1,4 +1,4 @@
-<table #table mat-table [dataSource]="dataSource" matSort >
+<table *ngIf="hideComp" #table mat-table [dataSource]="dataSource" matSort >
 
   <ng-container [matColumnDef]="field" *ngFor="let heading of headings;let field of displayedColumns">
     <th mat-header-cell  mat-sort-header *matHeaderCellDef>{{ field }}</th>

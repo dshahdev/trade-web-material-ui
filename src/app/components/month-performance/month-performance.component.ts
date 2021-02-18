@@ -12,7 +12,6 @@ import { TickerSummary } from 'src/app/model/ticker-summary.model';
 
 export class MonthPerformanceComponent  implements OnInit{
  
-//  @Input() monthlyPnl: MonthlySummary[] = [];
 
  dataSource = new MatTableDataSource<MonthlySummary>([]);
  @ViewChild(MatTable) table!: MatTable<any>;
@@ -21,37 +20,15 @@ export class MonthPerformanceComponent  implements OnInit{
  headings = [];
  displayedColumns: string[] = [];
  data = [];
+ hideComp: boolean = false;
 
   ngOnInit() {
-    this.headings = ["First Name", "Last Name", "Age (in Years)"];
-    this.displayedColumns = ["firstname", "lastname", "age"];
-    this.data = [
-      { firstname: "aa", lastname: "patel", age: 30 },
-      { firstname: "bb", lastname: "shah", age: 40 }
-    ];
+   
   }
 
-  someEvent() {
-    this.headings = ["empname", "phone", "address", "ssn", "location"];
-    this.displayedColumns = ["empname", "phone", "address", "ssn", "location"];
-    this.data = [
-      {
-        empname: "bb",
-        phone: "1232342345",
-        address: "bemedow",
-        ssn: "123121234",
-        location: "parsippany"
-      },
-      {
-        empname: "cc",
-        phone: "123",
-        address: "test 2",
-        ssn: "99999999",
-        location: "Whippany"
-      }
-    ];
-  }
+  
  updateChart(pnldata: any[]) {
+  this.hideComp =true;
   console.log(">>>>monthly pnl: "+ JSON.stringify(pnldata));
   var obj = pnldata.length > 0 ? pnldata[0]:{}
 
@@ -63,24 +40,10 @@ export class MonthPerformanceComponent  implements OnInit{
     this.displayedColumns.push(k)
     }
 
-    // this.data = pnldata;
-    this.dataSource.data = pnldata;
-    
+    this.dataSource.data = pnldata;   
     this.dataSource.sort = this.sort;
-    
-   
-
-    // // this.headings = ["firstname", "lastname", "age"];
-    // // this.displayedColumns = ["firstname", "lastname", "age"];
-    // this.data = [
-    //   { firstname: "aa", lastname: "patel", age: 30 },
-    //   { firstname: "bb", lastname: "shah", age: 40 }
-    // ];
-
   console.log(this.displayedColumns);
-  // this.dataSource.data = pnldata;
-  // this.dataSource.sort = this.sort;
-  // console.log("in monthly performance: "+ JSON.stringify(this.dataSource.data));
+  
 } 
   
 

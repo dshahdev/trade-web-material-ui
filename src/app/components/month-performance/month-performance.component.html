@@ -1,7 +1,7 @@
 <table *ngIf="hideComp" #table mat-table [dataSource]="dataSource" matSort >
 
-  <ng-container [matColumnDef]="field" *ngFor="let heading of headings;let field of displayedColumns">
-    <th mat-header-cell  mat-sort-header *matHeaderCellDef>{{ field }}</th>
+  <ng-container [matColumnDef]="field" *ngFor="let field of displayedColumns; let i=index">
+    <th mat-header-cell  mat-sort-header *matHeaderCellDef>{{ headings[i] }}</th>
     <td mat-cell *matCellDef="let element">{{ element[field] }}</td>
   </ng-container>
    
@@ -14,19 +14,3 @@
 
 
 
-<!-- <div class="month-container">
-  <button (click)="someEvent()">Click</button>
-<table>
-	<tr>
-		<th *ngFor="let heading of headings">{{heading!}}</th>
-	</tr>
-
-	<tr *ngFor="let obj of data; let i= index" [attr.data-index]="i">
-		<td *ngFor="let fieldName of fields; let j=index">{{obj[fieldName]!}}</td>
-	</tr>
-
-	<br />
-
-{{data[0]["lastname"]!}} 
-</table>
-</div> -->

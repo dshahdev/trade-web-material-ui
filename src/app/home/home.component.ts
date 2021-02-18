@@ -21,6 +21,8 @@ import { TradeComponent } from '../components/trade/trade.component';
 import { PnlComponent } from '../components/pnl/pnl.component';
 import { PositionForDateByticker } from '../model/position-date-ticker.model';
 import { Options } from '../enum/options.enum';
+import { keyframes } from '@angular/animations';
+import { Key } from 'protractor';
 
 
 
@@ -258,19 +260,21 @@ export class HomeComponent implements OnInit {
 
     if((yIndex === Options.realized) || (yIndex === Options.cumuRealizedPnl)) {
       this.sharedService.getPnlForDateByTicker(date).subscribe((response) =>{
-        console.log("responsed data for realized and realizedC: " + JSON.stringify(response));
         this.tickerPnlDetail = response;
-        console.log(this.tickerPnlDetail)
-        this.monthPerformanceComponent.updateChart(this.tickerPnlDetail);
+        console.log("responsed data for realized and realizedC: " + JSON.stringify(this.tickerPnlDetail))
+        
+      
+
+        this.monthPerformanceComponent.updateChart(this.tickerPnlDetail,['Ticker', 'Pnl','ONH','Swing','DT','Side']);
         // this.pieChartComponent.updateChart(this.tickerPnlDetail)
        
       });
     } else if((yIndex === Options.unrealized)  || (yIndex === Options.sodInv)) {
       this.sharedService.getPositionForDateByTicker(date).subscribe((response) => {
-        console.log("responsed data for unrealized and investment: "+JSON.stringify(response));
+        console.log("responsed data for unrealized and investment: "+JSON.stringify(response[0]));
         this.positionForDateByticker= response;
         
-        this.monthPerformanceComponent.updateChart(this.positionForDateByticker);
+        this.monthPerformanceComponent.updateChart(this.positionForDateByticker, ['Position Date','Ticker','Orig', 'Av','Aloc','MV$','Cost','Unr$','PriorPx','CurPx']);
       })
     } else {
       console.log("yIndex: "+yIndex);

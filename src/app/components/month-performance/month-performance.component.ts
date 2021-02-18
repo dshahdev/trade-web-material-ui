@@ -27,22 +27,21 @@ export class MonthPerformanceComponent  implements OnInit{
   }
 
   
- updateChart(pnldata: any[]) {
+ updateChart(pnldata: any[], displayHeadings: any[]) {
   this.hideComp =true;
   console.log(">>>>monthly pnl: "+ JSON.stringify(pnldata));
   var obj = pnldata.length > 0 ? pnldata[0]:{}
 
   this.displayedColumns = []
-  this.headings = ["MY TICKER","MYPNL"]
+  this.headings = displayHeadings;
 
   for(var k in obj) {
-    this.headings.push(k + "X");
     this.displayedColumns.push(k)
     }
 
     this.dataSource.data = pnldata;   
     this.dataSource.sort = this.sort;
-  console.log(this.displayedColumns);
+  console.log("columnes: "+ this.displayedColumns);
   
 } 
   

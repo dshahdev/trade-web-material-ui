@@ -1,16 +1,17 @@
 <div>
-    <app-head  [monthList]="monthList" (monthSelectedNotification)="monthChanged($event)"
+    <app-head  [monthList]="monthStr" (monthSelectedNotification)="monthChanged($event)"
      (searchNotification)="searchHandler($event)"></app-head>
 </div>
+
+<br/>
+<br/>
+<br/>
 
 <div class="container">
     <mat-card class="bar-chart" >
         <app-barchart #barChartComponent (barchrtClickedEvent)="chartDataHandler($event)"></app-barchart>
 
     </mat-card>
-    <!-- <mat-card class="pie-chart">
-        <app-piechart #pieChartComponent ></app-piechart>
-    </mat-card> -->
     <mat-card  class="month-info">
         <app-month-performance #monthPerformanceComponent ></app-month-performance>
     
@@ -61,7 +62,7 @@
 
 <br />
 <br />
-
+<!-- ------------------ -->
 <!-- <div class="container">
     <mat-card class="month-info">
         <app-portfolio-summary (positionDateEvent)="positionDateHandler($event)"></app-portfolio-summary>
@@ -75,10 +76,3 @@
 
 
 
-<!-- (click)="csvInput.click()"
-(change)="csvInputChange($event)"
-
- <mat-card class="month-info">
-        <app-month-performance #monthPerformanceComponent [monthlyPnl]="pnlMonthly"></app-month-performance>
-    
-    </mat-card>-->

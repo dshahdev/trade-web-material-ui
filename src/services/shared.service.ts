@@ -45,7 +45,8 @@ export class SharedService {
     portfoliodailyreturn: "portfoliodailyreturn",
     portfoliodailyreturnformonth: "portfoliodailyreturnformonth",
     pnlForDateByTicker: "pnlForDateByTicker",
-    positionForDateByTicker: "positionForDateByTicker"
+    positionForDateByTicker: "positionForDateByTicker",
+    systemparams: "systemparams"
     
   }
 
@@ -141,6 +142,10 @@ getPnlForAllMonths() : Observable<any> {
 
   getPositionForDateByTicker(date): Observable<any> {
     return this.http.post(this.servicePath + this.urls.positionForDateByTicker, date);
+  }
+
+  getSystemParams(): Observable<any>{
+    return this.http.get(this.servicePath + this.urls.systemparams);
   }
 
 }

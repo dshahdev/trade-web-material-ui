@@ -23,6 +23,9 @@ import { PositionForDateByticker } from '../model/position-date-ticker.model';
 import { Options } from '../enum/options.enum';
 import { keyframes } from '@angular/animations';
 import { Key } from 'protractor';
+import { DataService } from 'src/services/data.service';
+import { SystemParam } from '../model/systemParam.model';
+import { MulSelectionsComponent } from '../components/mul-selections/mul-selections.component';
 
 
 
@@ -37,6 +40,8 @@ import { Key } from 'protractor';
 
 
 export class HomeComponent implements OnInit {
+
+ 
 
   @ViewChild(HeadComponent)
   headComponent: HeadComponent = new HeadComponent(null);
@@ -88,37 +93,46 @@ export class HomeComponent implements OnInit {
   dateTrades: Trade[] = [];
   tickerTrades: Trade[] = [];
   tickerPnlDetail: TickerSummary[] = [];
-  positionForDateByticker: PositionForDateByticker[] = []
+  positionForDateByticker: PositionForDateByticker[] = [];
+  systemParameters: SystemParam;
 
   date: string = "";
   ticker: string = "";
-
+  monthStr = []
   selectedValue: string= "";
   selectedMonth: string = "";
 
-  constructor(private sharedService: SharedService) { }
+  constructor(private sharedService: SharedService, private dataService: DataService) { }
 
   ngOnInit(): void {
 
-    console.log("date: "+this.positionDate1);
-     var formattedDate = this.positionDate1.split('-').join('');
-    console.log("fd: "+formattedDate);
+    
     //getting Monthly List data
     this.sharedService.getMonthList().subscribe((response) => {
       this.monthList = response;
-      this.headComponent.updateSelection(this.monthList[0].strdata);
-      this.selectMonth(this.monthList[0].strdata);
+      this.monthStr =  this.monthList.map(e => e.strdata);
+    
+      console.log("monthlist in home: "+ JSON.stringify(this.monthStr));
+      // this.headComponent.updateSelection(this.monthList[0].strdata);
+      // this.selectMonth(this.monthList[0].strdata);
    
     });
 
     this.getPortfolioReturnData();
 
+    // calling data service
+   this.sharedService.getSystemParams().subscribe((response =>{
+    console.log("from sharedService: "+ JSON.stringify(response));
+    this.systemParameters = response;
+    this.headComponent.updateSelection(this.systemParameters.selectedMonth);
+    this.monthChanged(this.systemParameters.selectedMonth);
+    }))
   }
 
 
   monthChanged(month:any) {
     console.log("month is changed: "+ month);
-    this.selectMonth(month);
+    // this.selectMonth(month);
   }
 
   selectMonth(month: any ) {
@@ -195,7 +209,7 @@ export class HomeComponent implements OnInit {
 
   getPortfolioReturnDataForMonth(month: string){
     this.sharedService.getPortfolioDailyReturnForMonth(month).subscribe((response) => {
-      console.log("response in the barchart: "+JSON.stringify(response));
+      // console.log("response in the barchart: "+JSON.stringify(response));
       this.barChartComponent.updateChart(response);
     })
   }
@@ -274,7 +288,7 @@ export class HomeComponent implements OnInit {
         console.log("responsed data for unrealized and investment: "+JSON.stringify(response[0]));
         this.positionForDateByticker= response;
         
-        this.monthPerformanceComponent.updateChart(this.positionForDateByticker, ['Position Date','Ticker','Orig', 'Av','Aloc','MV$','Cost','Unr$','PriorPx','CurPx']);
+        this.monthPerformanceComponent.updateChart(this.positionForDateByticker, ['Position Date','Ticker','Orig', 'Av','Alloc','MV$','Cost','UnR$','Prior Px','Cur Px']);
       })
     } else {
       console.log("yIndex: "+yIndex);

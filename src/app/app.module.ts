@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common'
-
+import {ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
@@ -34,6 +34,8 @@ import { DialogOverviewExampleDialog } from './components/detail/dialog/dialog-o
 import { TradeComponent } from './components/trade/trade.component';
 import { TradeTickerComponent } from './components/trade-ticker/trade-ticker.component';
 import { PnlComponent } from './components/pnl/pnl.component';
+import { MulSelectionsComponent } from './components/mul-selections/mul-selections.component';
+import { DateSelectionsComponent } from './components/date-selections/date-selections.component';
 
 
 @NgModule({
@@ -56,14 +58,16 @@ import { PnlComponent } from './components/pnl/pnl.component';
     DialogOverviewExampleDialog,
     TradeComponent,
     TradeTickerComponent,
-    PnlComponent
+    PnlComponent,
+    MulSelectionsComponent,
+    DateSelectionsComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     AgGridModule.withComponents([]),
-  
+    ReactiveFormsModule,
     MaterialModule,
     RoutingModule,
     FlexLayoutModule,

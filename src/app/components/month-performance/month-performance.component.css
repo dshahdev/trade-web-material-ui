@@ -46,3 +46,24 @@ table {
   text-align:  center;
   /* margin-left: 10px; */
 }
+/* .right-align {
+  text-align: right;
+  font-size:smaller;
+  width: 75px;
+  /* background-color: red 
+}*/
+.w-75{
+  max-width: 75px;
+  
+} 
+.mat-column-headings{
+  max-width: 75px;
+  text-align: right;
+  color: red;
+}
+.tableHeaderCellDiv { 
+  resize: horizontal;  
+  overflow:hidden;
+  /* color: red; */
+ 
+}

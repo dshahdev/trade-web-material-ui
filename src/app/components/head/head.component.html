@@ -1,6 +1,7 @@
-<div style="display: flex; flex-wrap: wrap;">
-    <mat-card fxLayout="row wrap">
-        <mat-card fxFlex="100">
+<!-- <div style="display: flex; flex-wrap: wrap; ">
+    <mat-card fxLayout="row wrap" style="width: 100%">
+        <mat-card fxFlex="100" class="inner-mat">
+            
             <mat-form-field appearance="fill">
                 <mat-label>Month</mat-label>
                 <mat-select [(value)]="selectedValue" [(ngModel)]="selectedValue" #month name="month"
@@ -40,15 +41,29 @@
                 <input matInput type="text" [(ngModel)]="performance" [disabled]="true" #txtVal
                     (keydown.enter)="applyFilter(txtVal.value)" style="color:black">
             </mat-form-field>
-                <button mat-flat-button  class="download" color="primary" (click)="downLoadData()">Download</button>
+              
+            <button mat-flat-button  class="download"  (click)="downLoadData()">..</button>
+           
+            <label class="file-name" for="file">..</label>
+            <input class="file-input" type="file" id="file" (change)="handleFileInput($event)">
+            
+           
         </mat-card>
     </mat-card>
-   
-        <div class="form-group file ">
-            <label class="file-name" for="file">Upload File</label>
-            <input class="file-input" type="file" id="file" (change)="handleFileInput($event)">
-        </div>
-       
-    
+</div> -->
+<div style="display: flex; flex-wrap: wrap; ">
+    <mat-card fxLayout="row wrap" style="width: 100%">
+        <mat-card fxFlex="100" class="inner-mat">
+            <app-mul-selections [monthList]="monthList"></app-mul-selections>
+            <app-mul-selections></app-mul-selections>
+            <app-date-selections></app-date-selections>
+            <button mat-raised-button color="primary" class="func-button" (click)="submitPressed()">Submit</button>
+           
+            <button mat-flat-button class="func-button" (click)="downLoadData()">..</button>
 
+            <label class="file-name" for="file">..</label>
+            <input class="file-input" type="file" id="file" (change)="handleFileInput($event)">
+
+        </mat-card>
+    </mat-card>
 </div>

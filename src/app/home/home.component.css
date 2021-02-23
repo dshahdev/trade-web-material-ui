@@ -2,14 +2,26 @@
 .container {
   display:flex; 
   flex-wrap: wrap;
+  margin: 0;
+}
+.bar-chart {
+  max-width: 50%; 
+  /* height: 500px; */
+  margin-top: 0.5em;
+  flex-grow: 1;
+  overflow: auto;
+  border: .8px solid gray;
+  
 }
 .month-info {
-  width: 300px;
-  flex-grow: 1;
-  height: 300px;
+  max-width: 50%; 
+  flex-grow: 2;
+  /* height: 500px; */
   overflow: auto;
-  margin: 1em;
+  margin-top: .5em;
+  margin-left: 0.5em;
   /* flex-grow: 2; */
+  border: .8px solid gray;
 }
 
 
@@ -27,20 +39,22 @@
   flex-grow: 2;
   overflow: auto;
 }
-.bar-chart {
-  width: 100%;
+
+
+/* .month-info {
+ 
   height: 400px;
   margin: 0.5em;
   flex-grow: 2;
   overflow: auto;
-}
-/* .pie-chart {
-  width: 5%;
-  height: 400px;
-  margin: 1em;
-  flex-grow: 2;
-  overflow: auto;
 } */
+.pie-chart {
+  /* width: 5%; */
+  height: 400px;
+  margin: 0.5em;
+  flex-grow: 1;
+  overflow: auto;
+}
 .division-2 {
   /* width: 300px; */
   height: 300px;
@@ -67,3 +81,4 @@ mat-grid-tile {
   height: 28px;
  
 }
+

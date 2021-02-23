@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MonthlySummary } from 'src/app/model/monthly-summary.model';
+import { TickerSummary } from 'src/app/model/ticker-summary.model';
 
 @Component({
   selector: 'app-month-performance',
@@ -9,25 +10,41 @@ import { MonthlySummary } from 'src/app/model/monthly-summary.model';
   styleUrls: ['./month-performance.component.css']
 })
 
-export class MonthPerformanceComponent  {
+export class MonthPerformanceComponent  implements OnInit{
  
- @Input() monthlyPnl: MonthlySummary[] = [];
 
+ dataSource = new MatTableDataSource<MonthlySummary>([]);
  @ViewChild(MatTable) table!: MatTable<any>;
  @ViewChild(MatSort) sort!: MatSort;
 
- displayedColumns: string[] = ['month', 'pnl'];
- 
- dataSource = new MatTableDataSource<MonthlySummary>([]);
+ headings = [];
+ displayedColumns: string[] = [];
+ data = [];
+ hideComp: boolean = false;
 
- updateChart(pnldata: MonthlySummary[]) {
-  console.log(">>>>monthly pnl: "+ JSON.stringify(pnldata));
-  this.dataSource.data = pnldata;
-  console.log("in monthly performance: "+ JSON.stringify(this.dataSource.data));
-} 
-  ngAfterViewInit(): void {
+  ngOnInit() {
    
-    this.dataSource.sort = this.sort;
   }
 
+  
+ updateChart(pnldata: any[], displayHeadings: any[]) {
+  this.hideComp =true;
+  console.log(">>>>monthly pnl: "+ JSON.stringify(pnldata));
+  var obj = pnldata.length > 0 ? pnldata[0]:{}
+
+  this.displayedColumns = []
+  this.headings = displayHeadings;
+
+  for(var k in obj) {
+    this.displayedColumns.push(k)
+    }
+
+    this.dataSource.data = pnldata;   
+    this.dataSource.sort = this.sort;
+  console.log("columnes: "+ this.displayedColumns);
+  
+} 
+  
+
+  
 }

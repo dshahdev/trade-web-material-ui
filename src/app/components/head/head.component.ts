@@ -1,7 +1,11 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { ColumnsToolPanelModule } from '@ag-grid-enterprise/all-modules';
+import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
+import { GroupedObservable } from 'rxjs';
+import { GlobalFilter } from 'src/app/model/global-filter.model';
 import { MonthList } from 'src/app/model/month-list.model';
 import { Trade } from 'src/app/model/trade.model';
 import { SharedService } from 'src/services/shared.service';
+import { MulSelectionsComponent } from '../mul-selections/mul-selections.component';
 
 @Component({
   selector: 'app-head',
@@ -18,7 +22,7 @@ export class HeadComponent implements OnInit {
 
 
   date: string = "";
-  selectedValue: string= "xxx";
+  selectedValue: string = "xxx";
   selectedMonth: string = "";
   fileName: String = "";
 
@@ -28,58 +32,76 @@ export class HeadComponent implements OnInit {
   @Output() monthSelectedNotification = new EventEmitter();
   @Output() searchNotification = new EventEmitter();
 
+  @ViewChild(MulSelectionsComponent)
+  mulSelectionsComponent: MulSelectionsComponent = new MulSelectionsComponent();
+  
   monthlyDetail: MonthList[] = []
   tradesForDate: Trade[] = [];
+
+  globalFilters: GlobalFilter;
 
   constructor(private sharedService: SharedService) { }
 
   ngOnInit(): void {
+   
     if (this.monthList.length > 0) {
-      console.log(">>>>>.monthList: "+ this.monthList);
+      console.log("monthList: " + JSON.stringify(this.monthList))
+      console.log(">>>>>.monthList: " + this.monthList);
       this.selectedValue = this.monthList[0].strdata;
-      console.log("selectedValue: "+ this.selectedValue);
+      console.log("selectedValue: " + this.selectedValue);
+      this.mulSelectionsComponent.setMonthList(this.monthList)
     }
 
   }
+
+submitPressed() {
+  this.globalFilters = new GlobalFilter();
+ 
+ let selection  = this.mulSelectionsComponent.getMonthsValue();
+ selection.forEach(e =>{
+   this.globalFilters.months.push(e);
+ })
+this.monthSelectedNotification.emit(this.globalFilters);
+}
 
   updateSelection(selectedMonth) {
     this.selectedValue = selectedMonth;
   }
   applyFilter(val: string) {
-    console.log("given ticker value: "+val)
+    console.log("given ticker value: " + val)
     this.searchNotification.emit(val);
   }
 
-  selectMonth(month: any ) {
-    console.log("selected month: " +month);
+  selectMonth(month: any) {
+    console.log("selected month: " + month);
     this.monthSelectedNotification.emit(month)
   }
 
-  
-  handleFileInput(event:any) {
+
+  handleFileInput(event: any) {
     const formData: FormData = new FormData();
-    formData.append('file',event.target.files[0]);
-    
+    formData.append('file', event.target.files[0]);
+
     this.fileName = event.target.value;
-    console.log("file to upload: "+ JSON.stringify(this.fileName));
-    let fileFormat:any = this.fileName.split("\\");
-    
-    if(fileFormat.length === 3 ) {
-  
-      let FileToUpload = fileFormat[fileFormat.length-1]
-      console.log("file to upload: "+ FileToUpload);
+    console.log("file to upload: " + JSON.stringify(this.fileName));
+    let fileFormat: any = this.fileName.split("\\");
+
+    if (fileFormat.length === 3) {
+
+      let FileToUpload = fileFormat[fileFormat.length - 1]
+      console.log("file to upload: " + FileToUpload);
       let ft = FileToUpload.split(".");
-      if(ft.length === 3) {
-        
-        if(ft[0] === "TRADEDATA" && ft[1].length === 8 && ft[2] === "CSV" ) {
+      if (ft.length === 3) {
+
+        if (ft[0] === "TRADEDATA" && ft[1].length === 8 && ft[2] === "CSV") {
           this.fileName = ft.join(".");
-          console.log("Correct File: "+this.fileName);
+          console.log("Correct File: " + this.fileName);
           this.sharedService.uploadCSVfile(formData).subscribe((response) => {
 
             var res: Boolean = response.result;
 
             if (res == false) {
-              console.log("failed uploading the file "+ JSON.stringify(response));
+              console.log("failed uploading the file " + JSON.stringify(response));
             } else {
               this.sharedService.processCSVFile(this.fileName).subscribe((response) => {
                 var result: Boolean = response.result;
@@ -91,31 +113,31 @@ export class HeadComponent implements OnInit {
                 }
 
               })
-  
+
             }
 
           })
         } else {
-          console.log("not-Correct File: "+this.fileName);
+          console.log("not-Correct File: " + this.fileName);
           console.log("check your file-name");
         }
-    
-      
-      } else  {
+
+
+      } else {
         console.log("your file must be CSV file");
       }
-  
+
     }
-    
+
 
   }
 
   downLoadData() {
     console.log("download is clicked....")
     this.sharedService.savePrices().subscribe((response) => {
-        console.log("download done: "+response);
+      console.log("download done: " + response);
     });
   }
 
-  
+
 }

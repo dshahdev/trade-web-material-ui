@@ -39,3 +39,31 @@ table {
 .w-100{
   width: 100px;
 }
+.month-container {
+  position: relative; 
+  max-height: 45vh; 
+  max-width: 60vw;
+  text-align:  center;
+  /* margin-left: 10px; */
+}
+/* .right-align {
+  text-align: right;
+  font-size:smaller;
+  width: 75px;
+  /* background-color: red 
+}*/
+.w-75{
+  max-width: 75px;
+  
+} 
+.mat-column-headings{
+  max-width: 75px;
+  text-align: right;
+  color: red;
+}
+.tableHeaderCellDiv { 
+  resize: horizontal;  
+  overflow:hidden;
+  /* color: red; */
+ 
+}

@@ -19,6 +19,14 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { PortfolioSummaryComponent } from '../components/portfolio-summary/portfolio-summary.component';
 import { TradeComponent } from '../components/trade/trade.component';
 import { PnlComponent } from '../components/pnl/pnl.component';
+import { PositionForDateByticker } from '../model/position-date-ticker.model';
+import { Options } from '../enum/options.enum';
+import { keyframes } from '@angular/animations';
+import { Key } from 'protractor';
+import { DataService } from 'src/services/data.service';
+import { SystemParam } from '../model/systemParam.model';
+import { MulSelectionsComponent } from '../components/mul-selections/mul-selections.component';
+
 
 
 
@@ -27,13 +35,19 @@ import { PnlComponent } from '../components/pnl/pnl.component';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
+
+
+
 export class HomeComponent implements OnInit {
+
+ 
 
   @ViewChild(HeadComponent)
   headComponent: HeadComponent = new HeadComponent(null);
 
   @ViewChild(BarchartComponent)
-  barChartComponent: BarchartComponent = new BarchartComponent;
+  barChartComponent: BarchartComponent = new BarchartComponent(null);
 
   @ViewChild(PiechartComponent)
   pieChartComponent: PiechartComponent = new PiechartComponent;
@@ -63,7 +77,11 @@ export class HomeComponent implements OnInit {
 
   @ViewChild(PnlComponent)
   appPnlComponent: PnlComponent = new PnlComponent(null);
-   
+
+
+ 
+
+
   showDetails = false;
 
   positionDate = "20210122"
@@ -75,78 +93,84 @@ export class HomeComponent implements OnInit {
   dateTrades: Trade[] = [];
   tickerTrades: Trade[] = [];
   tickerPnlDetail: TickerSummary[] = [];
+  positionForDateByticker: PositionForDateByticker[] = [];
+  systemParameters: SystemParam;
 
   date: string = "";
   ticker: string = "";
-
+  monthStr = []
   selectedValue: string= "";
   selectedMonth: string = "";
 
-  constructor(private sharedService: SharedService) { }
+  constructor(private sharedService: SharedService, private dataService: DataService) { }
 
   ngOnInit(): void {
 
-    console.log("date: "+this.positionDate1);
-     var formattedDate = this.positionDate1.split('-').join('');
-    console.log("fd: "+formattedDate);
+    
     //getting Monthly List data
     this.sharedService.getMonthList().subscribe((response) => {
       this.monthList = response;
-      this.headComponent.updateSelection(this.monthList[0].strdata);
-      this.selectMonth(this.monthList[0].strdata);
+      this.monthStr =  this.monthList.map(e => e.strdata);
+    
+      console.log("monthlist in home: "+ JSON.stringify(this.monthStr));
+      // this.headComponent.updateSelection(this.monthList[0].strdata);
+      // this.selectMonth(this.monthList[0].strdata);
    
     });
 
     this.getPortfolioReturnData();
 
-    this.getPortfolioSummary();
-    
-    this.getCurrentPosition();
-    
+    // calling data service
+   this.sharedService.getSystemParams().subscribe((response =>{
+    console.log("from sharedService: "+ JSON.stringify(response));
+    this.systemParameters = response;
+    this.headComponent.updateSelection(this.systemParameters.selectedMonth);
+    this.monthChanged(this.systemParameters.selectedMonth);
+    }))
   }
 
 
   monthChanged(month:any) {
     console.log("month is changed: "+ month);
-    this.selectMonth(month);
+    // this.selectMonth(month);
   }
 
   selectMonth(month: any ) {
     console.log("selected month: " +month);
     if(month !== 'all') {
-
-   
-    // getting pnl by date
+      this.getPortfolioReturnDataForMonth(month);
+      
+    // getting pnl by date --for the later use
     
-      this.sharedService.getPnlForMonthByDate(month).subscribe((response) => {
-        
-        this.dailySummaryComponent.updateData(response);
-        if (response.length > 0) {
+      // this.sharedService.getPnlForMonthByDate(month).subscribe((response) => {
+      
+      //   this.dailySummaryComponent.updateData(response);
+      //   if (response.length > 0) {
          
-          let formattedDate = response[0].date.split("-").join("");
-          this.pnlDetailForDate(formattedDate);
-        }
+      //     let formattedDate = response[0].date.split("-").join("");
+      //     this.pnlDetailForDate(formattedDate);
+      //   }
         
-      })
-    // getting pnl by ticker
-      this.sharedService.getPnlForMonthByTicker(month).subscribe((response:any) => {
-        this.tickerDailySummaryComponent.updateData(response);
-        if (response.length > 0) {
-          this.pnlDetailForTicker(response[0].ticker);
-        }
-      })
+      // })
+    // getting pnl by ticker --for the later use
+      // this.sharedService.getPnlForMonthByTicker(month).subscribe((response:any) => {
+      //   this.tickerDailySummaryComponent.updateData(response);
+      //   if (response.length > 0) {
+      //     this.pnlDetailForTicker(response[0].ticker);
+      //   }
+      // })
     } else {
      
-      this.sharedService.getPnlForAllMonths().subscribe((response:any) => {
-        this.monthlyDetail = response; 
-      })
+      this.getPortfolioReturnData();
     }
     
   }
 
   pnlDetailForDate(date: string) {
     this.sharedService.getPnlDetailForDate(date).subscribe((response) => {
+      console.log("home PnlDetailForDate: "+JSON.stringify(response));
       this.dateTrades = response;
+      this.barChartComponent.updateData(this.dateTrades);
       this.detailComponent.updateData( this.dateTrades);
     })
   }
@@ -170,29 +194,40 @@ export class HomeComponent implements OnInit {
 
   getSelectedDate(selectedDate: string) {
     this.formattedDate = selectedDate;
-    this.getCurrentPosition();
+    // this.getCurrentPosition();
   }
 
+  // for barcharts
 
   getPortfolioReturnData() {
     this.sharedService.getPortfolioDailyReturn().subscribe((response) => {
+      // console.log("response in the barchart: "+JSON.stringify(response));
+      this.barChartComponent.updateChart(response);
+    })
+  }
+   // for barcharts 
+
+  getPortfolioReturnDataForMonth(month: string){
+    this.sharedService.getPortfolioDailyReturnForMonth(month).subscribe((response) => {
+      // console.log("response in the barchart: "+JSON.stringify(response));
       this.barChartComponent.updateChart(response);
     })
   }
 
-  getPortfolioSummary() {
-    this.sharedService.getPortfolioSummary().subscribe((response) => {
-      this.formattedDate = this.convert(response[0].positionDate);
-      this.getCurrentPosition();
-      this.portfolioSummaryComponent.updateData(response);
-    })
-  }
+ 
+  // getPortfolioSummary() {
+  //   this.sharedService.getPortfolioSummary().subscribe((response) => {
+  //     this.formattedDate = this.convert(response[0].positionDate);
+  //     this.getCurrentPosition();
+  //     this.portfolioSummaryComponent.updateData(response);
+  //   })
+  // }
 
-  getCurrentPosition() {
-    this.sharedService.getCurrentPositionForDate(this.formattedDate).subscribe((response) => {
-      this.currentPositionComponent.updateData(response);
-    })
-  }
+  // getCurrentPosition() {
+  //   this.sharedService.getCurrentPositionForDate(this.formattedDate).subscribe((response) => {
+  //     this.currentPositionComponent.updateData(response);
+  //   })
+  // }
 
   tabChanged(tabChangeEvent: MatTabChangeEvent): void {
     if(tabChangeEvent.index === 0) {
@@ -203,11 +238,11 @@ export class HomeComponent implements OnInit {
     
   }
 
-  positionDateHandler(positionDate) {
-    this.formattedDate = positionDate;
-    console.log(">>>> position Date: "+ this.formattedDate);
-    this.getCurrentPosition();
-  }
+  // positionDateHandler(positionDate) {
+  //   this.formattedDate = positionDate;
+  //   console.log(">>>> position Date: "+ this.formattedDate);
+  //   this.getCurrentPosition();
+  // }
 
   convert(str) {
   
@@ -227,4 +262,41 @@ export class HomeComponent implements OnInit {
    this.appPnlComponent.setFilter(searchText);
   }
 
+  // emmited chart-Data handlers
+
+  chartDataHandler(event){
+    // debugger;
+    console.log("response from chart-date: "+ JSON.stringify(event.date));
+    console.log("response from chart-yIndex: "+ JSON.stringify(event.yIndex));
+    let date = event.date;
+    let yIndex = event.yIndex;
+    console.log( "enum "+Options.realized + " "+Options.cumuRealizedPnl)
+
+    if((yIndex === Options.realized) || (yIndex === Options.cumuRealizedPnl)) {
+      this.sharedService.getPnlForDateByTicker(date).subscribe((response) =>{
+        this.tickerPnlDetail = response;
+        console.log("responsed data for realized and realizedC: " + JSON.stringify(this.tickerPnlDetail))
+        
+      
+
+        this.monthPerformanceComponent.updateChart(this.tickerPnlDetail,['Ticker', 'Pnl','ONH','Swing','DT','Side']);
+        // this.pieChartComponent.updateChart(this.tickerPnlDetail)
+       
+      });
+    } else if((yIndex === Options.unrealized)  || (yIndex === Options.sodInv)) {
+      this.sharedService.getPositionForDateByTicker(date).subscribe((response) => {
+        console.log("responsed data for unrealized and investment: "+JSON.stringify(response[0]));
+        this.positionForDateByticker= response;
+        
+        this.monthPerformanceComponent.updateChart(this.positionForDateByticker, ['Position Date','Ticker','Orig', 'Av','Alloc','MV$','Cost','UnR$','Prior Px','Cur Px']);
+      })
+    } else {
+      console.log("yIndex: "+yIndex);
+    }
+    
+
+    
+   
+    
+  }
 }

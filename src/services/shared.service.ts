@@ -28,6 +28,8 @@ export class SharedService {
     pnlByMonth:"monthlySummary",
     pnlForTicker:"pnlForTickerByDate",
     monthList:"monthList",
+    tickerList: "getTickers",
+    yearList: "allYears",
     pnlForMonthByDate:"pnlForMonthByDate", 
     pnlForMonthByTicker:"pnlForMonthByTicker",
     pnlForAllMonths:"allMonthList",
@@ -46,7 +48,9 @@ export class SharedService {
     portfoliodailyreturnformonth: "portfoliodailyreturnformonth",
     pnlForDateByTicker: "pnlForDateByTicker",
     positionForDateByTicker: "positionForDateByTicker",
-    systemparams: "systemparams"
+    systemparams: "systemparams",
+
+    
     
   }
 
@@ -146,6 +150,13 @@ getPnlForAllMonths() : Observable<any> {
 
   getSystemParams(): Observable<any>{
     return this.http.get(this.servicePath + this.urls.systemparams);
+  }
+  getTickersList(): Observable<any> {
+    return this.http.get(this.servicePath + this.urls.tickerList)
+  }
+
+  getYearList(): Observable<any> {
+    return this.http.get(this.servicePath + this.urls.yearList);
   }
 
 }

@@ -17,6 +17,8 @@ import { MatSelectModule} from '@angular/material/select';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog' ;
+import { MatRadioModule} from '@angular/material/radio';
+
 
 @NgModule({
   declarations: [],
@@ -38,7 +40,8 @@ import { MatDialogModule } from '@angular/material/dialog' ;
     MatSelectModule,
     MatNativeDateModule,
     MatDatepickerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatRadioModule
   ],
   exports: [
     MatTabsModule,
@@ -57,7 +60,8 @@ import { MatDialogModule } from '@angular/material/dialog' ;
     MatSelectModule,
     MatNativeDateModule,
     MatDatepickerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatRadioModule
   ]
 })
 export class MaterialModule { }

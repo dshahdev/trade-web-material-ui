@@ -36,6 +36,7 @@ import { TradeTickerComponent } from './components/trade-ticker/trade-ticker.com
 import { PnlComponent } from './components/pnl/pnl.component';
 import { MulSelectionsComponent } from './components/mul-selections/mul-selections.component';
 import { DateSelectionsComponent } from './components/date-selections/date-selections.component';
+import { PeriodComponent } from './components/period/period.component';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { DateSelectionsComponent } from './components/date-selections/date-selec
     TradeTickerComponent,
     PnlComponent,
     MulSelectionsComponent,
-    DateSelectionsComponent
+    DateSelectionsComponent,
+    PeriodComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,5 @@
 <div>
-    <app-head  [monthList]="monthStr" (monthSelectedNotification)="monthChanged($event)"
+    <app-head  [monthList]="monthStr" [tickerList]="tickerStr" (globalFilterNotification)="monthChanged($event)"
      (searchNotification)="searchHandler($event)"></app-head>
 </div>
 

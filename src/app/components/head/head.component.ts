@@ -2,9 +2,10 @@ import { ColumnsToolPanelModule } from '@ag-grid-enterprise/all-modules';
 import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { GroupedObservable } from 'rxjs';
 import { GlobalFilter } from 'src/app/model/global-filter.model';
-import { MonthList } from 'src/app/model/month-list.model';
+import { Strdata } from 'src/app/model/strdata.model';
 import { Trade } from 'src/app/model/trade.model';
 import { SharedService } from 'src/services/shared.service';
+import { DateSelectionsComponent } from '../date-selections/date-selections.component';
 import { MulSelectionsComponent } from '../mul-selections/mul-selections.component';
 
 @Component({
@@ -14,12 +15,20 @@ import { MulSelectionsComponent } from '../mul-selections/mul-selections.compone
 })
 export class HeadComponent implements OnInit {
 
+  
+
+
   value = '';
   value1 = "Pinal";
   MTD$ = "00.00";
   YTD$ = "00.00";
   performance = "100%"
 
+  title = "Months";
+  title2 = "Tickers"
+  title3 ="Realized$";
+  title4 = "Strategy";
+  title5 = "Trade Id";
 
   date: string = "";
   selectedValue: string = "xxx";
@@ -27,15 +36,22 @@ export class HeadComponent implements OnInit {
   fileName: String = "";
 
   // monthList: MonthList[] = [];
-  @Input() monthList: MonthList[] = [];
+  @Input() monthList: Strdata[] = [];
+  @Input() tickerList: Strdata[] = [];
 
-  @Output() monthSelectedNotification = new EventEmitter();
+  @Output() globalFilterNotification = new EventEmitter();
   @Output() searchNotification = new EventEmitter();
 
-  @ViewChild(MulSelectionsComponent)
-  mulSelectionsComponent: MulSelectionsComponent = new MulSelectionsComponent();
+  @ViewChild('monthselect')
+  monthSelectComponent: MulSelectionsComponent = new MulSelectionsComponent();
   
-  monthlyDetail: MonthList[] = []
+  @ViewChild('tickerselect')
+  tickerSelectComponent: MulSelectionsComponent = new MulSelectionsComponent();
+
+  @ViewChild('dateselect')
+  dateSelectComponent: DateSelectionsComponent = new DateSelectionsComponent();
+
+  monthlyDetail: Strdata[] = []
   tradesForDate: Trade[] = [];
 
   globalFilters: GlobalFilter;
@@ -49,20 +65,31 @@ export class HeadComponent implements OnInit {
       console.log(">>>>>.monthList: " + this.monthList);
       this.selectedValue = this.monthList[0].strdata;
       console.log("selectedValue: " + this.selectedValue);
-      this.mulSelectionsComponent.setMonthList(this.monthList)
+      
+    }
+
+    if(this.tickerList.length > 0) {
+      console.log("tickerList: "+ JSON.stringify(this.tickerList));
     }
 
   }
 
 submitPressed() {
   this.globalFilters = new GlobalFilter();
+
+  //set the instance for GloablFileter object.
+  // debugger;
+ console.log(this.monthSelectComponent.getSelectedValues());
+ console.log(this.tickerSelectComponent.getSelectedValues());
+ this.globalFilters.months = this.monthSelectComponent.getSelectedValues();
+ this.globalFilters.ticker = this.tickerSelectComponent.getSelectedValues();
  
- let selection  = this.mulSelectionsComponent.getMonthsValue();
- selection.forEach(e =>{
-   this.globalFilters.months.push(e);
- })
-this.monthSelectedNotification.emit(this.globalFilters);
+ this.globalFilters.dates = this.dateSelectComponent.getSelectedValues();
+ 
+
+ this.globalFilterNotification.emit(this.globalFilters);
 }
+
 
   updateSelection(selectedMonth) {
     this.selectedValue = selectedMonth;
@@ -74,7 +101,7 @@ this.monthSelectedNotification.emit(this.globalFilters);
 
   selectMonth(month: any) {
     console.log("selected month: " + month);
-    this.monthSelectedNotification.emit(month)
+    this.globalFilterNotification.emit(month)
   }
 
 

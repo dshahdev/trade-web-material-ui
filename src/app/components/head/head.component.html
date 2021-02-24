@@ -51,15 +51,26 @@
         </mat-card>
     </mat-card>
 </div> -->
+
+
 <div style="display: flex; flex-wrap: wrap; ">
-    <mat-card fxLayout="row wrap" style="width: 100%">
+    <mat-card fxLayout="row wrap" style="width: 100%; ">
         <mat-card fxFlex="100" class="inner-mat">
-            <app-mul-selections [monthList]="monthList"></app-mul-selections>
-            <app-mul-selections></app-mul-selections>
-            <app-date-selections></app-date-selections>
-            <button mat-raised-button color="primary" class="func-button" (click)="submitPressed()">Submit</button>
+            <!-- period -->
+            <app-period [monthList] = "monthList"></app-period>
+            <!-- <app-mul-selections style="margin-top: 5px" #monthselect [data]="monthList" [title] ="title"></app-mul-selections> -->
+            <!-- ticker -->
+            <app-mul-selections class="options" #tickerselect [data]="tickerList" [title] ="title2"></app-mul-selections>
+            <!-- realised -->
+            <app-mul-selections class="options" #realized [data]="tickerList" [title] ="title3"></app-mul-selections>
+            <!-- strategy -->
+            <app-mul-selections class="options" #strategy [data]="tickerList" [title] ="title4"></app-mul-selections>
+            <!-- treadeId from to to -->
+            <app-mul-selections class="options" #tradeId [data]="tickerList" [title] ="title5"></app-mul-selections>
+            <!-- submit -->
+            <button mat-raised-button color="primary" class="func-button" (click)="submitPressed()" >Submit</button>
            
-            <button mat-flat-button class="func-button" (click)="downLoadData()">..</button>
+            <button mat-flat-button  class="download-btn" (click)="downLoadData()">..</button>
 
             <label class="file-name" for="file">..</label>
             <input class="file-input" type="file" id="file" (change)="handleFileInput($event)">

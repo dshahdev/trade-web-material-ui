@@ -1,0 +1,14 @@
+
+<mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" >
+    <mat-radio-button class="example-radio-button">
+        <app-mul-selections [title] = "tl"></app-mul-selections>
+    </mat-radio-button>
+    <mat-radio-button class="example-radio-button">
+        <app-mul-selections [data]="monthList" [title]= "tl2"></app-mul-selections>
+    </mat-radio-button>
+    <mat-radio-button class="example-radio-button">
+        <app-date-selections #dateselect [title]= "tl3" ></app-date-selections>
+    </mat-radio-button>
+    
+</mat-radio-group>
+

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 
 @Component({
@@ -12,9 +12,50 @@ export class DateSelectionsComponent implements OnInit {
     start: new FormControl(),
     end: new FormControl()
   });
+
+  @Input() title: String = "";
   constructor() { }
 
   ngOnInit(): void {
   }
 
+
+  getSelectedValues():Array<string> {
+
+    let arr : Array<string> = [];
+    console.log(this.range.value);
+
+    let start = this.convert( this.range.value.start);
+    let end = this.convert(this.range.value.end);
+
+
+    console.log(start + " " + end);
+
+    arr.push(start)
+    arr.push(end)
+
+    return arr;
+  }
+
+  convert(str) {
+  
+    var dateObj = new Date(str);
+    var month = dateObj.getUTCMonth() + 1; //months from 1-12
+    var day = dateObj.getUTCDate();
+    var year = dateObj.getUTCFullYear();
+    var fd = year + "-" + (month < 10 ? "0" + month: month) + "-" + (day < 10 ? "0" + day: day);
+
+    return fd;
+  }
+
+  dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement){
+    console.log(dateRangeStart.value );
+    console.log(dateRangeEnd.value)
+  }
+  getStartDate(input, event){
+    console.log(event.target.value);
+  }
+  getEndDate(input, event){
+    console.log(event.target.value);
+  }
 }

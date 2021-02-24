@@ -1,4 +1,4 @@
-export class MonthList {
+export class Strdata {
      
     public strdata: string ="";
     

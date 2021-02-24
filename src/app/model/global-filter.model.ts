@@ -1,5 +1,7 @@
+
+
 export class GlobalFilter {
-    public months: Array<string>;
-    public date: Array<string>;
+    public months: Array<string>
+    public dates: Array<string>;
     public ticker: Array<string>
 }

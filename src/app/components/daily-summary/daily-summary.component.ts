@@ -53,5 +53,6 @@ export class DailySummaryComponent implements OnInit {
 
     this.detailTradesEvent.emit(formattedDate);
   }
+  
      
 }

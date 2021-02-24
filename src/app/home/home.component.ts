@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { DatePnlDetail } from '../model/date-pnl.model';
-import { MonthList } from '../model/month-list.model';
+import { Strdata } from '../model/strdata.model';
 import { Trade } from '../model/trade.model';
 import { SharedService } from '../../services/shared.service';
 import { MonthlySummary } from '../model/monthly-summary.model';
@@ -88,7 +88,9 @@ export class HomeComponent implements OnInit {
   positionDate1 = (new Date()).toISOString().split('T')[0];; // when app. runs for the first time
   formattedDate = this.positionDate1.split('-').join('');
 
-  monthList: MonthList[] = [];
+  monthList: Strdata[] = [];
+  tickerList: Strdata[] = [];
+
   monthlyDetail: DatePnlDetail[] = []
   dateTrades: Trade[] = [];
   tickerTrades: Trade[] = [];
@@ -98,7 +100,8 @@ export class HomeComponent implements OnInit {
 
   date: string = "";
   ticker: string = "";
-  monthStr = []
+  monthStr = [];
+  tickerStr = [];
   selectedValue: string= "";
   selectedMonth: string = "";
 
@@ -118,6 +121,19 @@ export class HomeComponent implements OnInit {
    
     });
 
+    // getting Ticker List Data
+    this.sharedService.getTickersList().subscribe((response) =>{
+      this.tickerList = response;
+      this.tickerStr = this.tickerList.map(e => e.strdata);
+      console.log("tickerList: "+JSON.stringify(this.tickerStr));
+    })
+
+    // getting Years List Data
+    this.sharedService.getYearList().subscribe((response) => {
+      console.log("all years: "+ JSON.stringify(response))
+    })
+
+
     this.getPortfolioReturnData();
 
     // calling data service
@@ -129,10 +145,11 @@ export class HomeComponent implements OnInit {
     }))
   }
 
-
+  
+//getting global filter obj from head
   monthChanged(month:any) {
-    console.log("month is changed: "+ month);
-    // this.selectMonth(month);
+    console.log("month is changed: "+ JSON.stringify(month));
+    this.selectMonth(month);
   }
 
   selectMonth(month: any ) {

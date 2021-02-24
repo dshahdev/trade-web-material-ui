@@ -1,4 +1,11 @@
-.month-selection {
-    width: 15em;
+.selection {
+    /* width: 15em; */
     padding-top: 3px;
+    /* padding-bottom: 0px; */
+    /* margin-left: 2px; */
+   
+}
+mat-form-field {
+    height: .5em;
+    margin-top: .5em;
 }

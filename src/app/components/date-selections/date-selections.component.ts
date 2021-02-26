@@ -29,11 +29,12 @@ export class DateSelectionsComponent implements OnInit {
     let end = this.convert(this.range.value.end);
 
 
-    console.log(start + " " + end);
+    // console.log(start + " " + end);
 
-    arr.push(start)
-    arr.push(end)
+    arr.push(start);
+    arr.push(end);
 
+    // console.log(arr);
     return arr;
   }
 
@@ -48,14 +49,5 @@ export class DateSelectionsComponent implements OnInit {
     return fd;
   }
 
-  dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement){
-    console.log(dateRangeStart.value );
-    console.log(dateRangeEnd.value)
-  }
-  getStartDate(input, event){
-    console.log(event.target.value);
-  }
-  getEndDate(input, event){
-    console.log(event.target.value);
-  }
+  
 }

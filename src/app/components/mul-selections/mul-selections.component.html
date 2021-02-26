@@ -1,7 +1,7 @@
 
 <mat-form-field #myform appearance="fill" class="selection" >
     <mat-label>{{title}}</mat-label>
-    <mat-select   [formControl]="selectedValues" multiple style="height: .5em">
+    <mat-select   [formControl]="selectedValues" multiple style="height: .5em" (selectedChanged)="changeEvent($event)">
       <mat-option  *ngFor="let item of data" [value]="item"
       >{{item}}</mat-option>
     </mat-select>

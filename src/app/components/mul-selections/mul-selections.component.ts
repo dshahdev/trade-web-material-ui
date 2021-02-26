@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output,EventEmitter } from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
+
 import { Strdata } from '../../model/strdata.model';
 
 @Component({
@@ -12,6 +13,7 @@ export class MulSelectionsComponent implements OnInit {
   selectedValues = new FormControl();
   @Input() title: String = "";
   @Input() data: Strdata[] = [];
+  @Output() periodDataNotification = new EventEmitter();
   
 
   constructor() {}
@@ -21,10 +23,15 @@ export class MulSelectionsComponent implements OnInit {
   
 
    getSelectedValues():Array<string> {
+     
     console.log(this.selectedValues.value);
     return this.selectedValues.value;
   }
 
+  
+  changeEvent(event){
+    console.log("event value in mul-selection: "+event);
+  }
 
   
   

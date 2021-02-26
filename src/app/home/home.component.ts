@@ -90,6 +90,10 @@ export class HomeComponent implements OnInit {
 
   monthList: Strdata[] = [];
   tickerList: Strdata[] = [];
+  yearList: Strdata[] = [];
+
+  realizedData: string[] = ['<-10','-5:-10%','0:-5%','0%:3%','3%:5%','5%:8%','5%:8%','8%:10%','>10%'];
+  strategyData: string[] = ['SWING','SIDE-BET','ONH','DT','OTHER'];
 
   monthlyDetail: DatePnlDetail[] = []
   dateTrades: Trade[] = [];
@@ -100,8 +104,11 @@ export class HomeComponent implements OnInit {
 
   date: string = "";
   ticker: string = "";
+
   monthStr = [];
   tickerStr = [];
+  yearStr = [];
+
   selectedValue: string= "";
   selectedMonth: string = "";
 
@@ -130,6 +137,8 @@ export class HomeComponent implements OnInit {
 
     // getting Years List Data
     this.sharedService.getYearList().subscribe((response) => {
+      this.yearList = response;
+      this.yearStr = this.yearList.map(e => e.strdata);
       console.log("all years: "+ JSON.stringify(response))
     })
 
@@ -152,6 +161,9 @@ export class HomeComponent implements OnInit {
     this.selectMonth(month);
   }
 
+  globalFilterHandler(event) {
+    console.log("global filters: "+ JSON.stringify(event));
+  }
   selectMonth(month: any ) {
     console.log("selected month: " +month);
     if(month !== 'all') {

@@ -7,6 +7,8 @@ import { Trade } from 'src/app/model/trade.model';
 import { SharedService } from 'src/services/shared.service';
 import { DateSelectionsComponent } from '../date-selections/date-selections.component';
 import { MulSelectionsComponent } from '../mul-selections/mul-selections.component';
+import { PeriodComponent } from '../period/period.component';
+import { TradeIdComponent } from '../trade-id/trade-id.component';
 
 @Component({
   selector: 'app-head',
@@ -38,25 +40,37 @@ export class HeadComponent implements OnInit {
   // monthList: MonthList[] = [];
   @Input() monthList: Strdata[] = [];
   @Input() tickerList: Strdata[] = [];
-
+  @Input() yearList: Strdata[] = [];
+  @Input() realizedData: Strdata[] = [];
+  @Input() strategyData: Strdata[] = [];
+  
   @Output() globalFilterNotification = new EventEmitter();
   @Output() searchNotification = new EventEmitter();
 
-  @ViewChild('monthselect')
-  monthSelectComponent: MulSelectionsComponent = new MulSelectionsComponent();
+  
   
   @ViewChild('tickerselect')
   tickerSelectComponent: MulSelectionsComponent = new MulSelectionsComponent();
 
-  @ViewChild('dateselect')
-  dateSelectComponent: DateSelectionsComponent = new DateSelectionsComponent();
+  @ViewChild('realized')
+  realizedSelectComponent: MulSelectionsComponent = new MulSelectionsComponent();
+
+  @ViewChild('strategy')
+  strategySelectComponent: MulSelectionsComponent = new MulSelectionsComponent();
+
+  @ViewChild(TradeIdComponent)
+  tradeIdSelectComponent: TradeIdComponent = new TradeIdComponent();
+
+  @ViewChild(PeriodComponent)
+  periodComponent: PeriodComponent = new PeriodComponent();
+
 
   monthlyDetail: Strdata[] = []
   tradesForDate: Trade[] = [];
 
   globalFilters: GlobalFilter;
 
-  constructor(private sharedService: SharedService) { }
+  constructor(private sharedService: SharedService) { }PeriodComponent
 
   ngOnInit(): void {
    
@@ -78,13 +92,11 @@ submitPressed() {
   this.globalFilters = new GlobalFilter();
 
   //set the instance for GloablFileter object.
-  // debugger;
- console.log(this.monthSelectComponent.getSelectedValues());
- console.log(this.tickerSelectComponent.getSelectedValues());
- this.globalFilters.months = this.monthSelectComponent.getSelectedValues();
+ this.globalFilters.period =  this.periodComponent.getSelectedValues();
  this.globalFilters.ticker = this.tickerSelectComponent.getSelectedValues();
- 
- this.globalFilters.dates = this.dateSelectComponent.getSelectedValues();
+ this.globalFilters.realized = this.realizedSelectComponent.getSelectedValues();
+ this.globalFilters.strategy = this.strategySelectComponent.getSelectedValues();
+ this.globalFilters.tradeId = this.tradeIdSelectComponent.getSelectedValues();
  
 
  this.globalFilterNotification.emit(this.globalFilters);

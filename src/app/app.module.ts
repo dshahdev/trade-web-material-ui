@@ -37,6 +37,7 @@ import { PnlComponent } from './components/pnl/pnl.component';
 import { MulSelectionsComponent } from './components/mul-selections/mul-selections.component';
 import { DateSelectionsComponent } from './components/date-selections/date-selections.component';
 import { PeriodComponent } from './components/period/period.component';
+import { TradeIdComponent } from './components/trade-id/trade-id.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { PeriodComponent } from './components/period/period.component';
     PnlComponent,
     MulSelectionsComponent,
     DateSelectionsComponent,
-    PeriodComponent
+    PeriodComponent,
+    TradeIdComponent
   ],
   imports: [
     BrowserModule,

@@ -57,16 +57,17 @@
     <mat-card fxLayout="row wrap" style="width: 100%; ">
         <mat-card fxFlex="100" class="inner-mat">
             <!-- period -->
-            <app-period [monthList] = "monthList"></app-period>
+            <app-period #period [monthList] = "monthList"  [yearList] = "yearList"></app-period>
             <!-- <app-mul-selections style="margin-top: 5px" #monthselect [data]="monthList" [title] ="title"></app-mul-selections> -->
             <!-- ticker -->
             <app-mul-selections class="options" #tickerselect [data]="tickerList" [title] ="title2"></app-mul-selections>
             <!-- realised -->
-            <app-mul-selections class="options" #realized [data]="tickerList" [title] ="title3"></app-mul-selections>
+            <app-mul-selections class="options" #realized [data]="realizedData" [title] ="title3"></app-mul-selections>
             <!-- strategy -->
-            <app-mul-selections class="options" #strategy [data]="tickerList" [title] ="title4"></app-mul-selections>
+            <app-mul-selections class="options" #strategy [data]="strategyData" [title] ="title4"></app-mul-selections>
             <!-- treadeId from to to -->
-            <app-mul-selections class="options" #tradeId [data]="tickerList" [title] ="title5"></app-mul-selections>
+            <!-- <app-mul-selections class="options" #tradeId [data]="tickerList" [title] ="title5"></app-mul-selections> -->
+            <app-trade-id class="trade-id" #tradeId [title] ="title5"></app-trade-id>
             <!-- submit -->
             <button mat-raised-button color="primary" class="func-button" (click)="submitPressed()" >Submit</button>
            

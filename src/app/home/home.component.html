@@ -1,25 +1,27 @@
 <div>
-    <app-head  [monthList]="monthStr" [tickerList]="tickerStr" 
-                [yearList] ="yearStr" [realizedData] = "realizedData" 
-                [strategyData]="strategyData" 
-                (globalFilterNotification)="globalFilterHandler($event)"
+    <!-- <mat-accordion>
+        <mat-expansion-panel> -->
+            <app-head [monthList]="monthStr" [tickerList]="tickerStr" [yearList]="yearStr" [realizedData]="realizedData"
+                [strategyData]="strategyData" (globalFilterNotification)="globalFilterHandler($event)"
                 (searchNotification)="searchHandler($event)"></app-head>
+        <!-- </mat-expansion-panel>
+    </mat-accordion> -->
 </div>
 
-<br/>
-<br/>
-<br/>
+
+<!-- <br />
+<br />
+<br /> -->
 
 <div class="container">
-    <mat-card class="bar-chart" >
-        <app-barchart #barChartComponent 
-                (barchrtClickedEvent)="chartDataHandler($event)"
-                (optionClickedEvent)="selectedOption($event)"></app-barchart>
+    <mat-card class="bar-chart">
+        <app-barchart #barChartComponent (barchrtClickedEvent)="chartDataHandler($event)"
+            (optionClickedEvent)="selectedOption($event)"></app-barchart>
 
     </mat-card>
-    <mat-card  class="month-info">
-        <app-month-performance #monthPerformanceComponent ></app-month-performance>
-    
+    <mat-card class="month-info">
+        <app-month-performance #monthPerformanceComponent></app-month-performance>
+
     </mat-card>
 
 </div>
@@ -27,7 +29,7 @@
 <div style="width: 100%;  margin-bottom: 15px;  border: 2px solid black">
     <app-pnl #appPnlComponent></app-pnl>
 </div>
-<button mat-flat-button  class="detail" color="primary" (click)="display()">Ticker/DatePnl</button>
+<button mat-flat-button class="detail" color="primary" (click)="display()">Ticker/DatePnl</button>
 <div *ngIf="showDetails" style="display: flex; height: 400px; ">
     <div style="width: 100%;  margin-bottom: 15px; border: 2px solid black">
         <app-trade></app-trade>
@@ -78,6 +80,3 @@
     </mat-card>
 
 </div> -->
-
-
-

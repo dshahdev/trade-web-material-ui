@@ -27,6 +27,8 @@ import { DataService } from 'src/services/data.service';
 import { SystemParam } from '../model/systemParam.model';
 import { MulSelectionsComponent } from '../components/mul-selections/mul-selections.component';
 import { GlobalFilter } from '../model/global-filter.model';
+import { MatAccordion } from '@angular/material/expansion';
+import { MatExpansionModule} from '@angular/material/expansion';
 
 
 
@@ -42,7 +44,7 @@ import { GlobalFilter } from '../model/global-filter.model';
 
 export class HomeComponent implements OnInit {
 
- 
+  @ViewChild(MatAccordion) accordion: MatAccordion;
 
   @ViewChild(HeadComponent)
   headComponent: HeadComponent = new HeadComponent(null);

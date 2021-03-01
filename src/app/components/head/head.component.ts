@@ -1,5 +1,6 @@
 import { ColumnsToolPanelModule } from '@ag-grid-enterprise/all-modules';
 import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
+import { MatAccordion } from '@angular/material/expansion';
 import { GroupedObservable } from 'rxjs';
 import { GlobalFilter } from 'src/app/model/global-filter.model';
 import { Strdata } from 'src/app/model/strdata.model';
@@ -19,7 +20,8 @@ export class HeadComponent implements OnInit {
 
   
 
-
+  @ViewChild(MatAccordion) accordion: MatAccordion;
+  
   value = '';
   value1 = "Pinal";
   MTD$ = "00.00";

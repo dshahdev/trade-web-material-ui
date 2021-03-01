@@ -1,3 +1,18 @@
+
+<section>
+  <h4>Barchart options:</h4>
+  <mat-button-toggle-group #options [(ngModel)]="fontStyle" aria-label="Font Style" (change)="selectedOption($event.value)">
+    <mat-button-toggle  value="ticker">Ticker</mat-button-toggle>
+    <mat-button-toggle value="realized">Realized</mat-button-toggle>
+    <mat-button-toggle value="month">Month</mat-button-toggle>
+    <mat-button-toggle value="week">Week</mat-button-toggle>
+    <mat-button-toggle value="date">Date</mat-button-toggle>
+    <mat-button-toggle value="tradeId">Trade Id</mat-button-toggle>
+  </mat-button-toggle-group>
+ 
+</section>
+<br/>
+<br/>
 <div class="chart-wrapper barchart-container" >
     <canvas #myChart baseChart 
     [datasets]="barChartData"

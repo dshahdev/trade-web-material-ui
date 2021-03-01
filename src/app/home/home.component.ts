@@ -26,6 +26,7 @@ import { Key } from 'protractor';
 import { DataService } from 'src/services/data.service';
 import { SystemParam } from '../model/systemParam.model';
 import { MulSelectionsComponent } from '../components/mul-selections/mul-selections.component';
+import { GlobalFilter } from '../model/global-filter.model';
 
 
 
@@ -112,6 +113,8 @@ export class HomeComponent implements OnInit {
   selectedValue: string= "";
   selectedMonth: string = "";
 
+  globalFilter: GlobalFilter;
+
   constructor(private sharedService: SharedService, private dataService: DataService) { }
 
   ngOnInit(): void {
@@ -160,10 +163,19 @@ export class HomeComponent implements OnInit {
     console.log("month is changed: "+ JSON.stringify(month));
     this.selectMonth(month);
   }
-
-  globalFilterHandler(event) {
-    console.log("global filters: "+ JSON.stringify(event));
+// collecting global filters here
+  globalFilterHandler(value) {
+    console.log("global filters: "+ JSON.stringify(value));
+    // a separate request to the server
   }
+
+  // collecting barchart options here
+  selectedOption(value:any) {
+    console.log("chart option: "+value);
+   // a separate request to the server
+  }
+
+
   selectMonth(month: any ) {
     console.log("selected month: " +month);
     if(month !== 'all') {
@@ -322,10 +334,9 @@ export class HomeComponent implements OnInit {
     } else {
       console.log("yIndex: "+yIndex);
     }
-    
-
-    
-   
-    
   }
+
+  
+
+  
 }

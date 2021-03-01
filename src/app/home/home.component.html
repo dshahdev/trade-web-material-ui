@@ -1,8 +1,9 @@
 <div>
     <app-head  [monthList]="monthStr" [tickerList]="tickerStr" 
                 [yearList] ="yearStr" [realizedData] = "realizedData" 
-                [strategyData]="strategyData" (globalFilterNotification)="globalFilterHandler($event)"
-     (searchNotification)="searchHandler($event)"></app-head>
+                [strategyData]="strategyData" 
+                (globalFilterNotification)="globalFilterHandler($event)"
+                (searchNotification)="searchHandler($event)"></app-head>
 </div>
 
 <br/>
@@ -11,7 +12,9 @@
 
 <div class="container">
     <mat-card class="bar-chart" >
-        <app-barchart #barChartComponent (barchrtClickedEvent)="chartDataHandler($event)"></app-barchart>
+        <app-barchart #barChartComponent 
+                (barchrtClickedEvent)="chartDataHandler($event)"
+                (optionClickedEvent)="selectedOption($event)"></app-barchart>
 
     </mat-card>
     <mat-card  class="month-info">

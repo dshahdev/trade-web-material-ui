@@ -18,6 +18,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog' ;
 import { MatRadioModule} from '@angular/material/radio';
+import { MatButtonToggleModule} from '@angular/material/button-toggle';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { MatRadioModule} from '@angular/material/radio';
     MatNativeDateModule,
     MatDatepickerModule,
     MatDialogModule,
-    MatRadioModule
+    MatRadioModule,
+    MatButtonToggleModule
   ],
   exports: [
     MatTabsModule,
@@ -61,7 +63,8 @@ import { MatRadioModule} from '@angular/material/radio';
     MatNativeDateModule,
     MatDatepickerModule,
     MatDialogModule,
-    MatRadioModule
+    MatRadioModule,
+    MatButtonToggleModule
   ]
 })
 export class MaterialModule { }

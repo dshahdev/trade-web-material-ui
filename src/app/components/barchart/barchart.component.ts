@@ -1,5 +1,6 @@
 import { GroupCellRenderer } from '@ag-grid-enterprise/all-modules';
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatOptionSelectionChange } from '@angular/material/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
@@ -19,8 +20,11 @@ import { SharedService } from 'src/services/shared.service';
 export class BarchartComponent implements OnInit {
   //setting dynamic headings
   
-  @Output() barchrtClickedEvent = new EventEmitter()
-  
+  @Output() barchrtClickedEvent = new EventEmitter();
+  @Output() optionClickedEvent = new EventEmitter();
+
+  fontStyleControl = new FormControl();
+  fontStyle?: string;
 
   barChartOptions: ChartOptions = {
     responsive: true,
@@ -123,4 +127,8 @@ export class BarchartComponent implements OnInit {
     console.log("barchart data: "+ JSON.stringify(data));
   }
 
+  selectedOption(option: string) {
+    console.log("selected options: "+option);
+    this.optionClickedEvent.emit(option);
+  }
 }

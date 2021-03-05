@@ -95,8 +95,9 @@ export class HomeComponent implements OnInit {
   tickerList: Strdata[] = [];
   yearList: Strdata[] = [];
 
-  realizedData: string[] = ['<-10','-5:-10%','0:-5%','0%:3%','3%:5%','5%:8%','5%:8%','8%:10%','>10%'];
+  realizedData: string[] = ['< -10%','-5% : -10%','0% : -5%','0% : 3%','3% : 5%','5% : 8%','5% : 8%','8% : 10%','> 10%'];
   strategyData: string[] = ['SWING','SIDE-BET','ONH','DT','OTHER'];
+  barchartOptions: string[] = ['Ticker','Realized','Month','Week','Date','Trade Id'];
 
   monthlyDetail: DatePnlDetail[] = []
   dateTrades: Trade[] = [];
@@ -137,7 +138,7 @@ export class HomeComponent implements OnInit {
     this.sharedService.getTickersList().subscribe((response) =>{
       this.tickerList = response;
       this.tickerStr = this.tickerList.map(e => e.strdata);
-      console.log("tickerList: "+JSON.stringify(this.tickerStr));
+      // console.log("tickerList: "+JSON.stringify(this.tickerStr));
     })
 
     // getting Years List Data
@@ -166,8 +167,11 @@ export class HomeComponent implements OnInit {
     this.selectMonth(month);
   }
 // collecting global filters here
-  globalFilterHandler(value) {
-    console.log("global filters: "+ JSON.stringify(value));
+  globalFilterHandler(gfSelectedValue) {
+    console.log("global filters in home: "+ JSON.stringify(gfSelectedValue));
+    this.sharedService.getGlobalFilter(gfSelectedValue).subscribe((response) => {
+      console.log("months from server: "+ JSON.stringify(response));
+    })
     // a separate request to the server
   }
 
@@ -338,7 +342,13 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  
+  globalFiltersHandler(gfSelectedValue) {
+    console.log("globalfilter request: "+JSON.stringify(gfSelectedValue));
+    this.sharedService.getGlobalFilter(gfSelectedValue).subscribe((response) => {
+          console.log("months from server: "+ JSON.stringify(response));
+          this.barChartComponent.updateChart(response);
+        })
+  }
 
   
 }

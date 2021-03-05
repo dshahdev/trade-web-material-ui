@@ -11,7 +11,7 @@ import { Strdata } from '../../model/strdata.model';
 export class MulSelectionsComponent implements OnInit {
   form = FormGroup;
   selectedValues = new FormControl();
-  @Input() title: String = "";
+  @Input() title: string = "";
   @Input() data: Strdata[] = [];
   @Output() periodDataNotification = new EventEmitter();
   
@@ -22,17 +22,18 @@ export class MulSelectionsComponent implements OnInit {
   }
   
 
-   getSelectedValues():Array<string> {
-     
+   getSelectedValues() {
     console.log(this.selectedValues.value);
+    console.log(this.title);
     return this.selectedValues.value;
+    
   }
 
   
   changeEvent(event){
     console.log("event value in mul-selection: "+event);
   }
-
+  
   
   
 }

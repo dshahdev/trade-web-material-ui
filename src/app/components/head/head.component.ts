@@ -21,7 +21,7 @@ export class HeadComponent implements OnInit {
   
 
   @ViewChild(MatAccordion) accordion: MatAccordion;
-  
+
   value = '';
   value1 = "Pinal";
   MTD$ = "00.00";
@@ -33,7 +33,9 @@ export class HeadComponent implements OnInit {
   title3 ="Realized$";
   title4 = "Strategy";
   title5 = "Trade Id";
-
+  title6 = "Barchart Options";
+  // barOptions: Strdata[]= [{strdata:"Ticker"},{strdata:"Realized"},{strdata:"Month"},{strdata:"Week"},{strdata:"Date"},{strdata:"Trade Id"}];
+  
   date: string = "";
   selectedValue: string = "xxx";
   selectedMonth: string = "";
@@ -45,7 +47,9 @@ export class HeadComponent implements OnInit {
   @Input() yearList: Strdata[] = [];
   @Input() realizedData: Strdata[] = [];
   @Input() strategyData: Strdata[] = [];
-  
+  @Input() barchartOptions: Strdata[] = [];
+
+
   @Output() globalFilterNotification = new EventEmitter();
   @Output() searchNotification = new EventEmitter();
 
@@ -59,6 +63,10 @@ export class HeadComponent implements OnInit {
 
   @ViewChild('strategy')
   strategySelectComponent: MulSelectionsComponent = new MulSelectionsComponent();
+
+  @ViewChild('barchart')
+  barchartSelectComponent: MulSelectionsComponent = new MulSelectionsComponent();
+
 
   @ViewChild(TradeIdComponent)
   tradeIdSelectComponent: TradeIdComponent = new TradeIdComponent();
@@ -99,7 +107,7 @@ submitPressed() {
  this.globalFilters.realized = this.realizedSelectComponent.getSelectedValues();
  this.globalFilters.strategy = this.strategySelectComponent.getSelectedValues();
  this.globalFilters.tradeId = this.tradeIdSelectComponent.getSelectedValues();
- 
+ this.globalFilters.chartOption = this.barchartSelectComponent.getSelectedValues();
 
  this.globalFilterNotification.emit(this.globalFilters);
 }
@@ -180,5 +188,7 @@ submitPressed() {
     });
   }
 
+  
+  
 
 }

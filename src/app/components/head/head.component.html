@@ -1,66 +1,14 @@
-<!-- <div style="display: flex; flex-wrap: wrap; ">
-    <mat-card fxLayout="row wrap" style="width: 100%">
-        <mat-card fxFlex="100" class="inner-mat">
-            
-            <mat-form-field appearance="fill">
-                <mat-label>Month</mat-label>
-                <mat-select [(value)]="selectedValue" [(ngModel)]="selectedValue" #month name="month"
-                    (selectionChange)="selectMonth(month.value)">
-                    <mat-option *ngFor="let month of monthList" [value]="month.strdata">
-                        {{month.strdata}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field class="example-form-field" style="margin-left: 2em;">
-                <mat-label>Ticker/Date</mat-label>
-                <input matInput type="text" [(ngModel)]="value" #txtVal (keydown.enter)="applyFilter(txtVal.value)"
-                    style="color:black">
-                <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </mat-form-field>
 
-            <mat-form-field class="example-form-field" style="margin-left: 2em;">
-                <mat-label>portfolio value</mat-label>
-                <input matInput type="text" [(ngModel)]="value1" [disabled]="true" #txtVal
-                    (keydown.enter)="applyFilter(txtVal.value)" style="color:black">
-            </mat-form-field>
-
-            <mat-form-field class="example-form-field" style="margin-left: 1em;">
-                <mat-label>MTD$</mat-label>
-                <input matInput type="text" [(ngModel)]="MTD$" [disabled]="true" #txtVal
-                    (keydown.enter)="applyFilter(txtVal.value)" style="color:black">
-            </mat-form-field>
-            <mat-form-field class="example-form-field" style="margin-left: 1em;">
-                <mat-label>YTD$</mat-label>
-                <input matInput type="text" [(ngModel)]="YTD$" [disabled]="true" #txtVal
-                    (keydown.enter)="applyFilter(txtVal.value)" style="color:black">
-            </mat-form-field>
-            <mat-form-field class="example-form-field" style="margin-left: 1em;">
-                <mat-label>Performance</mat-label>
-                <input matInput type="text" [(ngModel)]="performance" [disabled]="true" #txtVal
-                    (keydown.enter)="applyFilter(txtVal.value)" style="color:black">
-            </mat-form-field>
-              
-            <button mat-flat-button  class="download"  (click)="downLoadData()">..</button>
-           
-            <label class="file-name" for="file">..</label>
-            <input class="file-input" type="file" id="file" (change)="handleFileInput($event)">
-            
-           
-        </mat-card>
-    </mat-card>
-</div> -->
 <div class="example-action-buttons">
-    <button mat-button (click)="accordion.openAll()">Expand Filters</button>
-    <button mat-button (click)="accordion.closeAll()">Collapse Filters</button>
-  </div>
+    
+    <button mat-button class="expand" (click)="accordion.openAll()">Expand Filters</button>
+    <button mat-button class="collapse" (click)="accordion.closeAll()">Collapse Filters</button>
+</div>
 <mat-accordion class="example-headers-align" multi>
     <mat-expansion-panel>
-
         <div style="display: flex; flex-wrap: wrap; ">
             <mat-card fxLayout="row wrap" style="width: 100%; ">
-                <mat-card fxFlex="100" class="inner-mat">
+                <!-- <mat-card fxFlex="100" class="inner-mat"> -->
                     <!-- period -->
                     <app-period #period [monthList]="monthList" [yearList]="yearList"></app-period>
                     <!-- <app-mul-selections style="margin-top: 5px" #monthselect [data]="monthList" [title] ="title"></app-mul-selections> -->
@@ -72,6 +20,9 @@
                     </app-mul-selections>
                     <!-- strategy -->
                     <app-mul-selections class="options" #strategy [data]="strategyData" [title]="title4">
+                    </app-mul-selections>
+                    <!-- barchart options -->
+                    <app-mul-selections class="options" #barchart [data]="barchartOptions" [title]="title6">
                     </app-mul-selections>
                     <!-- treadeId from to to -->
                     <!-- <app-mul-selections class="options" #tradeId [data]="tickerList" [title] ="title5"></app-mul-selections> -->
@@ -85,7 +36,7 @@
                     <label class="file-name" for="file">..</label>
                     <input class="file-input" type="file" id="file" (change)="handleFileInput($event)">
 
-                </mat-card>
+                <!-- </mat-card> -->
             </mat-card>
         </div>
     </mat-expansion-panel>

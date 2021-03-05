@@ -15,12 +15,16 @@ export class TradeIdComponent implements OnInit {
   }
 
   getSelectedValues():Array<string> {
-     
-    console.log(this.startId + " "+ this.endId);
     let idRange = [];
-    idRange.push(this.startId);
-    idRange.push(this.endId);
-
+   
+     if(typeof this.startId === "number") {
+      idRange.push(this.startId);
+     } 
+     if(typeof this.endId === "number") {
+      idRange.push(this.endId);
+     }
+    console.log(this.startId + " "+ this.endId);
+    
     return idRange;
   }
 }

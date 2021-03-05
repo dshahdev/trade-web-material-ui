@@ -5,22 +5,19 @@
   margin: 0;
 }
 .bar-chart {
-  max-width: 50%; 
-  /* height: 500px; */
+  max-width: 60%; 
   margin-top: 0.5em;
-  flex-grow: 1;
+  flex-grow: 2;
   overflow: auto;
   border: .8px solid gray;
   
 }
 .month-info {
-  max-width: 50%; 
+  max-width: 40%; 
   flex-grow: 2;
-  /* height: 500px; */
   overflow: auto;
   margin-top: .5em;
   margin-left: 0.5em;
-  /* flex-grow: 2; */
   border: .8px solid gray;
 }
 

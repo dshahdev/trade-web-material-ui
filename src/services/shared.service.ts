@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { _MatOptionBase } from '@angular/material/core';
+import { GlobalFilter } from 'src/app/model/global-filter.model';
 
 const headerOptions = { 
   headers: new HttpHeaders( {
@@ -49,7 +50,7 @@ export class SharedService {
     pnlForDateByTicker: "pnlForDateByTicker",
     positionForDateByTicker: "positionForDateByTicker",
     systemparams: "systemparams",
-
+    setglobalfilter: "setglobalfilter"
     
     
   }
@@ -159,4 +160,8 @@ getPnlForAllMonths() : Observable<any> {
     return this.http.get(this.servicePath + this.urls.yearList);
   }
 
+  getGlobalFilter(gloableFilterObj: GlobalFilter): Observable<any> {
+    console.log("param in service....."+ gloableFilterObj);
+    return this.http.post(this.servicePath + this.urls.setglobalfilter, gloableFilterObj);
+  }
 }

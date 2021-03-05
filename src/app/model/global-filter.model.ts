@@ -9,4 +9,5 @@ export class GlobalFilter {
     public strategy: Array<string>;
     public tradeId: Array<string>;
     public chartOption: Array<string>; 
+
 }

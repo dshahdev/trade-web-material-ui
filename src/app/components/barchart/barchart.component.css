@@ -2,9 +2,11 @@
     position: relative; 
     height: 45vh;
     margin: 0 30px;
-    max-width: 60vw;
+    /* max-width: 60vw; */
+    /* max-width: 100%; */
     text-align:  center;
-    /* margin-left: 10px; */
+    border: 3px solid #3F51B5ed;
+   
 }
 
 mat-button-toggle:hover {
@@ -13,7 +15,9 @@ mat-button-toggle:hover {
 }
 section {
     margin-bottom: .7em;
+    display: flex;
+    border: 3px solid #3F51B5ed;
 }
-h4 {
+h3 {
     color: #3F51B5;
 }

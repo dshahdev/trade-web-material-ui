@@ -1,11 +1,10 @@
 <div>
-    <!-- <mat-accordion>
-        <mat-expansion-panel> -->
+  
             <app-head [monthList]="monthStr" [tickerList]="tickerStr" [yearList]="yearStr" [realizedData]="realizedData"
-                [strategyData]="strategyData" (globalFilterNotification)="globalFilterHandler($event)"
-                (searchNotification)="searchHandler($event)"></app-head>
-        <!-- </mat-expansion-panel>
-    </mat-accordion> -->
+                [strategyData]="strategyData" [barchartOptions]="barchartOptions" (globalFilterNotification)="globalFilterHandler($event)"
+                (searchNotification)="searchHandler($event)">
+            </app-head>
+   
 </div>
 
 
@@ -15,7 +14,15 @@
 
 <div class="container">
     <mat-card class="bar-chart">
-        <app-barchart #barChartComponent (barchrtClickedEvent)="chartDataHandler($event)"
+        <app-barchart #barChartComponent 
+            [monthList]="monthStr"
+            [tickerList]="tickerStr"
+            [yearList]="yearStr"
+            [realizedData]="realizedData"
+            [strategyData]="strategyData" 
+            [barchartOptions]="barchartOptions" 
+            (globalFiltersEvent)="globalFiltersHandler($event)"
+            (barchrtClickedEvent)="chartDataHandler($event)"
             (optionClickedEvent)="selectedOption($event)"></app-barchart>
 
     </mat-card>

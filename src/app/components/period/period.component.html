@@ -1,8 +1,19 @@
 
 
 
-<mat-radio-group  aria-labelledby="example-radio-group-label" class="example-radio-group">
-    <mat-radio-button  #selection value="1" class="example-radio-button"><app-mul-selections #years [data]="yearList" [title] = "tl"></app-mul-selections></mat-radio-button>
-    <mat-radio-button value="2" class="example-radio-button"><app-mul-selections #months [data]="monthList" [title]= "tl2"></app-mul-selections></mat-radio-button>
-    <mat-radio-button value="3" class="example-radio-button"><app-date-selections #dateselect [title]= "tl3" ></app-date-selections></mat-radio-button>
+<mat-radio-group  aria-labelledby="example-radio-group-label" 
+                    class="example-radio-group" [(ngModel)]="period">
+
+    <mat-radio-button  #selection value="1" class="example-radio-button">
+        <app-mul-selections #years [data]="yearList" [title] = "tl"></app-mul-selections>
+    </mat-radio-button>
+
+    <mat-radio-button value="2" class="example-radio-button">
+        <app-mul-selections #months [data]="monthList" [title]= "tl2"></app-mul-selections>
+    </mat-radio-button>
+
+    <mat-radio-button value="3" class="example-radio-button">
+        <app-date-selections #dateselect [title]= "tl3" ></app-date-selections>
+    </mat-radio-button>
+
 </mat-radio-group>

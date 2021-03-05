@@ -34,7 +34,7 @@ export class DateSelectionsComponent implements OnInit {
     arr.push(start);
     arr.push(end);
 
-    // console.log(arr);
+    console.log(arr);
     return arr;
   }
 

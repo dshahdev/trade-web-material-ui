@@ -1,8 +1,10 @@
 import { ColumnsToolPanelModule } from '@ag-grid-enterprise/all-modules';
 import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { MatAccordion } from '@angular/material/expansion';
 import { GroupedObservable } from 'rxjs';
 import { GlobalFilter } from 'src/app/model/global-filter.model';
+import { Period } from 'src/app/model/period.model';
 import { Strdata } from 'src/app/model/strdata.model';
 import { Trade } from 'src/app/model/trade.model';
 import { SharedService } from 'src/services/shared.service';
@@ -10,6 +12,8 @@ import { DateSelectionsComponent } from '../date-selections/date-selections.comp
 import { MulSelectionsComponent } from '../mul-selections/mul-selections.component';
 import { PeriodComponent } from '../period/period.component';
 import { TradeIdComponent } from '../trade-id/trade-id.component';
+
+
 
 @Component({
   selector: 'app-head',
@@ -22,22 +26,21 @@ export class HeadComponent implements OnInit {
 
   @ViewChild(MatAccordion) accordion: MatAccordion;
 
-  value = '';
-  value1 = "Pinal";
-  MTD$ = "00.00";
-  YTD$ = "00.00";
-  performance = "100%"
+  
 
+
+  // titles
   title = "Months";
   title2 = "Tickers"
   title3 ="Realized$";
   title4 = "Strategy";
   title5 = "Trade Id";
   title6 = "Barchart Options";
-  // barOptions: Strdata[]= [{strdata:"Ticker"},{strdata:"Realized"},{strdata:"Month"},{strdata:"Week"},{strdata:"Date"},{strdata:"Trade Id"}];
+ 
   
   date: string = "";
-  selectedValue: string = "xxx";
+ selectedValue: string = "xxx";
+ 
   selectedMonth: string = "";
   fileName: String = "";
 
@@ -48,7 +51,7 @@ export class HeadComponent implements OnInit {
   @Input() realizedData: Strdata[] = [];
   @Input() strategyData: Strdata[] = [];
   @Input() barchartOptions: Strdata[] = [];
-
+  @Input() selectedGlobalFilter: GlobalFilter;
 
   @Output() globalFilterNotification = new EventEmitter();
   @Output() searchNotification = new EventEmitter();
@@ -67,18 +70,26 @@ export class HeadComponent implements OnInit {
   @ViewChild('barchart')
   barchartSelectComponent: MulSelectionsComponent = new MulSelectionsComponent();
 
-
   @ViewChild(TradeIdComponent)
-  tradeIdSelectComponent: TradeIdComponent = new TradeIdComponent();
+  tradeIdSelecteComponent: TradeIdComponent = new TradeIdComponent();
 
+  
   @ViewChild(PeriodComponent)
   periodComponent: PeriodComponent = new PeriodComponent();
 
+  @ViewChild(MulSelectionsComponent)
+  mulSelectionsComponent: MulSelectionsComponent = new MulSelectionsComponent();
 
+  
   monthlyDetail: Strdata[] = []
   tradesForDate: Trade[] = [];
 
   globalFilters: GlobalFilter;
+
+  passedTickers = [];
+  passedRealizedData = [];
+  passedStrategyData = [];
+  passedBarChartOptions = [];
 
   constructor(private sharedService: SharedService) { }PeriodComponent
 
@@ -96,18 +107,22 @@ export class HeadComponent implements OnInit {
       console.log("tickerList: "+ JSON.stringify(this.tickerList));
     }
 
+    // this.submitPressed(true); 
+
   }
 
 submitPressed() {
   this.globalFilters = new GlobalFilter();
 
   //set the instance for GloablFileter object.
- this.globalFilters.period =  this.periodComponent.getSelectedValues();
- this.globalFilters.ticker = this.tickerSelectComponent.getSelectedValues();
- this.globalFilters.realized = this.realizedSelectComponent.getSelectedValues();
- this.globalFilters.strategy = this.strategySelectComponent.getSelectedValues();
- this.globalFilters.tradeId = this.tradeIdSelectComponent.getSelectedValues();
- this.globalFilters.chartOption = this.barchartSelectComponent.getSelectedValues();
+
+    this.globalFilters.period =  this.periodComponent.getSelectedValues();
+    this.globalFilters.ticker = this.tickerSelectComponent.getSelectedValues();
+    this.globalFilters.realized = this.realizedSelectComponent.getSelectedValues();
+    this.globalFilters.strategy = this.strategySelectComponent.getSelectedValues();
+    this.globalFilters.tradeId = this.tradeIdSelecteComponent.getSelectedValues();
+    this.globalFilters.chartOption = this.barchartSelectComponent.getSelectedValues();
+  
 
  this.globalFilterNotification.emit(this.globalFilters);
 }
@@ -188,7 +203,25 @@ submitPressed() {
     });
   }
 
-  
+  // new Setting for the filters
+  setSelectedValues(newFilters: GlobalFilter) {
+
+    // console.log("new settings of the filters.. "+ JSON.stringify(newFilters));
+    this.tickerSelectComponent.setSelectedValues(newFilters.ticker);
+    this.realizedSelectComponent.setSelectedValues(newFilters.realized);
+    this.strategySelectComponent.setSelectedValues(newFilters.strategy);
+    this.barchartSelectComponent.setSelectedValues(newFilters.chartOption);
+    this.tradeIdSelecteComponent.setSelectedValues(newFilters.tradeId);
+    this.periodComponent.setSelectedValues(newFilters.period);
+    // for (let [key, value] of Object.entries(newFilters)) {
+    //   if(key === "ticker") {
+    //     console.log(key + ':' + value);
+    //     this.mulSelectionsComponent.setSelectedValues(value);
+    //   } 
+    // }
+  }
+
+ 
   
 
 }

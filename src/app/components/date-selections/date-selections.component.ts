@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
+
 
 @Component({
   selector: 'app-date-selections',
@@ -14,6 +15,10 @@ export class DateSelectionsComponent implements OnInit {
   });
 
   @Input() title: String = "";
+  @Input() passedValues: [];
+
+  
+
   constructor() { }
 
   ngOnInit(): void {
@@ -27,10 +32,6 @@ export class DateSelectionsComponent implements OnInit {
 
     let start = this.convert( this.range.value.start);
     let end = this.convert(this.range.value.end);
-
-
-    // console.log(start + " " + end);
-
     arr.push(start);
     arr.push(end);
 
@@ -49,5 +50,10 @@ export class DateSelectionsComponent implements OnInit {
     return fd;
   }
 
+  setSelectedValues(valuesToSelect: Array<string>) {
+    
+    this.range.setValue({start:valuesToSelect[0], end:valuesToSelect[1]});
+   
+  }
   
 }

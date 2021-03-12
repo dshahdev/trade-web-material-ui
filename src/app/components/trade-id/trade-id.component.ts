@@ -9,22 +9,31 @@ export class TradeIdComponent implements OnInit {
   @Input() title: String = "";
   startId= "";
   endId = "";
+  idRange = [];
   constructor() { }
 
   ngOnInit(): void {
   }
 
   getSelectedValues():Array<string> {
-    let idRange = [];
+    
    
      if(typeof this.startId === "number") {
-      idRange.push(this.startId);
+      this.idRange.push(this.startId);
      } 
      if(typeof this.endId === "number") {
-      idRange.push(this.endId);
+      this.idRange.push(this.endId);
      }
     console.log(this.startId + " "+ this.endId);
     
-    return idRange;
+    return this.idRange;
+  }
+
+  setSelectedValues(valuesToSelect: any[]) {
+    console.log("new values.."+valuesToSelect);
+    this.startId = valuesToSelect[0];
+    this.endId = valuesToSelect[1];
+    this.idRange.push(valuesToSelect);
+    console.log("new values.."+valuesToSelect);
   }
 }

@@ -343,9 +343,9 @@ export class HomeComponent implements OnInit {
   }
 
   globalFiltersHandler(gfSelectedValue) {
-    console.log("globalfilter request: "+JSON.stringify(gfSelectedValue));
+    // console.log("globalfilter request: "+JSON.stringify(gfSelectedValue));
     this.sharedService.getGlobalFilter(gfSelectedValue).subscribe((response) => {
-          console.log("months from server: "+ JSON.stringify(response));
+          // console.log("months from server: "+ JSON.stringify(response));
           this.barChartComponent.updateChart(response);
         })
   }

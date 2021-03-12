@@ -10,12 +10,13 @@ import { Strdata } from '../../model/strdata.model';
 })
 export class MulSelectionsComponent implements OnInit {
   form = FormGroup;
+ 
   selectedValues = new FormControl();
+
   @Input() title: string = "";
   @Input() data: Strdata[] = [];
   @Output() periodDataNotification = new EventEmitter();
   
-
   constructor() {}
 
   ngOnInit(): void {
@@ -29,11 +30,14 @@ export class MulSelectionsComponent implements OnInit {
     
   }
 
+  setSelectedValues(valuesToSelect: any) {
+    this.selectedValues.setValue(valuesToSelect);
+    console.log("new values.."+valuesToSelect);
+  }
   
   changeEvent(event){
     console.log("event value in mul-selection: "+event);
   }
-  
   
   
 }

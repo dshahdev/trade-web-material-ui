@@ -20,7 +20,7 @@ import { MatDialogModule } from '@angular/material/dialog' ;
 import { MatRadioModule} from '@angular/material/radio';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatExpansionModule} from '@angular/material/expansion';
-
+import { MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [],
@@ -46,7 +46,7 @@ import { MatExpansionModule} from '@angular/material/expansion';
     MatRadioModule,
     MatButtonToggleModule,
     MatExpansionModule,
-    
+    MatChipsModule
    
   ],
   exports: [
@@ -69,8 +69,8 @@ import { MatExpansionModule} from '@angular/material/expansion';
     MatDialogModule,
     MatRadioModule,
     MatButtonToggleModule,
-    MatExpansionModule
-    
+    MatExpansionModule,
+    MatChipsModule
   ]
 })
 export class MaterialModule { }

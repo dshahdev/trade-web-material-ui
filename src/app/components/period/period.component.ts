@@ -22,7 +22,9 @@ export class PeriodComponent implements OnInit {
   @Input() monthList: Strdata[] = [];
   @Input() yearList: Strdata[] = [];
 
-  ;
+
+  
+
   @ViewChild('years')
   yearSelectionsComponent: MulSelectionsComponent = new MulSelectionsComponent();
 
@@ -35,10 +37,26 @@ export class PeriodComponent implements OnInit {
   @ViewChild(MulSelectionsComponent)
   mulSelectionsComponent: MulSelectionsComponent = new MulSelectionsComponent();
 
+  passedYears = [];
+  passedMonths = [];
+  passedDates = [];
+
   constructor() { }
 
   ngOnInit(): void {
 
+  }
+
+  setSelectedValues(period:Period) {
+    this.period = period === null ? "1": period.selectedOption;
+    if (this.period === "1") {
+      this.yearSelectionsComponent.setSelectedValues(period.selectedValues)
+    } else if (this.period === "2") {
+      this.monthSelectionsComponent.setSelectedValues(period.selectedValues);
+    } else if (this.period === "3") {
+      this.dateSelectionsComponent.setSelectedValues(period.selectedValues); 
+    }
+    return this.period;
   }
 
   getSelectedValues() {
@@ -60,6 +78,8 @@ export class PeriodComponent implements OnInit {
     return p;
   }
 
-  
+  // ngDoCheck() {
+  //   console.log("selected data to remove... "+ this.periodData);
+  // }
 
 }
